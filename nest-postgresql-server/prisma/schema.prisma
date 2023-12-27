@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// prisma/schema.prisma
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id                              String             @id @default(uuid())
+  email                           String             @unique
+  passwordHash                    String?
+  image                           String?
+  createdAt                       DateTime           @default(now())
+  updatedAt                       DateTime           @updatedAt
+  emailVerificationToken          String?
+  emailVerificationTokenExpiresAt DateTime?
+  emailVerifiedAt                 DateTime?
+  passwordResetToken              String?
+  passwordResetTokenExpiresAt     DateTime?
+  passwordResetAt                 DateTime?
+  role                            Role
+  profileID                       String?            @unique
+  profile                         Profile?
+  accountIDs                      String[]
+  accounts                        Account[]
+  externalProviderIDs             String[]
+  externalProviders               ExternalProvider[]
+}
+
+model Account {
+  id                 String            @id @default(uuid())
+  userID             String
+  user               User              @relation(fields: [userID], references: [id])
+  type               AccountType
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  createByIp         String?
+  refreshToken       String            @unique
+  expiresAt          DateTime
+  revokedAt          DateTime?
+  externalProviderID String?
+  externalProvider   ExternalProvider? @relation(fields: [externalProviderID], references: [id])
+}
+
+model Profile {
+  id        String   @id @default(uuid())
+  name      String
+  image     String?
+  bio       String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userID    String   @unique
+  user      User     @relation(fields: [userID], references: [id])
+}
+
+model ExternalProvider {
+  id         String    @id @default(uuid())
+  name       String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  userIDs    String[]
+  users      User[]
+  accountIDs String[]
+  accounts   Account[]
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum AccountType {
+  LOCAL
+  EXTERNAL
+}
