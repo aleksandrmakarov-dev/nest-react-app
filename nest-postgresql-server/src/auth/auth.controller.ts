@@ -23,7 +23,7 @@ export class AuthController {
 
   constructor(private readonly authService: AuthService) {}
 
-  @Post("/sign-up/local")
+  @Post("sign-up/local")
   async signUpLocal(@Body() body: SignUpLocalDto) {
     await this.authService.signUpLocal(body);
 
@@ -48,7 +48,7 @@ export class AuthController {
     return signInData.account;
   }
 
-  @Post("/verify-email/:token")
+  @Post("verify-email/:token")
   async verifyEmail(@Param() params: VerifyEmailDto) {
     await this.authService.verifyEmail(params);
 
@@ -57,7 +57,7 @@ export class AuthController {
     };
   }
 
-  @Post("/verification-email")
+  @Post("verification-email")
   async verificationEmail(@Body() body: SendVerificationEmailDto) {
     await this.authService.sendVerificationEmail(body);
 
