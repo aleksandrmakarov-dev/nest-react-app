@@ -7,7 +7,6 @@ import {
   Req,
   Res,
   UnauthorizedException,
-  ValidationPipe,
 } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { SignUpLocalDto } from "./dto/sign-up-local.dto";
@@ -15,6 +14,8 @@ import { SignInLocalDto } from "./dto/sign-in-local.dto";
 import { VerifyEmailDto } from "./dto/verify-email.dto";
 import { SendVerificationEmailDto } from "./dto/send-verification-email.dto";
 import { Request, Response } from "express";
+import { ForgotPasswordDto } from "./dto/forgot-password.dto";
+import { ResetPasswordDto } from "./dto/reset-password.dto";
 
 @Controller("auth")
 export class AuthController {
@@ -48,7 +49,7 @@ export class AuthController {
   }
 
   @Post("/verify-email/:token")
-  async verifyEmail(@Param(ValidationPipe) params: VerifyEmailDto) {
+  async verifyEmail(@Param() params: VerifyEmailDto) {
     await this.authService.verifyEmail(params);
 
     return {
@@ -56,8 +57,8 @@ export class AuthController {
     };
   }
 
-  @Post("/send-verification-email")
-  async sendVerificationEmail(@Body() body: SendVerificationEmailDto) {
+  @Post("/verification-email")
+  async verificationEmail(@Body() body: SendVerificationEmailDto) {
     await this.authService.sendVerificationEmail(body);
 
     return {
@@ -76,5 +77,19 @@ export class AuthController {
     const accountData = await this.authService.refreshToken(token);
 
     return accountData;
+  }
+
+  @Post("forgot-password")
+  async forgotPassword(@Body() body: ForgotPasswordDto) {
+    await this.authService.sendForgotPasswordEmail(body);
+
+    return {
+      message: "Check your email for reset password letter",
+    };
+  }
+
+  @Post("reset-password")
+  async resetPassword(@Body() body: ResetPasswordDto) {
+    await this.authService.resetPassword(body);
   }
 }

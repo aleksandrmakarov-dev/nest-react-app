@@ -19,18 +19,25 @@ import { VerifyEmailDto } from "./dto/verify-email.dto";
 import { SendVerificationEmailDto } from "./dto/send-verification-email.dto";
 import { AccountResponseDto } from "./dto/account-response.dto";
 import { ConfigService } from "@nestjs/config";
+import { ForgotPasswordDto } from "./dto/forgot-password.dto";
+import { ResetPasswordDto } from "./dto/reset-password.dto";
 
 @Injectable()
 export class AuthService {
-  private readonly verificationEmailExpireTime: moment.DurationInputArg1 = 5;
+  private readonly verificationEmailExpireTime: moment.DurationInputArg1 = 12;
   private readonly verificationEmailExpireUnits: moment.DurationInputArg2 =
-    "minutes";
+    "hours";
+
+  private readonly resetTokenExpireTime: moment.DurationInputArg1 = 2;
+  private readonly resetTokenExpireUnits: moment.DurationInputArg2 = "hours";
 
   private readonly refreshTokenExpireTime: moment.DurationInputArg1 = 7;
   private readonly refreshTokenExpireUnits: moment.DurationInputArg2 = "days";
 
   private readonly accessTokenExpireTime: moment.DurationInputArg1 = 10;
   private readonly accessTokenExpireUnits: moment.DurationInputArg2 = "minutes";
+
+  private readonly maxActiveRefreshTokens: number = 2;
 
   constructor(
     private readonly databaseService: DatabaseService,
@@ -143,6 +150,31 @@ export class AuthService {
       throw new InternalServerErrorException("Failed to create account");
     }
 
+    // Revoke previous refresh token if there are more than maxActiveRefreshTokens of them in database
+
+    const activeRefreshTokens = await this.databaseService.account.findMany({
+      where: {
+        AND: {
+          userID: foundUser.id,
+          expiresAt: {
+            gte: moment().toDate(),
+          },
+          revokedAt: null,
+        },
+      },
+    });
+
+    const count = activeRefreshTokens.length;
+
+    if (count > this.maxActiveRefreshTokens) {
+      // revoke oldest tokens
+
+      const idsToRevoke = activeRefreshTokens
+        .map((t) => t.id)
+        .splice(0, count - this.maxActiveRefreshTokens);
+
+      await this.revokeRefreshTokens(idsToRevoke, "too-many-active-tokens");
+    }
     // Find profile of account
     const foundProfile = await this.findProfileByUserId(foundUser.id);
 
@@ -256,6 +288,12 @@ export class AuthService {
       throw new UnauthorizedException("Refresh token expired");
     }
 
+    const isRefreshTokenRevoked = foundAccount.revokedAt !== null;
+
+    if (isRefreshTokenRevoked) {
+      throw new UnauthorizedException("Refresh token revoked");
+    }
+
     const foundUser = await this.databaseService.user.findUnique({
       where: {
         id: foundAccount.userID,
@@ -281,6 +319,89 @@ export class AuthService {
     };
 
     return response;
+  }
+
+  // Send forgot password email
+
+  async sendForgotPasswordEmail(values: ForgotPasswordDto) {
+    const foundUser = await this.findUserByEmail(values.email);
+
+    if (!foundUser) {
+      throw new NotFoundException(`User with email ${values.email} not found`);
+    }
+
+    const resetToken = await this.generateResetToken();
+    const resetTokenExpiresAt = moment()
+      .add(this.resetTokenExpireTime, this.resetTokenExpireUnits)
+      .toDate();
+
+    const updatedUser = await this.databaseService.user.update({
+      where: {
+        id: foundUser.id,
+      },
+      data: {
+        passwordResetToken: resetToken,
+        passwordResetTokenExpiresAt: resetTokenExpiresAt,
+      },
+    });
+
+    const isEmailSent = await this.sendResetPasswordLetterToUser(
+      updatedUser,
+      "https://localhost:3000",
+    );
+
+    if (!isEmailSent) {
+      throw new InternalServerErrorException(
+        "Failed to send reset password letter to email address",
+      );
+    }
+  }
+
+  async resetPassword(values: ResetPasswordDto) {
+    const foundUser = await this.findUserByResetToken(values.token);
+
+    if (!foundUser) {
+      throw new UnauthorizedException("Invalid reset token");
+    }
+
+    const isResetTokenExpired = moment().isAfter(
+      foundUser.passwordResetTokenExpiresAt,
+    );
+
+    if (isResetTokenExpired) {
+      throw new UnauthorizedException(
+        "Reset token expired, try request new reset token",
+      );
+    }
+
+    const match = await this.compare(
+      values.newPassword,
+      foundUser.passwordHash,
+    );
+
+    if (match) {
+      throw new BadRequestException(
+        "New password can't be equal to current password",
+      );
+    }
+
+    const newPasswordHash = await this.hash(values.newPassword);
+
+    const updatedUser = await this.databaseService.user.update({
+      where: {
+        id: foundUser.id,
+      },
+      data: {
+        passwordHash: newPasswordHash,
+        passwordResetToken: null,
+        passwordResetTokenExpiresAt: null,
+        passwordResetAt: moment().toDate(),
+      },
+    });
+
+    // Revoke refresh tokens that were created before
+
+    await this.revokeRefreshTokensByUserId(updatedUser.id, "reset-password");
   }
 
   // Private methods
@@ -346,6 +467,15 @@ export class AuthService {
     });
   }
 
+  // Find user by reset token
+  private async findUserByResetToken(token: string): Promise<User | null> {
+    return await this.databaseService.user.findFirst({
+      where: {
+        passwordResetToken: token,
+      },
+    });
+  }
+
   // Generate email verification token of length 64
   private async generateEmailVerificationToken(): Promise<string> {
     const verificationToken = this.hexString(64);
@@ -366,7 +496,7 @@ export class AuthService {
     const foundUser = await this.findAccountByRefreshToken(refreshToken);
 
     if (foundUser) {
-      return this.generateRefreshToken();
+      return await this.generateRefreshToken();
     }
 
     return refreshToken;
@@ -391,6 +521,52 @@ export class AuthService {
     );
 
     return token;
+  }
+
+  // Generate reset token
+
+  private async generateResetToken(): Promise<string> {
+    const refreshToken = this.hexString(64);
+
+    const foundUser = await this.findUserByResetToken(refreshToken);
+
+    if (foundUser) {
+      return this.generateRefreshToken();
+    }
+
+    return refreshToken;
+  }
+
+  // Revoke refresh tokens by userId
+  private async revokeRefreshTokensByUserId(userId: string, reason: string) {
+    const response = await this.databaseService.account.updateMany({
+      where: {
+        userID: userId,
+      },
+      data: {
+        revokedAt: moment().toDate(),
+        revokedReason: reason,
+      },
+    });
+
+    return response.count;
+  }
+
+  // Revoke refresh token by refresh token
+  private async revokeRefreshTokens(tokens: string[], reason: string) {
+    const response = await this.databaseService.account.updateMany({
+      where: {
+        refreshToken: {
+          in: tokens,
+        },
+      },
+      data: {
+        revokedAt: moment().toDate(),
+        revokedReason: reason,
+      },
+    });
+
+    return response.count;
   }
 
   // Emails
@@ -421,6 +597,35 @@ export class AuthService {
       from: "noreply@aleksandrmakarov.com",
       to: user.email,
       subject: "Complete registration - Verify email",
+      text: text,
+    });
+  }
+
+  private async sendResetPasswordLetterToUser(
+    user: User,
+    origin?: string,
+  ): Promise<boolean> {
+    let text = "";
+
+    const passwordResetToken = user.passwordResetToken;
+
+    if (origin) {
+      const verifyUrl = `${origin}/auth/reset-password?token=${passwordResetToken}`;
+      text = `<p>Please click the below link to change your password:</p>
+                            <p><a href="${verifyUrl}">Link to change password</a></p>
+                            <p>This link will expire in ${this.resetTokenExpireTime} ${this.resetTokenExpireUnits}</p>
+                            <p>If you didn't request it, just ignore this message</p>`;
+    } else {
+      text = `<p>Please use the below token to change password with the <code>/auth/reset-password</code> api route:</p>
+                            <p><code>${passwordResetToken}</code></p>
+                            <p>This token will expire in ${this.resetTokenExpireTime} ${this.resetTokenExpireUnits}</p>
+                            <p>If you didn't request it, just ignore this message</p>`;
+    }
+
+    return await this.emailService.send({
+      from: "noreply@aleksandrmakarov.com",
+      to: user.email,
+      subject: "Reset Password",
       text: text,
     });
   }

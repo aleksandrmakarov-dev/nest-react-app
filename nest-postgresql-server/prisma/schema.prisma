@@ -16,7 +16,6 @@ model User {
   id                              String             @id @default(uuid())
   email                           String             @unique
   passwordHash                    String?
-  image                           String?
   createdAt                       DateTime           @default(now())
   updatedAt                       DateTime           @updatedAt
   emailVerificationToken          String?
@@ -45,6 +44,7 @@ model Account {
   refreshToken       String            @unique
   expiresAt          DateTime
   revokedAt          DateTime?
+  revokedReason      String?
   externalProviderID String?
   externalProvider   ExternalProvider? @relation(fields: [externalProviderID], references: [id])
 }
