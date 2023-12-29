@@ -7,7 +7,7 @@ interface AuthLayoutProps {
 
 export default function AuthLayout(props: AuthLayoutProps) {
   return (
-    <main className="h-screen flex flex-col">
+    <main className="min-h-screen bg-gray-50 flex flex-col">
       <nav className="px-5 sm:px-10 py-5 w-full">
         <Button variant="secondary">
           <ChevronLeft />

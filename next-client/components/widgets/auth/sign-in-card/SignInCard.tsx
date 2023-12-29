@@ -1,10 +1,10 @@
 "use client";
-import { SignUpBody } from "@/components/entities/auth";
-import { useSignUpLocal } from "@/components/features/auth";
+import { SignInBody } from "@/components/entities/auth";
+import { useSignInLocal } from "@/components/features/auth";
 import {
   Alert,
-  AlertDescription,
   AlertTitle,
+  AlertDescription,
 } from "@/components/shared/ui/alert";
 import {
   Card,
@@ -16,32 +16,30 @@ import {
 import { Form } from "@/components/shared/ui/form";
 import { LoadingButton } from "@/components/shared/ui/loading-button";
 import {
-  SignUpLocalDto,
-  signUpLocalDtoSchema,
-} from "@/lib/dto/auth/sign-up-local.dto";
+  SignInLocalDto,
+  signInLocalDtoSchema,
+} from "@/lib/dto/auth/sign-in-local.dto";
 import { Routing } from "@/lib/routing";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { MdErrorOutline, MdCheckCircleOutline } from "react-icons/md";
+import { MdErrorOutline } from "react-icons/md";
 
-export function SignUpCard() {
-  const { mutate, isPending, isError, error, isSuccess, data } =
-    useSignUpLocal();
+export function SignInCard() {
+  const { mutate, isPending, isError, error } = useSignInLocal();
 
-  const form = useForm<SignUpLocalDto>({
-    resolver: zodResolver(signUpLocalDtoSchema),
+  const form = useForm<SignInLocalDto>({
+    resolver: zodResolver(signInLocalDtoSchema),
     defaultValues: {
-      name: "",
       email: "",
       password: "",
     },
   });
 
-  function onSubmit(values: SignUpLocalDto) {
+  function onSubmit(values: SignInLocalDto) {
     mutate(values, {
-      onSuccess: () => {
-        form.reset();
+      onSuccess: (data) => {
+        console.log(data);
       },
     });
   }
@@ -51,7 +49,9 @@ export function SignUpCard() {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <CardHeader>
-            <CardTitle className="text-center">Create your Account</CardTitle>
+            <CardTitle className="text-center">
+              Sign in to your Account
+            </CardTitle>
           </CardHeader>
           <CardContent>
             {isError && (
@@ -63,14 +63,15 @@ export function SignUpCard() {
                 </AlertDescription>
               </Alert>
             )}
-            {isSuccess && (
-              <Alert variant="success" className="mb-3 ">
-                <MdCheckCircleOutline className="h-5 w-5 " />
-                <AlertTitle>Registration success</AlertTitle>
-                <AlertDescription>{data.message}</AlertDescription>
-              </Alert>
-            )}
-            <SignUpBody control={form.control} isLoading={isPending} />
+            <SignInBody control={form.control} isLoading={isPending} />
+            <div className="text-end mt-2">
+              <Link
+                className="text-sm text-primary font-semibold hover:underline"
+                href={Routing.auth.forgotPassword()}
+              >
+                Forgot password?
+              </Link>
+            </div>
           </CardContent>
           <CardFooter className="flex flex-col">
             <LoadingButton
@@ -79,15 +80,15 @@ export function SignUpCard() {
               className="w-full mb-5"
               type="submit"
             >
-              Create an account
+              Sign in
             </LoadingButton>
             <p className="text-muted-foreground text-sm">
-              Already have an account?{" "}
+              Don’t have an account yet?{" "}
               <Link
                 className="text-primary font-semibold hover:underline"
-                href={Routing.auth.signIn()}
+                href={Routing.auth.signUp()}
               >
-                Sign in here
+                Sign Up
               </Link>
             </p>
           </CardFooter>

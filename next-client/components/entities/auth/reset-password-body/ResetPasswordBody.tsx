@@ -1,39 +1,29 @@
 import FieldController from "@/components/shared/field-controller/FieldController";
 import { Input } from "@/components/shared/ui/input";
-import { SignUpLocalDto } from "@/lib/dto/auth/sign-up-local.dto";
+import { ResetPasswordDto } from "@/lib/dto/auth/reset-password.dto";
 import { Control } from "react-hook-form";
 
-interface SignUpBodyProps {
-  control: Control<SignUpLocalDto>;
+interface ResetPasswordBodyProps {
+  control: Control<ResetPasswordDto>;
   isLoading?: boolean;
 }
 
-export function SignUpBody(props: SignUpBodyProps) {
+export function ResetPasswordBody(props: ResetPasswordBodyProps) {
   const { control, isLoading } = props;
 
   return (
     <>
       <FieldController
-        className="mb-1"
         control={control}
-        name="name"
-        label="Name"
+        name="token"
+        label="Token"
         disabled={isLoading}
         render={({ field }) => <Input {...field} />}
       />
       <FieldController
-        className="mb-1"
         control={control}
-        name="email"
-        label="Email"
-        disabled={isLoading}
-        render={({ field }) => <Input {...field} type="email" />}
-      />
-      <FieldController
-        className="mb-1"
-        control={control}
-        name="password"
-        label="Password"
+        name="newPassword"
+        label="New password"
         disabled={isLoading}
         render={({ field }) => <Input {...field} type="password" />}
       />

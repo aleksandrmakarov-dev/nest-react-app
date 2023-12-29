@@ -1,4 +1,6 @@
 export { SignUpBody } from "./sign-up-body/SignUpBody";
-export { SignUpProviders } from "./sign-up-providers/SignUpProviders";
+export { SignInBody } from "./sign-in-body/SignInBody";
+export { ForgotPasswordBody } from "./forgot-password-body/ForgotPasswordBody";
+export { ResetPasswordBody } from "./reset-password-body/ResetPasswordBody";
 
 export * from "./api/authApi";

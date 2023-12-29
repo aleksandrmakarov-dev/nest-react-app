@@ -1,10 +1,10 @@
 "use client";
-import { SignUpBody } from "@/components/entities/auth";
-import { useSignUpLocal } from "@/components/features/auth";
+import { ResetPasswordBody } from "@/components/entities/auth";
+import { useResetPassword } from "@/components/features/auth";
 import {
   Alert,
-  AlertDescription,
   AlertTitle,
+  AlertDescription,
 } from "@/components/shared/ui/alert";
 import {
   Card,
@@ -16,29 +16,39 @@ import {
 import { Form } from "@/components/shared/ui/form";
 import { LoadingButton } from "@/components/shared/ui/loading-button";
 import {
-  SignUpLocalDto,
-  signUpLocalDtoSchema,
-} from "@/lib/dto/auth/sign-up-local.dto";
+  ResetPasswordDto,
+  resetPasswordDtoSchema,
+} from "@/lib/dto/auth/reset-password.dto";
 import { Routing } from "@/lib/routing";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { MdErrorOutline, MdCheckCircleOutline } from "react-icons/md";
+import { MdErrorOutline } from "react-icons/md";
+import { isError } from "util";
 
-export function SignUpCard() {
+interface ResetPasswordCardProps {
+  token?: string;
+}
+
+export function ResetPasswordCard(props: ResetPasswordCardProps) {
+  const { token } = props;
+
   const { mutate, isPending, isError, error, isSuccess, data } =
-    useSignUpLocal();
+    useResetPassword();
 
-  const form = useForm<SignUpLocalDto>({
-    resolver: zodResolver(signUpLocalDtoSchema),
+  const form = useForm<ResetPasswordDto>({
+    resolver: zodResolver(resetPasswordDtoSchema),
     defaultValues: {
-      name: "",
-      email: "",
-      password: "",
+      newPassword: "",
+      token: "",
+    },
+    values: {
+      newPassword: "",
+      token: token ?? "",
     },
   });
 
-  function onSubmit(values: SignUpLocalDto) {
+  function onSubmit(values: ResetPasswordDto) {
     mutate(values, {
       onSuccess: () => {
         form.reset();
@@ -51,9 +61,21 @@ export function SignUpCard() {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <CardHeader>
-            <CardTitle className="text-center">Create your Account</CardTitle>
+            <CardTitle className="text-center">Reset password</CardTitle>
           </CardHeader>
           <CardContent>
+            {isSuccess && (
+              <Alert variant="success" className="mb-3">
+                <MdErrorOutline className="h-5 w-5" />
+                <AlertTitle>Reset password</AlertTitle>
+                <AlertDescription>
+                  {data.message}{" "}
+                  <Link className="font-semibold" href={Routing.auth.signIn()}>
+                    Sign in
+                  </Link>
+                </AlertDescription>
+              </Alert>
+            )}
             {isError && (
               <Alert variant="error" className="mb-3">
                 <MdErrorOutline className="h-5 w-5" />
@@ -63,33 +85,17 @@ export function SignUpCard() {
                 </AlertDescription>
               </Alert>
             )}
-            {isSuccess && (
-              <Alert variant="success" className="mb-3 ">
-                <MdCheckCircleOutline className="h-5 w-5 " />
-                <AlertTitle>Registration success</AlertTitle>
-                <AlertDescription>{data.message}</AlertDescription>
-              </Alert>
-            )}
-            <SignUpBody control={form.control} isLoading={isPending} />
+            <ResetPasswordBody control={form.control} isLoading={isPending} />
           </CardContent>
-          <CardFooter className="flex flex-col">
+          <CardFooter>
             <LoadingButton
               disabled={isPending}
               loading={isPending}
               className="w-full mb-5"
               type="submit"
             >
-              Create an account
+              Set new password
             </LoadingButton>
-            <p className="text-muted-foreground text-sm">
-              Already have an account?{" "}
-              <Link
-                className="text-primary font-semibold hover:underline"
-                href={Routing.auth.signIn()}
-              >
-                Sign in here
-              </Link>
-            </p>
           </CardFooter>
         </form>
       </Form>

@@ -1,26 +1,18 @@
 import FieldController from "@/components/shared/field-controller/FieldController";
 import { Input } from "@/components/shared/ui/input";
-import { SignUpLocalDto } from "@/lib/dto/auth/sign-up-local.dto";
+import { SignInLocalDto } from "@/lib/dto/auth/sign-in-local.dto";
 import { Control } from "react-hook-form";
 
-interface SignUpBodyProps {
-  control: Control<SignUpLocalDto>;
+interface SignInBodyProps {
+  control: Control<SignInLocalDto>;
   isLoading?: boolean;
 }
 
-export function SignUpBody(props: SignUpBodyProps) {
+export function SignInBody(props: SignInBodyProps) {
   const { control, isLoading } = props;
 
   return (
     <>
-      <FieldController
-        className="mb-1"
-        control={control}
-        name="name"
-        label="Name"
-        disabled={isLoading}
-        render={({ field }) => <Input {...field} />}
-      />
       <FieldController
         className="mb-1"
         control={control}

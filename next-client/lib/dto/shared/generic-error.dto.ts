@@ -1,5 +1,5 @@
-export interface GenericErrorDto {
+export type GenericErrorDto = {
   message: string;
   error: string;
   statusCode: string;
-}
+};

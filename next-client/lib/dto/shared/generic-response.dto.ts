@@ -1,3 +1,3 @@
-export interface GenericResponseDto {
+export type GenericResponseDto = {
   message: string;
-}
+};

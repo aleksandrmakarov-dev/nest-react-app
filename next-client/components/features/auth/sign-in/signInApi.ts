@@ -1,21 +1,21 @@
 import { authKeys } from "@/components/entities/auth";
-import { SignUpDto } from "@/lib/dto/auth/sign-up-local.dto";
+import { AuthResponseDto } from "@/lib/dto/auth/auth-response.dto";
+import { SignInLocalDto } from "@/lib/dto/auth/sign-in-local.dto";
 import { GenericErrorDto } from "@/lib/dto/shared/generic-error.dto";
-import { GenericResponseDto } from "@/lib/dto/shared/generic-response.dto";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 
-export const useSignUpLocal = () => {
+export const useSignInLocal = () => {
   return useMutation<
-    GenericResponseDto,
+    AuthResponseDto,
     AxiosError<GenericErrorDto>,
-    SignUpDto,
+    SignInLocalDto,
     unknown[]
   >({
-    mutationKey: authKeys.mutations.signUpLocal(),
+    mutationKey: authKeys.mutations.signInLocal(),
     mutationFn: async (values) => {
-      const response = await axios.post<GenericResponseDto>(
-        "http://localhost:3001/api/auth/sign-up/local",
+      const response = await axios.post<AuthResponseDto>(
+        "http://localhost:3001/api/auth/sign-in/local",
         values
       );
 

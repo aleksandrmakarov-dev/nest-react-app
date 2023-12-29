@@ -330,6 +330,17 @@ export class AuthService {
       throw new NotFoundException(`User with email ${values.email} not found`);
     }
 
+    // prevent sending to much reset tokens
+    const hasActiveResetToken = moment().isBefore(
+      foundUser.passwordResetTokenExpiresAt,
+    );
+
+    if (hasActiveResetToken) {
+      throw new BadRequestException(
+        "You already have active reset token. Check your email for reset password letter",
+      );
+    }
+
     const resetToken = await this.generateResetToken();
     const resetTokenExpiresAt = moment()
       .add(this.resetTokenExpireTime, this.resetTokenExpireUnits)
@@ -581,7 +592,7 @@ export class AuthService {
     const emailVerificationToken = user.emailVerificationToken;
 
     if (origin) {
-      const verifyUrl = `${origin}/account/verify-email?token=${emailVerificationToken}`;
+      const verifyUrl = `${origin}/verify-email?token=${emailVerificationToken}`;
       text = `<p>Please click the below link to verify your email address:</p>
                             <p><a href=""${verifyUrl}"">Link to verify email address</a></p>
                             <p>This link will expire in ${this.verificationEmailExpireTime} ${this.verificationEmailExpireUnits}</p>
@@ -610,7 +621,7 @@ export class AuthService {
     const passwordResetToken = user.passwordResetToken;
 
     if (origin) {
-      const verifyUrl = `${origin}/auth/reset-password?token=${passwordResetToken}`;
+      const verifyUrl = `${origin}/reset-password?token=${passwordResetToken}`;
       text = `<p>Please click the below link to change your password:</p>
                             <p><a href="${verifyUrl}">Link to change password</a></p>
                             <p>This link will expire in ${this.resetTokenExpireTime} ${this.resetTokenExpireUnits}</p>

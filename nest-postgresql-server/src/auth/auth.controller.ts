@@ -16,7 +16,9 @@ import { SendVerificationEmailDto } from "./dto/send-verification-email.dto";
 import { Request, Response } from "express";
 import { ForgotPasswordDto } from "./dto/forgot-password.dto";
 import { ResetPasswordDto } from "./dto/reset-password.dto";
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags("Authentication")
 @Controller("auth")
 export class AuthController {
   private readonly refreshTokenName: string = "42f9a32d87_refresh";
@@ -29,7 +31,7 @@ export class AuthController {
 
     return {
       message:
-        "To complete registation, check your email for verification letter",
+        "To complete registration, check your email for verification letter",
     };
   }
 
@@ -91,5 +93,9 @@ export class AuthController {
   @Post("reset-password")
   async resetPassword(@Body() body: ResetPasswordDto) {
     await this.authService.resetPassword(body);
+
+    return {
+      message: "Password changed, you can use it to sign in to account.",
+    };
   }
 }
