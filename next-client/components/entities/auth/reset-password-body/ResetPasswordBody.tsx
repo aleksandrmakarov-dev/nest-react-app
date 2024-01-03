@@ -14,6 +14,7 @@ export function ResetPasswordBody(props: ResetPasswordBodyProps) {
   return (
     <>
       <FieldController
+        className="mb-1"
         control={control}
         name="token"
         label="Token"

@@ -1,12 +1,7 @@
 import { Role, PrismaClient } from "@prisma/client";
 import * as bcrypt from "bcrypt";
 
-const externalProviders: string[] = [
-  "google",
-  "github",
-  "linkedin",
-  "facebook",
-];
+const externalProviders: string[] = ["google", "github"];
 
 interface InitialUser {
   name: string;
@@ -29,7 +24,6 @@ async function seed() {
 
   await prisma.$connect();
 
-  await prisma.profile.deleteMany();
   await prisma.account.deleteMany();
   await prisma.user.deleteMany();
   await prisma.externalProvider.deleteMany();
@@ -47,6 +41,8 @@ async function seed() {
     data: {
       email: initialUserData.email,
       passwordHash: passwordHash,
+      name: initialUserData.name,
+      bio: initialUserData.bio,
       emailVerifiedAt: now,
       role: initialUserData.role,
     },
@@ -54,18 +50,6 @@ async function seed() {
 
   if (!createdUser) {
     throw Error("Failed to create user");
-  }
-
-  const createdProfile = await prisma.profile.create({
-    data: {
-      name: initialUserData.name,
-      bio: initialUserData.bio,
-      userID: createdUser.id,
-    },
-  });
-
-  if (!createdProfile) {
-    throw new Error("Failed to create user profile");
   }
 
   console.log("Seeding completed");

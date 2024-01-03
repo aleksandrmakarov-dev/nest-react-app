@@ -34,6 +34,7 @@ export function SignUpBody(props: SignUpBodyProps) {
         control={control}
         name="password"
         label="Password"
+        description="Must be at least 5 characters."
         disabled={isLoading}
         render={({ field }) => <Input {...field} type="password" />}
       />

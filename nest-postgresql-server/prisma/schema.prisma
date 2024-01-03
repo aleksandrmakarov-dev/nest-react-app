@@ -16,6 +16,9 @@ model User {
   id                              String             @id @default(uuid())
   email                           String             @unique
   passwordHash                    String?
+  name                            String             @default("unknown")
+  image                           String?
+  bio                             String?
   createdAt                       DateTime           @default(now())
   updatedAt                       DateTime           @updatedAt
   emailVerificationToken          String?
@@ -25,8 +28,6 @@ model User {
   passwordResetTokenExpiresAt     DateTime?
   passwordResetAt                 DateTime?
   role                            Role
-  profileID                       String?            @unique
-  profile                         Profile?
   accountIDs                      String[]
   accounts                        Account[]
   externalProviderIDs             String[]
@@ -47,17 +48,6 @@ model Account {
   revokedReason      String?
   externalProviderID String?
   externalProvider   ExternalProvider? @relation(fields: [externalProviderID], references: [id])
-}
-
-model Profile {
-  id        String   @id @default(uuid())
-  name      String
-  image     String?
-  bio       String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  userID    String   @unique
-  user      User     @relation(fields: [userID], references: [id])
 }
 
 model ExternalProvider {

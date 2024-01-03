@@ -1,13 +1,30 @@
 import { Module } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
-import { UsersModule } from "./users/users.module";
-import { DatabaseModule } from "./database/database.module";
-import { AuthModule } from "./auth/auth.module";
-import { EmailModule } from './email/email.module';
+import { MailConfigModule } from "./config/mail-config/mail-config.module";
+import { CoreModule } from "./core/core.module";
+import { JwtConfigModule } from "./config/jwt-config/jwt-config.module";
+import { AuthModule } from "./modules/auth/auth.module";
+import { UsersModule } from "./modules/users/users.module";
+import { AccountsModule } from "./modules/accounts/accounts.module";
+import { APP_GUARD } from "@nestjs/core";
+import { AuthGuard } from "./modules/auth/guards/auth.guard";
 @Module({
-  imports: [UsersModule, DatabaseModule, AuthModule, EmailModule],
+  imports: [
+    MailConfigModule,
+    CoreModule,
+    JwtConfigModule,
+    AuthModule,
+    UsersModule,
+    AccountsModule,
+  ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
+    },
+  ],
 })
 export class AppModule {}

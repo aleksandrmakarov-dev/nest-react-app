@@ -7,5 +7,7 @@ export const authKeys = {
     signInLocal: () => [...authKeys.auth.root, "sign-in-local"],
     forgotPassword: () => [...authKeys.auth.root, "forgot-password"],
     resetPassword: () => [...authKeys.auth.root, "reset-password"],
+    verifyEmail: () => [...authKeys.auth.root, "verify-email"],
+    refreshToken: () => [...authKeys.auth.root, "refresh-token"],
   },
 };

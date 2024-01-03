@@ -2,11 +2,7 @@
 
 import { ForgotPasswordBody } from "@/components/entities/auth";
 import { useForgotPassword } from "@/components/features/auth";
-import {
-  Alert,
-  AlertTitle,
-  AlertDescription,
-} from "@/components/shared/ui/alert";
+import * as alert from "@/components/shared/ui/alert";
 import {
   Card,
   CardContent,
@@ -46,40 +42,37 @@ export function ForgotPasswordCard() {
     <Card className="w-full max-w-md">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <CardHeader>
+          <CardHeader className="text-center">
             <CardTitle>Password recovery</CardTitle>
             <CardDescription>
-              Forgot your account’s password? Enter your email address and we’ll
-              send you a recovery link.
+              No worries, we'll send you reset instructions.
             </CardDescription>
           </CardHeader>
           <CardContent>
             {isSuccess && (
-              <Alert variant="success" className="mb-3">
+              <alert.Alert variant="success" className="mb-3">
                 <MdErrorOutline className="h-5 w-5" />
-                <AlertTitle>Forgot password</AlertTitle>
-                <AlertDescription>{data.message}</AlertDescription>
-              </Alert>
+                <alert.AlertDescription>{data.message}</alert.AlertDescription>
+              </alert.Alert>
             )}
             {isError && (
-              <Alert variant="error" className="mb-3">
+              <alert.Alert variant="error" className="mb-3">
                 <MdErrorOutline className="h-5 w-5" />
-                <AlertTitle>{error.response?.data.error}</AlertTitle>
-                <AlertDescription>
+                <alert.AlertDescription>
                   {error.response?.data.message}
-                </AlertDescription>
-              </Alert>
+                </alert.AlertDescription>
+              </alert.Alert>
             )}
-            <ForgotPasswordBody control={form.control} />
+            <ForgotPasswordBody control={form.control} isLoading={isPending} />
           </CardContent>
-          <CardFooter>
+          <CardFooter className="flex flex-col">
             <LoadingButton
               disabled={isPending}
               loading={isPending}
-              className="w-full mb-5"
+              className="w-full mb-3"
               type="submit"
             >
-              Send recovery email
+              Reset password
             </LoadingButton>
           </CardFooter>
         </form>
