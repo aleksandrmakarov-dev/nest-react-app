@@ -17,10 +17,10 @@ import {
   verifyEmailDtoSchema,
 } from "@/lib/dto/auth/verify-email.dto";
 import { Routing } from "@/lib/routing";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { MdErrorOutline, MdCheckCircleOutline } from "react-icons/md";
 
 interface VerifyEmailCardProps {
   token?: string;
@@ -67,7 +67,7 @@ export function VerifyEmailCard(props: VerifyEmailCardProps) {
           <CardContent>
             {isError && (
               <Alert variant="error" className="mb-3">
-                <MdErrorOutline className="h-5 w-5" />
+                <FontAwesomeIcon icon="check-circle" className="h-5 w-5" />
                 <AlertDescription>
                   {error.response?.data.message}
                 </AlertDescription>
@@ -75,7 +75,10 @@ export function VerifyEmailCard(props: VerifyEmailCardProps) {
             )}
             {isSuccess && (
               <Alert variant="success" className="mb-3 ">
-                <MdCheckCircleOutline className="h-5 w-5 " />
+                <FontAwesomeIcon
+                  icon="exclamation-circle"
+                  className="h-5 w-5"
+                />
                 <AlertDescription>
                   {data.message} You can{" "}
                   <Link
@@ -97,7 +100,7 @@ export function VerifyEmailCard(props: VerifyEmailCardProps) {
             </LoadingButton>
             <p className="text-sm">
               <span className="text-muted-foreground">
-                Didn't receive the email?
+                Did not receive the email?
               </span>{" "}
               <Link
                 className="text-primary font-semibold underline"

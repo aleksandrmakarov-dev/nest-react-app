@@ -54,6 +54,14 @@ async function refreshToken() {
   return response.data;
 }
 
+async function signOut() {
+  const response = await axios.delete<GenericResponseDto>(
+    `${baseUrl}/sign-out`
+  );
+
+  return response.data;
+}
+
 export default {
   signInLocal,
   signUpLocal,
@@ -61,4 +69,5 @@ export default {
   resetPassword,
   forgotPassword,
   refreshToken,
+  signOut,
 };

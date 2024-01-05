@@ -17,11 +17,11 @@ import {
   signUpLocalDtoSchema,
 } from "@/lib/dto/auth/sign-up-local.dto";
 import { Routing } from "@/lib/routing";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { MdErrorOutline } from "react-icons/md";
 
 export function SignUpCard() {
   const { mutate, isPending, isError, error } = useSignUpLocal();
@@ -59,7 +59,10 @@ export function SignUpCard() {
           <CardContent>
             {isError && (
               <Alert variant="error" className="mb-3">
-                <MdErrorOutline className="h-5 w-5" />
+                <FontAwesomeIcon
+                  icon="exclamation-circle"
+                  className="h-5 w-5"
+                />
                 <AlertDescription>
                   {error.response?.data.message}
                 </AlertDescription>

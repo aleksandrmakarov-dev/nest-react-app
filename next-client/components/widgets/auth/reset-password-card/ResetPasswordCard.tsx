@@ -17,10 +17,10 @@ import {
   resetPasswordDtoSchema,
 } from "@/lib/dto/auth/reset-password.dto";
 import { Routing } from "@/lib/routing";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
-import { MdErrorOutline } from "react-icons/md";
 
 interface ResetPasswordCardProps {
   token?: string;
@@ -66,7 +66,7 @@ export function ResetPasswordCard(props: ResetPasswordCardProps) {
           <CardContent>
             {isSuccess && (
               <Alert variant="success" className="mb-3">
-                <MdErrorOutline className="h-5 w-5" />
+                <FontAwesomeIcon icon="check-circle" className="h-5 w-5" />
                 <AlertDescription>
                   {data.message}. You can{" "}
                   <Link
@@ -81,7 +81,10 @@ export function ResetPasswordCard(props: ResetPasswordCardProps) {
             )}
             {isError && (
               <Alert variant="error" className="mb-3">
-                <MdErrorOutline className="h-5 w-5" />
+                <FontAwesomeIcon
+                  icon="exclamation-circle"
+                  className="h-5 w-5"
+                />
                 <AlertDescription>
                   {error.response?.data.message}
                 </AlertDescription>

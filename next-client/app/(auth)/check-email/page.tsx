@@ -6,10 +6,10 @@ interface CheckEmailPageContext {
   };
 }
 
-export default function CheckEmailPage(props: CheckEmailPageContext) {
+export default function CheckEmailPage(context: CheckEmailPageContext) {
   const {
     searchParams: { email },
-  } = props;
+  } = context;
 
   return <CheckEmailCard email={email} />;
 }

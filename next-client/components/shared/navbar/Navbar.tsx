@@ -6,7 +6,7 @@ import { UserMenu } from "@/components/widgets/auth";
 
 export default function Navbar() {
   return (
-    <div className="bg-white border-b border-gray-200">
+    <nav className="bg-white border-b border-gray-200">
       <div className="w-full max-w-screen-2xl flex items-center h-14 px-10 mx-auto justify-between">
         <div className="flex items-center">
           <Link className="flex items-center mr-8" href={Routing.root}>
@@ -34,7 +34,7 @@ export default function Navbar() {
           </div>
         </div>
         <UserMenu
-          alt={
+          fallback={
             <div>
               <Button className="mr-3" variant="text" asChild>
                 <Link href={Routing.auth.signIn}>Sign in</Link>
@@ -46,6 +46,6 @@ export default function Navbar() {
           }
         />
       </div>
-    </div>
+    </nav>
   );
 }

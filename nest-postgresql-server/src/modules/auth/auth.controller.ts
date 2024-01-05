@@ -1,4 +1,12 @@
-import { Body, Controller, Post, Res } from "@nestjs/common";
+import {
+  Body,
+  Controller,
+  Delete,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Res,
+} from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { ApiTags } from "@nestjs/swagger";
 import { SignUpDto } from "./dto/sign-up.dto";
@@ -55,16 +63,12 @@ export class AuthController {
     return userData;
   }
 
-  @Post("sign-out")
+  @Delete("sign-out")
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Public()
   async signOut(@Res({ passthrough: true }) response: Response) {
     response.clearCookie(TOKEN_COOKIE);
-
-    const res: GenericResponseDto = {
-      message: "Signed out",
-    };
-
-    return res;
+    return;
   }
 
   @Post("verify-email")

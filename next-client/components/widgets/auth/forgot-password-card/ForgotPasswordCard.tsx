@@ -17,9 +17,9 @@ import {
   ForgotPasswordDto,
   forgotPasswordDtoSchema,
 } from "@/lib/dto/auth/forgot-password.dto";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { MdErrorOutline } from "react-icons/md";
 
 export function ForgotPasswordCard() {
   const { mutate, isPending, isError, error, isSuccess, data } =
@@ -45,19 +45,22 @@ export function ForgotPasswordCard() {
           <CardHeader className="text-center">
             <CardTitle>Password recovery</CardTitle>
             <CardDescription>
-              No worries, we'll send you reset instructions.
+              No worries, we will send you reset instructions.
             </CardDescription>
           </CardHeader>
           <CardContent>
             {isSuccess && (
               <alert.Alert variant="success" className="mb-3">
-                <MdErrorOutline className="h-5 w-5" />
+                <FontAwesomeIcon icon="check-circle" className="h-5 w-5" />
                 <alert.AlertDescription>{data.message}</alert.AlertDescription>
               </alert.Alert>
             )}
             {isError && (
               <alert.Alert variant="error" className="mb-3">
-                <MdErrorOutline className="h-5 w-5" />
+                <FontAwesomeIcon
+                  icon="exclamation-circle"
+                  className="h-5 w-5"
+                />
                 <alert.AlertDescription>
                   {error.response?.data.message}
                 </alert.AlertDescription>

@@ -7,10 +7,10 @@ interface VerifyEmailPageContext {
   };
 }
 
-export default function VerifyEmailPage(props: VerifyEmailPageContext) {
+export default function VerifyEmailPage(context: VerifyEmailPageContext) {
   const {
     searchParams: { token, email },
-  } = props;
+  } = context;
 
   return <VerifyEmailCard token={token} email={email} />;
 }

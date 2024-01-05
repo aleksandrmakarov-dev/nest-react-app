@@ -6,10 +6,10 @@ interface ResetPasswordPageContext {
   };
 }
 
-export default function ResetPasswordPage(props: ResetPasswordPageContext) {
+export default function ResetPasswordPage(context: ResetPasswordPageContext) {
   const {
     searchParams: { token },
-  } = props;
+  } = context;
 
   return <ResetPasswordCard token={token} />;
 }

@@ -14,11 +14,13 @@ import { useRefreshToken } from "@/components/features/auth/refresh-token/refres
 interface AuthContextData {
   user: UserDataDto | null;
   setUser: Dispatch<SetStateAction<UserDataDto | null>>;
+  isLoading?: boolean;
 }
 
 const AuthContext = createContext<AuthContextData>({
   user: null,
   setUser: () => {},
+  isLoading: false,
 });
 
 interface AuthProviderProps {
@@ -26,7 +28,7 @@ interface AuthProviderProps {
 }
 
 export function AuthProvider(props: AuthProviderProps) {
-  const { mutate, isPending, isError, error } = useRefreshToken();
+  const { mutate, isPending } = useRefreshToken();
   const [user, setUser] = useState<UserDataDto | null>(null);
 
   useEffect(() => {
@@ -52,12 +54,12 @@ export function AuthProvider(props: AuthProviderProps) {
         (error) => Promise.reject(error)
       );
     }
-
-    console.log(user);
   }, [user]);
 
   return (
-    <AuthContext.Provider value={{ user: user, setUser: setUser }}>
+    <AuthContext.Provider
+      value={{ user: user, setUser: setUser, isLoading: isPending }}
+    >
       {props.children}
     </AuthContext.Provider>
   );

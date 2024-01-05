@@ -16,7 +16,7 @@ model User {
   id                              String             @id @default(uuid())
   email                           String             @unique
   passwordHash                    String?
-  name                            String             @default("unknown")
+  name                            String
   image                           String?
   bio                             String?
   createdAt                       DateTime           @default(now())
@@ -32,6 +32,10 @@ model User {
   accounts                        Account[]
   externalProviderIDs             String[]
   externalProviders               ExternalProvider[]
+  articleIDs                      String[]
+  articles                        Article[]
+  tagIDs                          String[]
+  Tag                             Tag[]
 }
 
 model Account {
@@ -61,8 +65,34 @@ model ExternalProvider {
   accounts   Account[]
 }
 
+model Article {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  image       String?
+  content     String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  tagIDs      String[]
+  tags        Tag[]
+}
+
+model Tag {
+  id         String    @id @default(cuid())
+  name       String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  userId     String
+  user       User      @relation(fields: [userId], references: [id])
+  articleIDs String[]
+  articles   Article[]
+}
+
 enum Role {
   USER
+  EDITOR
   ADMIN
 }
 

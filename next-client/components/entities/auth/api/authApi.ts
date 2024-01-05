@@ -9,5 +9,6 @@ export const authKeys = {
     resetPassword: () => [...authKeys.auth.root, "reset-password"],
     verifyEmail: () => [...authKeys.auth.root, "verify-email"],
     refreshToken: () => [...authKeys.auth.root, "refresh-token"],
+    signOut: () => [...authKeys.auth.root, "sign-out"],
   },
 };
