@@ -13,6 +13,4 @@ export const TOKEN_COOKIE_OPTIONS: CookieOptions = {
   maxAge: 7 * 24 * 60 * 60 * 1000,
 };
 
-export const AUTHORIZE_PUBLIC = "authorize:public";
-export const AUTHORIZE_OPTIONAL = "authorize:optional";
 export const AUTHORIZE_ROLES = "authorize:roles";

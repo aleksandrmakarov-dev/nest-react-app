@@ -16,7 +16,6 @@ import { Response } from "express";
 import { TOKEN_COOKIE, TOKEN_COOKIE_OPTIONS } from "./auth.constants";
 import { GenericResponseDto } from "src/common/dto/response.dto";
 import { Cookie } from "src/common/decorators/cookie.decorator";
-import { Public } from "./decorators/public.decorator";
 
 @ApiTags("auth")
 @Controller("auth")
@@ -24,7 +23,6 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post("sign-up")
-  @Public()
   async signUp(@Body() dto: SignUpDto) {
     await this.authService.signUp(dto);
 
@@ -36,7 +34,6 @@ export class AuthController {
   }
 
   @Post("sign-in")
-  @Public()
   async signIn(
     @Body() dto: SignInDto,
     @Res({ passthrough: true }) response: Response,
@@ -49,7 +46,6 @@ export class AuthController {
   }
 
   @Post("refresh-token")
-  @Public()
   async refreshToken(
     @Cookie(TOKEN_COOKIE) token: string,
     @Res({ passthrough: true }) response: Response,
@@ -65,14 +61,12 @@ export class AuthController {
 
   @Delete("sign-out")
   @HttpCode(HttpStatus.NO_CONTENT)
-  @Public()
   async signOut(@Res({ passthrough: true }) response: Response) {
     response.clearCookie(TOKEN_COOKIE);
     return;
   }
 
   @Post("verify-email")
-  @Public()
   async verifyEmail(@Body() dto: VerifyEmailDto) {
     await this.authService.verifyEmail(dto);
 
