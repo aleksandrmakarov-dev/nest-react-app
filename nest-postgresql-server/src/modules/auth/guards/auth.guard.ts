@@ -8,6 +8,7 @@ import { Reflector } from "@nestjs/core";
 import { JsonWebTokenError, JwtService } from "@nestjs/jwt";
 import { JwtPayloadDto } from "../dto/jwt-payload.dto";
 import { AUTHORIZE_ROLES } from "../auth.constants";
+import { ErrorOr } from "src/common/common.interface";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -35,7 +36,7 @@ export class AuthGuard implements CanActivate {
 
     // if authorization decorator without roles
     if (!request.user) {
-      throw new UnauthorizedException("Invalid or expired token");
+      throw new UnauthorizedException(validation.error.message);
     }
 
     // check if user has on of roles
@@ -68,9 +69,4 @@ export class AuthGuard implements CanActivate {
       };
     }
   }
-}
-
-interface ErrorOr<T> {
-  data?: T;
-  error?: Error;
 }

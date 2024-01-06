@@ -36,6 +36,9 @@ async function seed() {
 
   await prisma.$connect();
 
+  await prisma.tag.deleteMany();
+  await prisma.article.deleteMany();
+
   await prisma.account.deleteMany();
   await prisma.user.deleteMany();
   await prisma.externalProvider.deleteMany();

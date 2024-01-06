@@ -1,23 +1,36 @@
-import { ArgumentsHost, HttpStatus } from "@nestjs/common";
+import {
+  ArgumentsHost,
+  Catch,
+  HttpException,
+  HttpStatus,
+} from "@nestjs/common";
 import { BaseExceptionFilter } from "@nestjs/core";
-import { PrismaClientValidationError } from "@prisma/client/runtime/library";
+import { Prisma } from "@prisma/client";
 import { Response } from "express";
 import { JsonWebTokenError, TokenExpiredError } from "jsonwebtoken";
 
-export class ApiExceptionFilter extends BaseExceptionFilter {
+@Catch()
+export class AllExceptionFilter extends BaseExceptionFilter {
   catch(exception: any, host: ArgumentsHost): void {
     if (exception instanceof JsonWebTokenError) {
       this.handleException(HttpStatus.UNAUTHORIZED, exception.message, host);
     } else if (exception instanceof TokenExpiredError) {
       this.handleException(HttpStatus.UNAUTHORIZED, "Token expired", host);
-    } else if (exception instanceof PrismaClientValidationError) {
+    } else if (exception instanceof Prisma.PrismaClientKnownRequestError) {
       this.handleException(
-        HttpStatus.UNPROCESSABLE_ENTITY,
+        HttpStatus.CONFLICT,
         exception.message,
         host,
+        exception.code,
       );
-    } else {
+    } else if (exception instanceof HttpException) {
       super.catch(exception, host);
+    } else {
+      this.handleException(
+        HttpStatus.INTERNAL_SERVER_ERROR,
+        (exception as Error).message,
+        host,
+      );
     }
   }
 
@@ -25,12 +38,13 @@ export class ApiExceptionFilter extends BaseExceptionFilter {
     statusCode: number,
     message: string,
     host: ArgumentsHost,
+    code?: string,
   ) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
 
-    response.status(HttpStatus.UNAUTHORIZED).json({
-      statusCode: statusCode,
+    response.status(statusCode).json({
+      statusCode: code ?? statusCode,
       message: message,
     });
   }

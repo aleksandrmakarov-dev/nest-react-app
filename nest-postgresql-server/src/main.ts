@@ -1,9 +1,8 @@
-import { NestFactory } from "@nestjs/core";
+import { HttpAdapterHost, NestFactory } from "@nestjs/core";
 import { AppModule } from "./app.module";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import { ValidationPipe } from "@nestjs/common";
 import * as cookieParser from "cookie-parser";
-import { ApiExceptionFilter } from "./common/filters/api-exception.filter";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -15,7 +14,7 @@ async function bootstrap() {
 
   app.setGlobalPrefix("api");
   app.useGlobalPipes(new ValidationPipe());
-  //app.useGlobalFilters(new ApiExceptionFilter());
+
   app.use(cookieParser());
 
   const config = new DocumentBuilder()
