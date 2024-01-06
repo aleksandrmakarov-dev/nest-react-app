@@ -99,7 +99,7 @@ export class AuthService {
       );
     }
 
-    const match = this.bcryptService.compare(
+    const match = await this.bcryptService.compare(
       dto.password,
       foundUser.passwordHash,
     );

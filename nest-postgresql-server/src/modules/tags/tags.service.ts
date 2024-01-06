@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { DatabaseService } from "src/core/database/database.service";
 import { CreateTagDto } from "./dto/create-tag.dto";
 import { UpdateTagDto } from "./dto/update-tag.dto";
@@ -40,5 +40,19 @@ export class TagsService {
         id: id,
       },
     });
+  }
+
+  async isCreatedByUser(id: string, userId: string): Promise<boolean> {
+    const foundTag = await this.databaseService.tag.findUnique({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!foundTag) {
+      throw new NotFoundException("Tag not found");
+    }
+
+    return foundTag.userId === userId;
   }
 }

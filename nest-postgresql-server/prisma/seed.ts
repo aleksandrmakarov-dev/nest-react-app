@@ -5,19 +5,31 @@ const externalProviders: string[] = ["google", "github"];
 
 interface InitialUser {
   name: string;
-  bio: string;
   email: string;
   password: string;
   role: Role;
 }
 
-const initialUserData: InitialUser = {
-  name: "admin",
-  bio: "the ruler of the website",
-  email: "admin@example.com",
-  password: "admin",
-  role: Role.ADMIN,
-};
+const users: InitialUser[] = [
+  {
+    name: "admin",
+    email: "admin@example.com",
+    password: "admin123",
+    role: Role.ADMIN,
+  },
+  {
+    name: "editor",
+    email: "editor@example.com",
+    password: "editor123",
+    role: Role.EDITOR,
+  },
+  {
+    name: "user",
+    email: "user@example.com",
+    password: "user123",
+    role: Role.USER,
+  },
+];
 
 async function seed() {
   const prisma = new PrismaClient();
@@ -34,23 +46,21 @@ async function seed() {
     })),
   });
 
-  const passwordHash = await bcrypt.hash(initialUserData.password, 10);
-  const now = new Date();
+  await Promise.all(
+    users.map(async (user) => {
+      const { password, ...userData } = user;
+      const passwordHash = await bcrypt.hash(user.password, 10);
+      const now = new Date();
 
-  const createdUser = await prisma.user.create({
-    data: {
-      email: initialUserData.email,
-      passwordHash: passwordHash,
-      name: initialUserData.name,
-      bio: initialUserData.bio,
-      emailVerifiedAt: now,
-      role: initialUserData.role,
-    },
-  });
+      const createdUser = await prisma.user.create({
+        data: { ...userData, passwordHash: passwordHash, emailVerifiedAt: now },
+      });
 
-  if (!createdUser) {
-    throw Error("Failed to create user");
-  }
+      if (!createdUser) {
+        throw Error("Failed to create user");
+      }
+    }),
+  );
 
   console.log("Seeding completed");
 }
