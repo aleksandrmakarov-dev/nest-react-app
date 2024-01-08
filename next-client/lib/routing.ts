@@ -18,6 +18,7 @@ export const Routing = {
   },
   blog: {
     root: "/blog",
+    byId: (id: string) => `/blog/${id}`,
   },
   aboutMe: "/about-me",
 };

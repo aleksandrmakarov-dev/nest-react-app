@@ -43,6 +43,7 @@ export class ArticlesService {
             id: true,
             email: true,
             name: true,
+            image: true,
           },
         },
       },

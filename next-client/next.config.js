@@ -9,6 +9,16 @@ const nextConfig = {
       },
     ];
   },
+  images: {
+    remotePatterns: [
+      {
+        hostname: "placekitten.com",
+      },
+      {
+        hostname: "placebeard.it",
+      },
+    ],
+  },
 };
 
 module.exports = nextConfig;
