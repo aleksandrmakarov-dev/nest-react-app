@@ -81,8 +81,9 @@ export const useInfinityArticles = (params?: GetArticlesParamsDto) => {
     unknown[]
   >({
     queryKey: articlesKeys.articles.infinityQuery(),
-    queryFn: async () => await fetchArticles(params),
-    initialPageParam: 1,
+    queryFn: async (data) =>
+      await fetchArticles(data.pageParam as GetArticlesParamsDto),
+    initialPageParam: params,
     getNextPageParam: (lastPage) => ({ page: lastPage.pagination.page + 1 }),
   });
 };

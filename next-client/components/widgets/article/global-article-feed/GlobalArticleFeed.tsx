@@ -26,6 +26,7 @@ export function GlobalArticleFeed() {
       {data?.pages.map((page) => {
         return (
           <>
+            <p className="col-span-2">{JSON.stringify(page.pagination)}</p>
             {page.items.map((item) => (
               <ArticleCard key={item.id} article={item} />
             ))}
