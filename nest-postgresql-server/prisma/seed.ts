@@ -263,6 +263,190 @@ async function seed() {
         "Join a team of adventure photographers as they document extreme sports, daring landscapes, and the spirit of adventure. This expedition is for those who seek to capture the raw and untamed beauty of the world.",
       image: "https://placekitten.com/800/619",
     },
+    {
+      title: "Discovering Hidden Waterfalls",
+      description:
+        "Embark on a journey to explore secret waterfalls tucked away in lush, untouched landscapes.",
+      content:
+        "Join our team of explorers as they venture into remote areas to unveil the beauty of hidden waterfalls. This expedition promises breathtaking views, the soothing sound of cascading water, and the thrill of discovering nature's well-kept secrets.",
+      image: "https://placekitten.com/800/620",
+    },
+    {
+      title: "Urban Street Art Exploration",
+      description:
+        "Immerse yourself in the vibrant world of urban street art with this eye-opening expedition.",
+      content:
+        "Walk the streets of bustling cities and witness the creativity of street artists as they transform ordinary spaces into captivating works of art. This expedition is an opportunity to document the dynamic and ever-evolving street art scene.",
+      image: "https://placekitten.com/800/621",
+    },
+    {
+      title: "Culinary Adventures Around the Globe",
+      description:
+        "Embark on a gastronomic journey, exploring diverse cuisines and culinary traditions worldwide.",
+      content:
+        "Join our team of food enthusiasts as they travel across continents to savor unique flavors, learn cooking techniques, and capture the essence of global cuisine. This expedition is a feast for the senses, combining travel, culture, and delicious discoveries.",
+      image: "https://placekitten.com/800/622",
+    },
+    {
+      title: "Sunset Serenity Yoga Retreat",
+      description:
+        "Escape to a tranquil yoga retreat and experience the serenity of sunset sessions in breathtaking locations.",
+      content:
+        "Immerse yourself in a rejuvenating yoga experience surrounded by nature's beauty. This retreat offers a perfect blend of mindfulness, relaxation, and breathtaking sunsets that will leave you refreshed and energized.",
+      image: "https://placekitten.com/800/623",
+    },
+    {
+      title: "Historical Architecture Expedition",
+      description:
+        "Journey through time as you explore the intricate details of historical architecture around the world.",
+      content:
+        "Uncover the stories behind centuries-old buildings, palaces, and monuments. This expedition is a visual feast for architecture enthusiasts, capturing the grandeur and beauty of structures that have withstood the test of time.",
+      image: "https://placekitten.com/800/624",
+    },
+    {
+      title: "Wildlife Conservation Safari",
+      description:
+        "Contribute to wildlife conservation efforts on an immersive safari experience in natural habitats.",
+      content:
+        "Join a team of conservationists on a mission to protect endangered species. This safari provides an opportunity to observe and document wildlife behavior, contributing to the preservation of Earth's diverse and precious ecosystems.",
+      image: "https://placekitten.com/800/625",
+    },
+    {
+      title: "Underwater Photography Expedition",
+      description:
+        "Dive into the depths of the ocean and capture the mesmerizing world beneath the waves.",
+      content:
+        "Embark on an underwater adventure with experienced divers and photographers. This expedition explores vibrant coral reefs, marine life, and mysterious underwater landscapes, offering a unique perspective on the beauty of the ocean.",
+      image: "https://placekitten.com/800/626",
+    },
+    {
+      title: "Cultural Festivals Documentation",
+      description:
+        "Immerse yourself in the colors, music, and traditions of cultural festivals from around the globe.",
+      content:
+        "Capture the vibrancy and diversity of cultural celebrations worldwide. This documentation project allows you to witness and preserve the richness of traditional festivals, from lively parades to intricate rituals.",
+      image: "https://placekitten.com/800/627",
+    },
+    {
+      title: "Mountain Peak Photography Expedition",
+      description:
+        "Reach new heights and capture the awe-inspiring beauty of mountain peaks around the world.",
+      content:
+        "Join a team of mountaineers and photographers on a journey to conquer towering peaks. This expedition offers breathtaking vistas, challenging climbs, and the chance to document the majesty of some of the world's highest mountains.",
+      image: "https://placekitten.com/800/628",
+    },
+    {
+      title: "Sci-Fi Cosplay Showcase",
+      description:
+        "Step into the futuristic world of sci-fi cosplay and document the creativity of enthusiasts.",
+      content:
+        "Explore the imaginative and elaborate costumes of sci-fi enthusiasts at conventions and events. This showcase captures the dedication and artistry of cosplayers, bringing to life iconic characters from the realm of science fiction.",
+      image: "https://placekitten.com/800/629",
+    },
+    {
+      title: "Sustainable Living Communities",
+      description:
+        "Document sustainable living practices in communities dedicated to eco-friendly living.",
+      content:
+        "Visit communities that prioritize sustainability, documenting eco-friendly initiatives, green architecture, and practices that promote a harmonious relationship with the environment. This project highlights efforts to create a more sustainable and resilient future.",
+      image: "https://placekitten.com/800/630",
+    },
+    {
+      title: "Desert Adventure and Nomadic Cultures",
+      description:
+        "Explore the vast deserts and connect with nomadic cultures, capturing the essence of their way of life.",
+      content:
+        "Embark on a journey through deserts, encountering nomadic communities and experiencing their traditions. This adventure combines the harsh beauty of desolate landscapes with the resilience and rich cultural heritage of nomadic people.",
+      image: "https://placekitten.com/800/631",
+    },
+    {
+      title: "Futuristic Technology Expo",
+      description:
+        "Witness the cutting-edge innovations of the future at a technology expo featuring groundbreaking inventions.",
+      content:
+        "Explore the forefront of technological advancements at a futuristic expo. Document the latest gadgets, robotics, and inventions that are shaping the future. This expedition provides a glimpse into the exciting possibilities of tomorrow's technology.",
+      image: "https://placekitten.com/800/632",
+    },
+    {
+      title: "Enchanting Forest Retreat",
+      description:
+        "Escape to enchanted forests and capture the mystical beauty of ancient trees and magical landscapes.",
+      content:
+        "Immerse yourself in the tranquility of ancient forests, capturing the beauty of towering trees, moss-covered stones, and ethereal light. This retreat offers a peaceful escape into nature's enchanting realms.",
+      image: "https://placekitten.com/800/633",
+    },
+    {
+      title: "Vintage Automobile Expedition",
+      description:
+        "Embark on a journey through time as you explore the elegance and craftsmanship of vintage automobiles.",
+      content:
+        "Capture the allure of classic cars and vintage automobiles from different eras. This expedition takes you on a nostalgic ride, documenting the beauty, design, and engineering of timeless vehicles that have left a mark on automotive history.",
+      image: "https://placekitten.com/800/634",
+    },
+    {
+      title: "Tropical Paradise Getaway",
+      description:
+        "Escape to tropical paradises and document the stunning beaches, vibrant marine life, and lush landscapes.",
+      content:
+        "Indulge in the beauty of tropical destinations, capturing the crystal-clear waters, palm-fringed beaches, and diverse marine ecosystems. This getaway is a visual feast of sun-kissed landscapes and the vibrant colors of paradise.",
+      image: "https://placekitten.com/800/635",
+    },
+    {
+      title: "Artisanal Craftsmanship Exploration",
+      description:
+        "Celebrate the artistry of traditional crafts and document the skills passed down through generations.",
+      content:
+        "Explore communities dedicated to preserving traditional craftsmanship. Document the intricate processes and skills involved in creating handmade art, from weaving and pottery to carpentry and metalwork. This project honors the beauty of artisanal traditions.",
+      image: "https://placekitten.com/800/636",
+    },
+    {
+      title: "Aerial Photography Adventure",
+      description:
+        "Soar to new heights and capture breathtaking aerial views of landscapes, cities, and natural wonders.",
+      content:
+        "Embark on an adventure high above the ground, capturing stunning aerial perspectives. This expedition offers a unique opportunity to document the beauty of landscapes, urban environments, and natural wonders from a bird's-eye view.",
+      image: "https://placekitten.com/800/637",
+    },
+    {
+      title: "Harvest Season Farm Experience",
+      description:
+        "Immerse yourself in the harvest season on farms around the world, documenting the bounty of nature.",
+      content:
+        "Join farmers during the harvest season, capturing the vibrant colors and abundance of crops. This immersive experience allows you to document the traditions, hard work, and joy associated with bringing in the harvest from fields and orchards.",
+      image: "https://placekitten.com/800/638",
+    },
+    {
+      title: "Street Market Chronicles",
+      description:
+        "Explore the lively atmosphere of street markets and document the diverse products, vendors, and cultures.",
+      content:
+        "Navigate through bustling street markets, capturing the vibrant scenes, unique products, and cultural diversity. This documentation project showcases the dynamic and lively spirit of markets around the world.",
+      image: "https://placekitten.com/800/639",
+    },
+    {
+      title: "Mystical Mountain Monasteries",
+      description:
+        "Embark on a spiritual journey to mountain monasteries and capture the serene beauty of sacred sites.",
+      content:
+        "Experience the tranquility of mountain monasteries nestled in breathtaking landscapes. This expedition combines spiritual exploration with visual storytelling, documenting the architecture, rituals, and peaceful surroundings of these sacred places.",
+      image: "https://placekitten.com/800/640",
+    },
+    {
+      title: "Night Sky Astrophotography",
+      description:
+        "Capture the beauty of the night sky and celestial wonders through mesmerizing astrophotography.",
+      content:
+        "Embark on a nocturnal adventure to document the stars, planets, and cosmic phenomena. This expedition is a journey into the depths of the night sky, capturing the awe-inspiring beauty of the cosmos through long-exposure photography.",
+      image: "https://placekitten.com/800/641",
+    },
+    {
+      title: "Rural Traditions Documentation",
+      description:
+        "Celebrate the richness of rural traditions and document the customs that connect communities to their roots.",
+      content:
+        "Visit rural areas around the world to document traditional practices, festivals, and lifestyles. This documentation project aims to preserve and showcase the unique customs that contribute to the cultural tapestry of rural communities.",
+      image: "https://placekitten.com/800/642",
+    },
   ];
 
   await Promise.all(

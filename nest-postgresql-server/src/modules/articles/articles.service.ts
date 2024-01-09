@@ -3,6 +3,11 @@ import { DatabaseService } from "src/core/database/database.service";
 import { CreateArticleDto } from "./dto/create-article.dto";
 import { UpdateAccountDto } from "../accounts/dto/update-account.dto";
 import { UpdateArticleDto } from "./dto/update-article.dto";
+import { GetArticlesQueryDto } from "./dto/get-articles-query.dto";
+import {
+  PagedResponseDto,
+  Pagination,
+} from "src/common/dto/paged-response.dto";
 
 @Injectable()
 export class ArticlesService {
@@ -29,8 +34,12 @@ export class ArticlesService {
     });
   }
 
-  async findMany() {
-    return await this.databaseService.article.findMany({
+  async findMany(query: GetArticlesQueryDto) {
+    const { page, size } = query;
+
+    const items = await this.databaseService.article.findMany({
+      skip: (page - 1) * size,
+      take: size,
       include: {
         tags: {
           select: {
@@ -48,6 +57,12 @@ export class ArticlesService {
         },
       },
     });
+
+    const total = await this.databaseService.article.count();
+
+    const pagination = new Pagination(page, size, total);
+
+    return new PagedResponseDto(items, pagination);
   }
 
   async updateById(id: string, dto: UpdateArticleDto) {

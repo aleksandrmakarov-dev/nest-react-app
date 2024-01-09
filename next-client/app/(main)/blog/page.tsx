@@ -12,15 +12,8 @@ export default async function BlogPage() {
     <HydrationBoundary state={dehydrate(queryClient)}>
       <div className="grid grid-cols-10 w-full max-w-screen-xl mx-auto">
         <div className="col-span-3 mr-14 flex flex-col gap-5">
-          <ArticleFilter />
-          <Section header="Popular tags">
-            <PopularTags />
-            <Link
-              className="text-sm font-medium mt-3 block underline"
-              href={"/"}
-            >
-              See more tags
-            </Link>
+          <Section header="Filter">
+            <ArticleFilter />
           </Section>
           <Section header="Popular tags">
             <PopularTags />

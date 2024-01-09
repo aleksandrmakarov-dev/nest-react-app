@@ -19,7 +19,7 @@ import { User } from "../auth/decorators/user.decorator";
 import { JwtPayloadDto } from "../auth/dto/jwt-payload.dto";
 import { Role } from "@prisma/client";
 import { Authorize } from "../auth/decorators/authorize.decorator";
-import { GenericResponseDto } from "src/common/dto/response.dto";
+import { GenericResponseDto } from "src/common/dto/generic-response.dto";
 
 @ApiTags("users")
 @Controller("users")

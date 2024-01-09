@@ -14,7 +14,7 @@ import { VerifyEmailDto } from "./dto/verify-email.dto";
 import { SignInDto } from "./dto/sign-in.dto";
 import { Response } from "express";
 import { TOKEN_COOKIE, TOKEN_COOKIE_OPTIONS } from "./auth.constants";
-import { GenericResponseDto } from "src/common/dto/response.dto";
+import { GenericResponseDto } from "src/common/dto/generic-response.dto";
 import { Cookie } from "src/common/decorators/cookie.decorator";
 
 @ApiTags("auth")

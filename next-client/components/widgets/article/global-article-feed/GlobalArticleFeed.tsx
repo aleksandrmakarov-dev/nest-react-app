@@ -1,12 +1,21 @@
 "use client";
-import { ArticleCard, useArticles } from "@/components/entities/article";
-import { ArticleFilter } from "@/components/entities/article/article-filter/ArticleFilter";
-import Section from "@/components/shared/section/Section";
-import { PopularTags } from "../../tag";
-import Link from "next/link";
+import {
+  ArticleCard,
+  useArticles,
+  useInfinityArticles,
+} from "@/components/entities/article";
+import { Button } from "@/components/shared/ui/button";
 
 export function GlobalArticleFeed() {
-  const { data, isLoading, isError, error } = useArticles();
+  const {
+    data,
+    isLoading,
+    isFetchingNextPage,
+    hasNextPage,
+    isError,
+    error,
+    fetchNextPage,
+  } = useInfinityArticles();
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -14,9 +23,28 @@ export function GlobalArticleFeed() {
 
   return (
     <div className="grid grid-cols-2 gap-10">
-      {data?.map((article) => (
-        <ArticleCard key={article.id} article={article} />
-      ))}
+      {data?.pages.map((page) => {
+        return (
+          <>
+            {page.items.map((item) => (
+              <ArticleCard key={item.id} article={item} />
+            ))}
+          </>
+        );
+      })}
+      <div className="col-span-2 text-center">
+        <Button
+          disabled={!hasNextPage || isFetchingNextPage}
+          className="max-w-md w-full"
+          onClick={() => fetchNextPage()}
+        >
+          {isFetchingNextPage
+            ? "Loading more..."
+            : hasNextPage
+            ? "Load more"
+            : "Nothing to load"}
+        </Button>
+      </div>
     </div>
   );
 }

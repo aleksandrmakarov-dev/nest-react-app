@@ -9,6 +9,7 @@ import {
   Param,
   Post,
   Put,
+  Query,
   UnauthorizedException,
 } from "@nestjs/common";
 import { ArticlesService } from "./articles.service";
@@ -20,6 +21,7 @@ import { JwtPayloadDto } from "../auth/dto/jwt-payload.dto";
 import { UsersService } from "../users/users.service";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { UpdateArticleDto } from "./dto/update-article.dto";
+import { GetArticlesQueryDto } from "./dto/get-articles-query.dto";
 
 @ApiTags("articles")
 @Controller("articles")
@@ -53,9 +55,9 @@ export class ArticlesController {
   }
 
   @Get()
-  async findMany() {
-    const foundArticles = await this.articlesService.findMany();
-    return foundArticles;
+  async findMany(@Query() query: GetArticlesQueryDto) {
+    const pagedArticles = await this.articlesService.findMany(query);
+    return pagedArticles;
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)

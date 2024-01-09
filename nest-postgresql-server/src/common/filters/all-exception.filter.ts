@@ -26,11 +26,10 @@ export class AllExceptionFilter extends BaseExceptionFilter {
     } else if (exception instanceof HttpException) {
       super.catch(exception, host);
     } else {
-      this.handleException(
-        HttpStatus.INTERNAL_SERVER_ERROR,
-        (exception as Error).message,
-        host,
-      );
+      const msg = (exception as Error).message;
+      console.log(msg);
+
+      this.handleException(HttpStatus.INTERNAL_SERVER_ERROR, msg, host);
     }
   }
 
