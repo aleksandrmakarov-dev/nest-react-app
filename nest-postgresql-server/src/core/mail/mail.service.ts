@@ -4,7 +4,6 @@ import { MailConfigService } from "src/config/mail-config/mail-config.service";
 import { EmailOptionsDto } from "./dto/email-options.dto";
 import { EmailException } from "src/common/exceptions/email.exception";
 import { TemplateService } from "../template/template.service";
-import * as path from "path";
 
 @Injectable()
 export class MailService {

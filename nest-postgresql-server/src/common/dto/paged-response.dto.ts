@@ -10,10 +10,14 @@ export class Pagination {
   @ApiProperty()
   total: number;
 
-  constructor(page: number, size: number, total: number) {
+  @ApiProperty()
+  totalPages: number;
+
+  constructor(page: number, size: number, total: number, totalPages: number) {
     this.page = page;
     this.size = size;
     this.total = total;
+    this.totalPages = totalPages;
   }
 }
 

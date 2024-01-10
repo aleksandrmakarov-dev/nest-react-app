@@ -60,6 +60,12 @@ export class ArticlesController {
     return pagedArticles;
   }
 
+  @Get(":id")
+  async findById(@Param("id") id: string) {
+    const foundArticle = await this.articlesService.findById(id);
+    return foundArticle;
+  }
+
   @HttpCode(HttpStatus.NO_CONTENT)
   @Put(":id")
   @ApiBearerAuth()

@@ -10,3 +10,7 @@ export interface ArticleResponseDto {
   user: UserResponseDto;
   tags: TagResponseDto[];
 }
+
+export interface ArticleContentResponseDto extends ArticleResponseDto {
+  content: string;
+}

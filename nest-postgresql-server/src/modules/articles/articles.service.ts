@@ -31,6 +31,22 @@ export class ArticlesService {
       where: {
         id: id,
       },
+      include: {
+        tags: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        user: {
+          select: {
+            id: true,
+            email: true,
+            name: true,
+            image: true,
+          },
+        },
+      },
     });
   }
 
@@ -59,8 +75,9 @@ export class ArticlesService {
     });
 
     const total = await this.databaseService.article.count();
+    const totalPages = Math.ceil(total / size);
 
-    const pagination = new Pagination(page, size, total);
+    const pagination = new Pagination(page, size, total, totalPages);
 
     return new PagedResponseDto(items, pagination);
   }

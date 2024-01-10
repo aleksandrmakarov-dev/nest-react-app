@@ -14,10 +14,7 @@ const LoadingButton = React.forwardRef<HTMLButtonElement, LoadingButtonProps>(
       <Button ref={ref} disabled={disabled ?? loading} {...props}>
         <span className="flex gap-x-1 items-center">
           {loading && (
-            <FontAwesomeIcon
-              icon={faSpinner}
-              className="w-5 h-5 animate-spin"
-            />
+            <FontAwesomeIcon icon={faSpinner} className="w-5 h-5" spinPulse />
           )}
           {children}
         </span>

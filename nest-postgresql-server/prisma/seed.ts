@@ -1,5 +1,7 @@
 import { Role, PrismaClient } from "@prisma/client";
 import * as bcrypt from "bcrypt";
+import * as fs from "fs";
+import * as path from "path";
 
 const externalProviders: string[] = ["google", "github"];
 
@@ -102,13 +104,26 @@ async function seed() {
 
   const foundTags = await prisma.tag.findMany();
 
+  const content: string = await new Promise((resolve, reject) => {
+    fs.readFile(
+      path.join(process.cwd(), "prisma/content.md"),
+      "utf-8",
+      (err, data) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(data);
+        }
+      },
+    );
+  });
+
   const articles = [
     {
       title: "Spectacular Sunset at Ocean's Edge",
       description:
         "Witness the breathtaking beauty of nature as the sun sets over the vast ocean.",
-      content:
-        "Experience the magic of a golden hour at the beach. Waves gently kissing the shore, vibrant hues painting the sky – it's a mesmerizing sight that will leave you in awe.",
+      content: content,
       image: "https://placekitten.com/800/600",
     },
     {

@@ -1,4 +1,7 @@
-import { ArticleFilter, prefetchArticles } from "@/components/entities/article";
+import {
+  ArticleFilter,
+  prefetchInfinityArticles,
+} from "@/components/entities/article";
 import Section from "@/components/shared/section/Section";
 import { GlobalArticleFeed } from "@/components/widgets/article";
 import { PopularTags } from "@/components/widgets/tag";
@@ -6,7 +9,7 @@ import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
 import Link from "next/link";
 
 export default async function BlogPage() {
-  const queryClient = await prefetchArticles();
+  const queryClient = await prefetchInfinityArticles();
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
