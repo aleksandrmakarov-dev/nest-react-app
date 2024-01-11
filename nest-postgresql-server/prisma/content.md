@@ -1,10 +1,24 @@
-# Markdown: Syntax
-
-- [Overview](#overview) _ [Philosophy](#philosophy) _ [Inline HTML](#html) _ [Automatic Escaping for Special Characters](#autoescape) _ [Block Elements](#block) _ [Paragraphs and Line Breaks](#p) _ [Headers](#header) _ [Blockquotes](#blockquote) _ [Lists](#list) _ [Code Blocks](#precode) _ [Horizontal Rules](#hr) _ [Span Elements](#span) _ [Links](#link) _ [Emphasis](#em) _ [Code](#code) _ [Images](#img) _ [Miscellaneous](#misc) _ [Backslash Escapes](#backslash) _ [Automatic Links](#autolink)
+- [Overview](#overview)
+- [Philosophy](#philosophy)
+- [Inline HTML](#html)
+- [Automatic Escaping for Special Characters](#autoescape)
+- [Block Elements](#block)
+- [Paragraphs and Line Breaks](#p)
+- [Headers](#header)
+- [Blockquotes](#blockquote)
+- [Lists](#list)
+- [Code Blocks](#precode)
+- [Horizontal Rules](#hr)
+- [Span Elements](#span)
+- [Links](#link)
+- [Emphasis](#em)
+- [Code](#code)
+- [Images](#img)
+- [Miscellaneous](#misc)
+- [Backslash Escapes](#backslash)
+- [Automatic Links](#autolink)
 
 **Note:** This document is itself written using Markdown; you can [see the source for it by adding '.text' to the URL](/projects/markdown/syntax.text).
-
----
 
 ## Overview
 
@@ -48,8 +62,6 @@ Blockquotes can be nested (i.e. a blockquote-in-a-blockquote) by adding addition
 
 Blockquotes can contain other Markdown elements, including headers, lists, and code blocks:
 
-> ## This is a header. > > 1. This is the first list item. > 2. This is the second list item. > > Here's some example code: > > return shell_exec("echo $input | $markdown_script");
-
 Any decent text editor should make email-style quoting easy. For example, with BBEdit, you can make a selection and choose Increase Quote Level from the Text menu.
 
 ### Lists
@@ -58,29 +70,42 @@ Markdown supports ordered (numbered) and unordered (bulleted) lists.
 
 Unordered lists use asterisks, pluses, and hyphens -- interchangably -- as list markers:
 
-- Red _ Green _ Blue
+- Red
+- Green
+- Blue
 
 is equivalent to:
 
-- Red + Green + Blue
+- Red
+
+* Green
+* Blue
 
 and:
 
-- Red - Green - Blue
+- Red
+- Green
+- Blue
 
 Ordered lists use numbers followed by periods:
 
-1.  Bird 2. McHale 3. Parish
+1.  Bird
+2.  McHale
+3.  Parish
 
 It's important to note that the actual numbers you use to mark the list have no effect on the HTML output Markdown produces. The HTML Markdown produces from the above list is:
 
 If you instead wrote the list in Markdown like this:
 
-1.  Bird 1. McHale 1. Parish
+1.  Bird
+1.  McHale
+1.  Parish
 
 or even:
 
-3. Bird 1. McHale 8. Parish
+3. Bird
+1. McHale
+1. Parish
 
 you'd get the exact same HTML output. The point is, if you want to, you can use ordinal numbers in your ordered Markdown lists, so that the numbers in your source match the numbers in your published HTML. But if you want to be lazy, you don't have to.
 

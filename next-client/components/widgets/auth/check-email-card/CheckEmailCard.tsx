@@ -6,7 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/shared/ui/card";
-import { Routing } from "@/lib/routing";
+import { routes } from "@/lib/routing";
 import Link from "next/link";
 
 interface CheckEmailCardProps {
@@ -27,15 +27,13 @@ export function CheckEmailCard(props: CheckEmailCardProps) {
       </CardContent>
       <CardFooter className="flex flex-col">
         <Button className="w-full mb-3" asChild>
-          <Link href={Routing.auth.verifyEmail(email)}>
-            Enter code manually
-          </Link>
+          <Link href={routes.auth.verifyEmail(email)}>Enter code manually</Link>
         </Button>
         <p className="text-sm">
           <span className="text-muted-foreground">Back to</span>{" "}
           <Link
             className="text-primary font-semibold underline"
-            href={Routing.auth.signIn}
+            href={routes.auth.signIn}
           >
             Sign in
           </Link>

@@ -1,26 +1,31 @@
-import { Routing, navLinks } from "@/lib/routing";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { UserMenu } from "@/components/widgets/auth";
+import { NavLink, routes } from "@/lib/routing";
+import { Logo } from "..";
 
-export default function Navbar() {
+const navLinks: NavLink[] = [
+  {
+    name: "Home",
+    route: routes.root,
+  },
+  {
+    name: "Blog",
+    route: routes.blog.root,
+  },
+  {
+    name: "About me",
+    route: routes.aboutMe,
+  },
+];
+
+export function Navbar() {
   return (
     <nav className="bg-white border-b border-gray-200">
       <div className="w-full max-w-screen-2xl flex items-center h-14 px-10 mx-auto justify-between">
         <div className="flex items-center">
-          <Link className="flex items-center mr-8" href={Routing.root}>
-            <Image
-              className="mr-3"
-              src="logo.svg"
-              alt="logo"
-              width={32}
-              height={32}
-            />
-            <p className="text-2xl font-semibold text-secondary-foreground">
-              Code Journey
-            </p>
-          </Link>
+          <Logo />
           <div className="space-x-8">
             {navLinks.map((link) => (
               <Link
@@ -37,10 +42,10 @@ export default function Navbar() {
           fallback={
             <div>
               <Button className="mr-3" variant="text" asChild>
-                <Link href={Routing.auth.signIn}>Sign in</Link>
+                <Link href={routes.auth.signIn}>Sign in</Link>
               </Button>
               <Button asChild>
-                <Link href={Routing.auth.signUp}>Sign up</Link>
+                <Link href={routes.auth.signUp}>Sign up</Link>
               </Button>
             </div>
           }

@@ -16,7 +16,7 @@ import {
   ResetPasswordDto,
   resetPasswordDtoSchema,
 } from "@/lib/dto/auth/reset-password.dto";
-import { Routing } from "@/lib/routing";
+import { routes } from "@/lib/routing";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -71,7 +71,7 @@ export function ResetPasswordCard(props: ResetPasswordCardProps) {
                   {data.message}. You can{" "}
                   <Link
                     className="font-semibold underline"
-                    href={Routing.auth.signIn}
+                    href={routes.auth.signIn}
                   >
                     sign in
                   </Link>{" "}

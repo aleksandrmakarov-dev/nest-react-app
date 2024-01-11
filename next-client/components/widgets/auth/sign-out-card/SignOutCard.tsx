@@ -1,9 +1,8 @@
 "use client";
 
 import { useSignOut } from "@/components/features/auth";
-import { Routing } from "@/lib/routing";
+import { routes } from "@/lib/routing";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export function SignOutCard() {
@@ -20,7 +19,7 @@ export function SignOutCard() {
       {isSuccess && (
         <p>
           Signed out of your account.{" "}
-          <Link href={Routing.auth.signIn} className="font-semibold underline">
+          <Link href={routes.auth.signIn} className="font-semibold underline">
             Sign in
           </Link>
         </p>

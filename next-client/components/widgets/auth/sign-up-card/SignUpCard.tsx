@@ -16,7 +16,7 @@ import {
   SignUpLocalDto,
   signUpLocalDtoSchema,
 } from "@/lib/dto/auth/sign-up-local.dto";
-import { Routing } from "@/lib/routing";
+import { routes } from "@/lib/routing";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -41,7 +41,7 @@ export function SignUpCard() {
     mutate(values, {
       onSuccess: () => {
         form.reset();
-        router.replace(Routing.auth.checkEmail(values.email));
+        router.replace(routes.auth.checkEmail(values.email));
       },
     });
   }
@@ -83,7 +83,7 @@ export function SignUpCard() {
               Already have an account?{" "}
               <Link
                 className="text-primary font-semibold underline"
-                href={Routing.auth.signIn}
+                href={routes.auth.signIn}
                 replace
               >
                 Sign in

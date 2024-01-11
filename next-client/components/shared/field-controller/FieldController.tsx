@@ -1,10 +1,5 @@
 "use client";
-import {
-  FieldValues,
-  FieldPath,
-  ControllerProps,
-  Controller,
-} from "react-hook-form";
+import { FieldValues, FieldPath, ControllerProps } from "react-hook-form";
 import {
   FormControl,
   FormDescription,
@@ -25,7 +20,7 @@ interface FieldControllerProps<
   className?: string;
 }
 
-export default function FieldController<
+export function FieldController<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 >(props: FieldControllerProps<TFieldValues, TName>) {

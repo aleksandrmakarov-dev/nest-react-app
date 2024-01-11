@@ -1,4 +1,4 @@
-import { MarkdownPreview } from "@/components/shared/markdown/markdown-preview/MarkdownPreview";
+import { MarkdownPreview } from "@/components/shared";
 import { cn } from "@/lib/utils";
 import { HTMLAttributes } from "react";
 

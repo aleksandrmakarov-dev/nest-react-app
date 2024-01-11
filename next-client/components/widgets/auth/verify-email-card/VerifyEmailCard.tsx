@@ -16,7 +16,7 @@ import {
   VerifyEmailDto,
   verifyEmailDtoSchema,
 } from "@/lib/dto/auth/verify-email.dto";
-import { Routing } from "@/lib/routing";
+import { routes } from "@/lib/routing";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -83,7 +83,7 @@ export function VerifyEmailCard(props: VerifyEmailCardProps) {
                   {data.message} You can{" "}
                   <Link
                     className="font-semibold underline"
-                    href={Routing.auth.signIn}
+                    href={routes.auth.signIn}
                     replace
                   >
                     sign in
@@ -104,7 +104,7 @@ export function VerifyEmailCard(props: VerifyEmailCardProps) {
               </span>{" "}
               <Link
                 className="text-primary font-semibold underline"
-                href={Routing.auth.signIn}
+                href={routes.auth.signIn}
               >
                 Click to resend
               </Link>

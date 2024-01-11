@@ -1,4 +1,4 @@
-import FieldController from "@/components/shared/field-controller/FieldController";
+import { FieldController } from "@/components/shared";
 import { Input } from "@/components/shared/ui/input";
 import { SignInLocalDto } from "@/lib/dto/auth/sign-in-local.dto";
 import { Control } from "react-hook-form";

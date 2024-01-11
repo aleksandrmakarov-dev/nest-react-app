@@ -17,7 +17,7 @@ import {
   SignInLocalDto,
   signInLocalDtoSchema,
 } from "@/lib/dto/auth/sign-in-local.dto";
-import { Routing } from "@/lib/routing";
+import { routes } from "@/lib/routing";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
@@ -73,7 +73,7 @@ export function SignInCard() {
             <div className="text-end mt-2">
               <Link
                 className="text-sm text-primary font-semibold underline"
-                href={Routing.auth.forgotPassword}
+                href={routes.auth.forgotPassword}
               >
                 Forgot password?
               </Link>
@@ -92,7 +92,7 @@ export function SignInCard() {
               Don’t have an account yet?{" "}
               <Link
                 className="text-primary font-semibold underline"
-                href={Routing.auth.signUp}
+                href={routes.auth.signUp}
                 replace
               >
                 Sign Up

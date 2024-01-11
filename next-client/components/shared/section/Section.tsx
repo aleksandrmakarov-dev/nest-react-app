@@ -5,7 +5,7 @@ interface SectionProps extends HTMLAttributes<HTMLDivElement> {
   header: string;
 }
 
-export default function Section(props: SectionProps) {
+export function Section(props: SectionProps) {
   const { header, children, className, ...other } = props;
 
   return (

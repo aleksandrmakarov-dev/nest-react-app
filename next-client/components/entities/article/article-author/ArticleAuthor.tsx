@@ -3,7 +3,6 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/components/shared/ui/avatar";
-import { ArticleResponseDto } from "@/lib/dto/article/article-response.dto";
 import { UserResponseDto } from "@/lib/dto/user/user-response.dto";
 import { stringToColor, stringAvatar, formatDate } from "@/lib/utils";
 

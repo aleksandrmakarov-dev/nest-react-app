@@ -4,7 +4,7 @@ import {
   faLinkedin,
 } from "@fortawesome/free-brands-svg-icons";
 
-export const Routing = {
+export const routes = {
   root: "/",
   auth: {
     signIn: "/sign-in",
@@ -18,30 +18,31 @@ export const Routing = {
   },
   blog: {
     root: "/blog",
-    byId: (id: string) => `/blog/${id}`,
+    byId: (id: string) => route(routes.blog.root, id),
+  },
+  dashboard: {
+    root: "/dashboard",
+    home: () => route(routes.dashboard.root, "home"),
+    articles: () => route(routes.dashboard.root, "articles"),
+    tags: () => route(routes.dashboard.root, "tags"),
+    users: () => route(routes.dashboard.root, "users"),
+    settings: {
+      root: () => route(routes.dashboard.root, "settings"),
+      profile: () => route(routes.dashboard.settings.root(), "profile"),
+    },
   },
   aboutMe: "/about-me",
 };
 
-interface NavLink {
-  name: string;
-  route: string;
+function route(...routes: string[]) {
+  return routes.join("/");
 }
 
-export const navLinks: NavLink[] = [
-  {
-    name: "Home",
-    route: Routing.root,
-  },
-  {
-    name: "Blog",
-    route: Routing.blog.root,
-  },
-  {
-    name: "About me",
-    route: Routing.aboutMe,
-  },
-];
+export interface NavLink {
+  name: string;
+  route: string;
+  icon?: IconDefinition;
+}
 
 interface SocialMediaLink {
   icon: IconDefinition;

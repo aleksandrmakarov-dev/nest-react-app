@@ -1,18 +1,10 @@
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/shared/ui/avatar";
 import { ArticleResponseDto } from "@/lib/dto/article/article-response.dto";
-import { formatDate, stringAvatar, stringToColor } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import { Badge } from "@/components/shared/ui/badge";
-import { Routing } from "@/lib/routing";
-import { TagList } from "../../tag";
-import React, { HTMLAttributes } from "react";
+import React from "react";
 import { ArticleAuthor } from "../article-author/ArticleAuthor";
 import { ArticleTags } from "..";
+import { routes } from "@/lib/routing";
 
 interface ArticleCardProps {
   article: ArticleResponseDto;
@@ -40,7 +32,7 @@ export const ArticleCard = React.forwardRef<HTMLDivElement, ArticleCardProps>(
           )}
         </div>
         <h5 className="text-2xl font-semibold mb-3 flex items-start gap-x-2 hover:underline hover:cursor-pointer">
-          <Link className="mr-1" href={Routing.blog.byId(id)}>
+          <Link className="mr-1" href={routes.blog.byId(id)}>
             {title}
           </Link>
         </h5>

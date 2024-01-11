@@ -4,10 +4,10 @@ import Markdown from "react-markdown";
 import rehypeSlug from "rehype-slug";
 import remarkGfm from "remark-gfm";
 import { P } from "../components/P";
-import { H1, H2, H3, H4, H5, H6 } from "../components/headers";
 import { Image } from "../components/Image";
 import { A } from "../components/A";
 import { Li, Ol, Ul } from "../components/Lists";
+import { H1, H2, H3, H4, H5, H6 } from "../components/Headers";
 
 interface MarkdownPreviewProps extends HTMLAttributes<HTMLDivElement> {
   content: string;

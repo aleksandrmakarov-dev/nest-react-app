@@ -2,7 +2,7 @@ import { socialMediaLinks } from "@/lib/routing";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 
-export default function Footer() {
+export function Footer() {
   return (
     <div className="w-full">
       <div className="bg-gray-100">

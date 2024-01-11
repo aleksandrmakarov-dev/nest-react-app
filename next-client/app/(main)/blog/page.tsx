@@ -2,7 +2,7 @@ import {
   ArticleFilter,
   prefetchInfinityArticles,
 } from "@/components/entities/article";
-import Section from "@/components/shared/section/Section";
+import { Section } from "@/components/shared";
 import { GlobalArticleFeed } from "@/components/widgets/article";
 import { PopularTags } from "@/components/widgets/tag";
 import { HydrationBoundary, dehydrate } from "@tanstack/react-query";
@@ -14,8 +14,8 @@ export default async function BlogPage() {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <div className="grid grid-cols-10 w-full max-w-screen-xl mx-auto">
-        <div className="col-span-3 mr-14 flex flex-col gap-5">
-          <Section header="Filter">
+        <div className="col-span-3 mr-14">
+          <Section className="mb-5" header="Filter">
             <ArticleFilter />
           </Section>
           <Section header="Popular tags">

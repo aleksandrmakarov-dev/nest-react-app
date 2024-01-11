@@ -1,8 +1,7 @@
-import SectionHeader from "@/components/shared/landing/section-header";
-import SectionQuestion from "@/components/shared/landing/section-question";
+import { SectionHeader, SectionQuestion } from "@/components/shared";
 import { Badge } from "@/components/shared/ui/badge";
 import { Button } from "@/components/shared/ui/button";
-import { Routing } from "@/lib/routing";
+import { routes } from "@/lib/routing";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -25,10 +24,10 @@ export default function HomePage() {
         </p>
         <div className="grid grid-cols-2 space-x-3 max-w-md mx-auto mb-5">
           <Button className="h-12" variant="outline" asChild>
-            <Link href={Routing.root}>See projects</Link>
+            <Link href={routes.root}>See projects</Link>
           </Button>
           <Button className="h-12" variant="default" asChild>
-            <Link href={Routing.root}> Contact me</Link>
+            <Link href={routes.root}> Contact me</Link>
           </Button>
         </div>
       </div>

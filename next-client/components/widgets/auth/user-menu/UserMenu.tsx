@@ -13,12 +13,12 @@ export function UserMenu(props: UserMenuProps) {
 
   return (
     <>
-      {user ? (
-        <UserDropdownMenu user={user}>
-          <UserMenuProfile user={user} />
-        </UserDropdownMenu>
+      {!user && !isLoading ? (
+        fallback
       ) : (
-        !isLoading && fallback
+        <UserDropdownMenu user={user}>
+          <UserMenuProfile user={user} isLoading={isLoading} />
+        </UserDropdownMenu>
       )}
     </>
   );
