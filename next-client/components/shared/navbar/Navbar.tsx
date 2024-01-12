@@ -25,7 +25,7 @@ export function Navbar() {
     <nav className="bg-white border-b border-gray-200">
       <div className="w-full max-w-screen-2xl flex items-center h-14 px-10 mx-auto justify-between">
         <div className="flex items-center">
-          <Logo />
+          <Logo className="mr-3" />
           <div className="space-x-8">
             {navLinks.map((link) => (
               <Link

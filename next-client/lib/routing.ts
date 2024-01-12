@@ -23,7 +23,10 @@ export const routes = {
   dashboard: {
     root: "/dashboard",
     home: () => route(routes.dashboard.root, "home"),
-    articles: () => route(routes.dashboard.root, "articles"),
+    articles: {
+      root: () => route(routes.dashboard.root, "articles"),
+      edit: (id: string) => route(routes.dashboard.articles.root(), id, "edit"),
+    },
     tags: () => route(routes.dashboard.root, "tags"),
     users: () => route(routes.dashboard.root, "users"),
     settings: {

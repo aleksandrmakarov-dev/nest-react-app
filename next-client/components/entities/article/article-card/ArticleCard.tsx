@@ -18,7 +18,7 @@ export const ArticleCard = React.forwardRef<HTMLDivElement, ArticleCardProps>(
 
     return (
       <div ref={ref}>
-        <ArticleAuthor user={user} createdAt={createdAt} />
+        <ArticleAuthor className="mb-3" user={user} createdAt={createdAt} />
         <div className="w-full h-64 relative mb-3">
           {image ? (
             <Image

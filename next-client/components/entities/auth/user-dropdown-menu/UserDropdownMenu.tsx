@@ -27,7 +27,9 @@ export function UserDropdownMenu(props: UserDropdownMenuProps) {
             <div className="font-medium truncate">{user.email}</div>
           </div>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Profile</DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer" asChild>
+            <Link href={routes.dashboard.settings.profile()}>Profile</Link>
+          </DropdownMenuItem>
           <DropdownMenuItem>Billing</DropdownMenuItem>
           <DropdownMenuItem>Team</DropdownMenuItem>
           <DropdownMenuSeparator />

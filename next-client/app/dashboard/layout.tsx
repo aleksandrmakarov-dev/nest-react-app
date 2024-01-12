@@ -22,7 +22,7 @@ const navLinks: NavLink[] = [
   },
   {
     name: "Articles",
-    route: routes.dashboard.articles(),
+    route: routes.dashboard.articles.root(),
     icon: faFolder,
   },
   {
@@ -67,7 +67,7 @@ export default function DashboardLayout(props: DashboardLayoutProps) {
 
   return (
     <main className="min-h-screen flex">
-      <aside className="max-w-xs w-full h-screen p-5 flex flex-col border-r border-border">
+      <aside className="max-w-xs w-full h-screen p-5 flex flex-col border-r border-border sticky top-0">
         <div className="h-14 flex items-center mb-3">
           <Logo />
         </div>

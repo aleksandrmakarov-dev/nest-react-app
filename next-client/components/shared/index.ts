@@ -7,3 +7,5 @@ export { Navbar } from "./navbar/Navbar";
 export { Section } from "./section/Section";
 export { Toc } from "./toc/Toc";
 export { Logo } from "./logo/Logo";
+export { DashboardHeader } from "./dashboard-header/DashboardHeader";
+export { DataTable } from "./data-table/DataTable";

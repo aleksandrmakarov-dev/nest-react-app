@@ -1,3 +1,4 @@
+import { DashboardHeader } from "@/components/shared";
 import { NavigationTab } from "@/components/shared/ui/navigation-tabs";
 import { NavLink, routes } from "@/lib/routing";
 
@@ -25,16 +26,10 @@ export default function SettingsLayout(props: SettingsLayoutProps) {
 
   return (
     <div>
-      <div className="h-14 flex items-center mb-3">
-        <h1 className="text-3xl font-medium block">Settings</h1>
-      </div>
-      <div className="mb-3 bg-muted border-border border p-1 rounded-md flex flex-wrap gap-x-1.5">
-        {navLinks.map((item, i) => (
-          <NavigationTab key={i} data-state="active" href={item.route}>
-            {item.name}
-          </NavigationTab>
-        ))}
-      </div>
+      <DashboardHeader
+        title="Settings"
+        subtitle="Manage your account settings"
+      />
       <div>{children}</div>
     </div>
   );
