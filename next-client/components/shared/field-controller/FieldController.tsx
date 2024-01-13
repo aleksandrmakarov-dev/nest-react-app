@@ -8,7 +8,6 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { Input } from "../ui/input";
 import { cn } from "@/lib/utils";
 
 interface FieldControllerProps<
@@ -18,19 +17,25 @@ interface FieldControllerProps<
   label?: string;
   description?: string;
   className?: string;
+  required?: boolean;
 }
 
 export function FieldController<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
 >(props: FieldControllerProps<TFieldValues, TName>) {
-  const { label, description, className, render, ...other } = props;
+  const { label, description, required, className, render, ...other } = props;
 
   return (
     <FormField
       render={(value) => (
         <FormItem className={cn(className)}>
-          {label && <FormLabel>{label}</FormLabel>}
+          {label && (
+            <FormLabel>
+              {label}
+              {required && <span className="text-red-500"> *</span>}
+            </FormLabel>
+          )}
           <FormControl>{render(value)}</FormControl>
           {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />

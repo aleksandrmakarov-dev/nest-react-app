@@ -26,7 +26,6 @@ export class CreateArticleDto {
 
   @IsOptional()
   @IsString()
-  @IsUrl()
   @ApiProperty()
   image?: string;
 

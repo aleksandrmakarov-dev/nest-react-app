@@ -1,4 +1,5 @@
 "use client";
+import { SignInSignUp } from "@/components/entities/auth";
 import {
   Avatar,
   AvatarFallback,
@@ -38,7 +39,7 @@ export function DashboardUserProfile() {
           </div>
         </>
       ) : (
-        <p>error</p>
+        <SignInSignUp />
       )}
     </div>
   );

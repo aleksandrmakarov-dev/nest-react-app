@@ -25,7 +25,8 @@ export const routes = {
     home: () => route(routes.dashboard.root, "home"),
     articles: {
       root: () => route(routes.dashboard.root, "articles"),
-      edit: (id: string) => route(routes.dashboard.articles.root(), id, "edit"),
+      byId: (id: string) => route(routes.dashboard.articles.root(), id),
+      new: () => route(routes.dashboard.articles.root(), "new"),
     },
     tags: () => route(routes.dashboard.root, "tags"),
     users: () => route(routes.dashboard.root, "users"),

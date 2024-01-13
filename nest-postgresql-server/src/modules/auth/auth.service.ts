@@ -122,9 +122,11 @@ export class AuthService {
     });
 
     const userData: UserDataDto = {
+      id: foundUser.id,
       name: foundUser.name,
       email: foundUser.email,
       image: foundUser.image,
+      role: foundUser.role,
       accessToken: accessToken,
     };
 
@@ -170,9 +172,11 @@ export class AuthService {
     });
 
     const userData: UserDataDto = {
+      id: foundUser.id,
       name: foundUser.name,
       email: foundUser.email,
       image: foundUser.image,
+      role: foundUser.role,
       accessToken: accessToken,
     };
 

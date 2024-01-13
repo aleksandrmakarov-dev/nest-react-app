@@ -6,6 +6,10 @@ import { formatDate } from "@/lib/utils";
 import Link from "next/link";
 import { routes } from "@/lib/routing";
 import { Pagination } from "@/lib/dto/shared/paged-response.dto";
+import { Button } from "@/components/shared/ui/button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { DeleteArticleDialog } from "@/components/widgets/article";
 
 interface ArticleTableProps {
   articles?: ArticleResponseDto[];
@@ -37,15 +41,24 @@ const columns: ColumnDef<ArticleResponseDto>[] = [
     },
   },
   {
-    id: "view",
+    id: "actions",
     cell: ({ row }) => {
       return (
-        <Link
-          className="font-medium text-primary"
-          href={routes.dashboard.articles.edit(row.original.id)}
-        >
-          View
-        </Link>
+        <div className="flex flex-wrap gap-1">
+          <Button size="icon" variant="outline" asChild>
+            <Link href={routes.dashboard.articles.byId(row.original.id)}>
+              <FontAwesomeIcon icon={faEdit} />
+            </Link>
+          </Button>
+          <DeleteArticleDialog
+            id={row.original.id}
+            trigger={
+              <Button size="icon" variant="outline">
+                <FontAwesomeIcon icon={faTrash} />
+              </Button>
+            }
+          />
+        </div>
       );
     },
   },

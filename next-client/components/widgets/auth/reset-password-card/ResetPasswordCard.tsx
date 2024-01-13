@@ -1,6 +1,7 @@
 "use client";
 import { ResetPasswordBody } from "@/components/entities/auth";
 import { useResetPassword } from "@/components/features/auth";
+import { FormController } from "@/components/shared";
 import { Alert, AlertDescription } from "@/components/shared/ui/alert";
 import {
   Card,
@@ -54,56 +55,43 @@ export function ResetPasswordCard(props: ResetPasswordCardProps) {
 
   return (
     <Card className="w-full max-w-md">
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <CardHeader>
-            <CardTitle className="text-center">Reset password</CardTitle>
-            <CardDescription>
-              Your new password must be different to your previously used
-              password and be at least 5 characters.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            {isSuccess && (
-              <Alert variant="success" className="mb-3">
-                <FontAwesomeIcon icon="check-circle" className="h-5 w-5" />
-                <AlertDescription>
-                  {data.message}. You can{" "}
-                  <Link
-                    className="font-semibold underline"
-                    href={routes.auth.signIn}
-                  >
-                    sign in
-                  </Link>{" "}
-                  with new password.
-                </AlertDescription>
-              </Alert>
-            )}
-            {isError && (
-              <Alert variant="error" className="mb-3">
-                <FontAwesomeIcon
-                  icon="exclamation-circle"
-                  className="h-5 w-5"
-                />
-                <AlertDescription>
-                  {error.response?.data.message}
-                </AlertDescription>
-              </Alert>
-            )}
-            <ResetPasswordBody control={form.control} isLoading={isPending} />
-          </CardContent>
-          <CardFooter>
-            <LoadingButton
-              disabled={isPending}
-              loading={isPending}
-              className="w-full mb-5"
-              type="submit"
-            >
-              Set new password
-            </LoadingButton>
-          </CardFooter>
-        </form>
-      </Form>
+      <CardHeader>
+        <CardTitle className="text-center">Reset password</CardTitle>
+        <CardDescription>
+          Your new password must be different to your previously used password
+          and be at least 5 characters.
+        </CardDescription>
+      </CardHeader>
+      <FormController
+        form={form}
+        submit={onSubmit}
+        isError={isError}
+        error={error?.response?.data.message}
+        isSuccess={isSuccess}
+        success={
+          <p>
+            Your password has been reset, you can{" "}
+            <Link className="font-semibold underline" href={routes.auth.signIn}>
+              sign in
+            </Link>{" "}
+            with new password.
+          </p>
+        }
+      >
+        <CardContent>
+          <ResetPasswordBody control={form.control} isLoading={isPending} />
+        </CardContent>
+        <CardFooter>
+          <LoadingButton
+            disabled={isPending}
+            loading={isPending}
+            className="w-full mb-5"
+            type="submit"
+          >
+            Set new password
+          </LoadingButton>
+        </CardFooter>
+      </FormController>
     </Card>
   );
 }

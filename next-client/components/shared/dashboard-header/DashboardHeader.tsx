@@ -8,12 +8,15 @@ export function DashboardHeader(props: DashboardHeaderProps) {
   const { title, subtitle, action } = props;
 
   return (
-    <div className="mb-5 flex items-center justify-between gap-x-10">
-      <div>
-        <h1 className="text-3xl font-medium">{title}</h1>
-        {subtitle && <p>{subtitle}</p>}
+    <div className="mb-5">
+      <div className="flex items-center justify-between gap-x-10 mb-3">
+        <div>
+          <h1 className="text-3xl font-medium mb-2">{title}</h1>
+          {subtitle && <p>{subtitle}</p>}
+        </div>
+        {action}
       </div>
-      {action}
+      <div className="bg-border h-[1px]" />
     </div>
   );
 }

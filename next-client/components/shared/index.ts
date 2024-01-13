@@ -9,3 +9,5 @@ export { Toc } from "./toc/Toc";
 export { Logo } from "./logo/Logo";
 export { DashboardHeader } from "./dashboard-header/DashboardHeader";
 export { DataTable } from "./data-table/DataTable";
+export { FormController } from "./form-controller/FormController";
+export { DialogBase } from "./dialog-base/DialogBase";

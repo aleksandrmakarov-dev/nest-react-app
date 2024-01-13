@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import { UserMenu } from "@/components/widgets/auth";
 import { NavLink, routes } from "@/lib/routing";
 import { Logo } from "..";
+import { SignInSignUp } from "@/components/entities/auth";
 
 const navLinks: NavLink[] = [
   {
@@ -38,18 +39,7 @@ export function Navbar() {
             ))}
           </div>
         </div>
-        <UserMenu
-          fallback={
-            <div>
-              <Button className="mr-3" variant="text" asChild>
-                <Link href={routes.auth.signIn}>Sign in</Link>
-              </Button>
-              <Button asChild>
-                <Link href={routes.auth.signUp}>Sign up</Link>
-              </Button>
-            </div>
-          }
-        />
+        <UserMenu fallback={<SignInSignUp />} />
       </div>
     </nav>
   );

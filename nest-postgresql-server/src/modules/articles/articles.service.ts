@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { DatabaseService } from "src/core/database/database.service";
 import { CreateArticleDto } from "./dto/create-article.dto";
-import { UpdateAccountDto } from "../accounts/dto/update-account.dto";
 import { UpdateArticleDto } from "./dto/update-article.dto";
 import { GetArticlesQueryDto } from "./dto/get-articles-query.dto";
 import {
@@ -56,6 +55,9 @@ export class ArticlesService {
     const items = await this.databaseService.article.findMany({
       skip: (page - 1) * size,
       take: size,
+      orderBy: {
+        createdAt: "desc",
+      },
       include: {
         tags: {
           select: {

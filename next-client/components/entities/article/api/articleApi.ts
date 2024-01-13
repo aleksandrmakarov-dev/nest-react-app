@@ -26,6 +26,11 @@ export const articleKeys = {
     ],
     byId: (id: string) => [...articleKeys.articles.root, "by-id", id],
   },
+  mutations: {
+    create: () => [...articleKeys.articles.root, "create"],
+    update: () => [...articleKeys.articles.root, "update"],
+    delete: () => [...articleKeys.articles.root, "delete"],
+  },
 };
 
 // Get articles page

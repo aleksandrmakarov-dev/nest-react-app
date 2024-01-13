@@ -6,5 +6,7 @@ export { ArticleTags } from "./article-tags/ArticleTags";
 export { ArticleBody } from "./article-body/ArticleBody";
 export { ArticleShare } from "./article-share/ArticleShare";
 export { ArticleTable } from "./article-table/ArticleTable";
+export { ArticleFormBody } from "./article-form-body/ArticleFormBody";
+export { ArticleForm } from "./article-form/ArticleForm";
 
 export * from "./api/articleApi";

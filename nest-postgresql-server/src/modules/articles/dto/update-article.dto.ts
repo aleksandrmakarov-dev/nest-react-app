@@ -27,7 +27,6 @@ export class UpdateArticleDto {
 
   @IsOptional()
   @IsString()
-  @IsUrl()
   @ApiProperty()
   image?: string;
 

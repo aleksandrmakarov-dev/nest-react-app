@@ -22,6 +22,7 @@ import { UsersService } from "../users/users.service";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { UpdateArticleDto } from "./dto/update-article.dto";
 import { GetArticlesQueryDto } from "./dto/get-articles-query.dto";
+import { IdResponseDto } from "src/common/dto/id-response.dto";
 
 @ApiTags("articles")
 @Controller("articles")
@@ -51,7 +52,7 @@ export class ArticlesController {
 
     const createdArticle = await this.articlesService.create(dto);
 
-    return createdArticle;
+    return new IdResponseDto(createdArticle.id);
   }
 
   @Get()

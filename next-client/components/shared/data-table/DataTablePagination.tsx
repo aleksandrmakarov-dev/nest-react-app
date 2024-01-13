@@ -10,6 +10,7 @@ import {
   PaginationPrevious,
 } from "../ui/pagination";
 import { usePathname, useSearchParams } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 interface DataTablePaginationProps {
   pagination: PaginationDto;
@@ -35,14 +36,14 @@ export function DataTablePagination(props: DataTablePaginationProps) {
   return (
     <Pagination className="p-2">
       <PaginationContent className="flex justify-between w-full">
-        <PaginationItem>
-          <PaginationPrevious
-            href={hasPrevPage ? getUrl(page - 1) : undefined}
-          />
-        </PaginationItem>
-        <PaginationItem>
-          <PaginationNext href={hasNextPage ? getUrl(page + 1) : undefined} />
-        </PaginationItem>
+        <PaginationPrevious
+          className={cn({ hidden: !hasPrevPage })}
+          href={hasPrevPage ? getUrl(page - 1) : undefined}
+        />
+        <PaginationNext
+          className={cn({ hidden: !hasNextPage })}
+          href={hasNextPage ? getUrl(page + 1) : undefined}
+        />
       </PaginationContent>
     </Pagination>
   );
