@@ -1,5 +1,5 @@
 "use client";
-import { UserDataDto } from "@/lib/dto/auth/user-data.dto";
+import { SessionDto } from "@/lib/dto/auth/session.dto";
 import {
   Dispatch,
   SetStateAction,
@@ -10,10 +10,11 @@ import {
 } from "react";
 import axios from "@/lib/axios";
 import { useRefreshToken } from "@/components/features/auth/refresh-token/refreshTokenApi";
+import { removeSession, setSession } from "@/session";
 
 interface AuthContextData {
-  user: UserDataDto | null;
-  setUser: Dispatch<SetStateAction<UserDataDto | null>>;
+  user: SessionDto | null;
+  setUser: Dispatch<SetStateAction<SessionDto | null>>;
   isLoading?: boolean;
 }
 
@@ -24,23 +25,24 @@ const AuthContext = createContext<AuthContextData>({
 });
 
 interface AuthProviderProps {
+  session: SessionDto | null;
   children: React.ReactNode;
 }
 
 export function AuthProvider(props: AuthProviderProps) {
   const { mutate, isPending } = useRefreshToken();
-  const [user, setUser] = useState<UserDataDto | null>(null);
+  const [user, setUser] = useState<SessionDto | null>(props.session);
 
-  useEffect(() => {
-    mutate(
-      {},
-      {
-        onSuccess: (value) => {
-          setUser(value);
-        },
-      }
-    );
-  }, []);
+  // useEffect(() => {
+  //   mutate(
+  //     {},
+  //     {
+  //       onSuccess: (value) => {
+  //         setUser(value);
+  //       },
+  //     }
+  //   );
+  // }, []);
 
   useEffect(() => {
     if (user) {
@@ -53,6 +55,12 @@ export function AuthProvider(props: AuthProviderProps) {
         },
         (error) => Promise.reject(error)
       );
+
+      ("use server");
+      setSession(user);
+    } else {
+      ("use server");
+      removeSession();
     }
   }, [user]);
 

@@ -4,7 +4,7 @@ import {
   AvatarImage,
 } from "@/components/shared/ui/avatar";
 import { Skeleton } from "@/components/shared/ui/skeleton";
-import { UserDataDto } from "@/lib/dto/auth/user-data.dto";
+import { UserDataDto } from "@/lib/dto/auth/session.dto";
 import { cn, stringAvatar, stringToColor } from "@/lib/utils";
 import React, { HtmlHTMLAttributes } from "react";
 

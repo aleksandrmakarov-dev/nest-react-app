@@ -166,10 +166,10 @@ export class AuthService {
 
     const { accessToken, refreshToken } = await this.getTokens(foundUser);
 
-    await this.accountService.rotateRefreshToken(foundAccount.id, {
-      refreshToken: refreshToken,
-      expiresAt: moment().add(7, "days").toDate(),
-    });
+    // await this.accountService.rotateRefreshToken(foundAccount.id, {
+    //   refreshToken: refreshToken,
+    //   expiresAt: moment().add(7, "days").toDate(),
+    // });
 
     const userData: UserDataDto = {
       id: foundUser.id,
@@ -181,8 +181,9 @@ export class AuthService {
     };
 
     return {
-      refreshToken: refreshToken,
+      // refreshToken: refreshToken,
       userData: userData,
+      refreshToken: dto.token,
     };
   }
 

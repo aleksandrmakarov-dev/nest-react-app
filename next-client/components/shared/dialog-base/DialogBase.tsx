@@ -11,8 +11,6 @@ import {
 import { Alert, AlertDescription } from "../ui/alert";
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import error from "next/error";
-import { isError } from "util";
 
 interface DialogBaseProps {
   trigger: JSX.Element;

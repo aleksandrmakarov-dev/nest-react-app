@@ -1,5 +1,5 @@
 import axios from "@/lib/axios";
-import { UserDataDto } from "@/lib/dto/auth/user-data.dto";
+import { UserDataDto } from "@/lib/dto/auth/session.dto";
 import { ForgotPasswordDto } from "@/lib/dto/auth/forgot-password.dto";
 import { ResetPasswordDto } from "@/lib/dto/auth/reset-password.dto";
 import { SignInLocalDto } from "@/lib/dto/auth/sign-in-local.dto";

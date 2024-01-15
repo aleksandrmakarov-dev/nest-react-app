@@ -49,8 +49,8 @@ export function GlobalArticleFeed() {
                 data?.pages.length === i + 1 && page.items.length === j + 1;
               return (
                 <ArticleCard
-                  ref={isLast ? lastArticleRef : undefined}
                   key={item.id}
+                  ref={isLast ? lastArticleRef : undefined}
                   article={item}
                 />
               );

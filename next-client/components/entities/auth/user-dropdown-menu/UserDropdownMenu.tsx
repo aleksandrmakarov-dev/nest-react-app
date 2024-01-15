@@ -5,7 +5,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/shared/ui/dropdown-menu";
-import { UserDataDto } from "@/lib/dto/auth/user-data.dto";
+import { UserDataDto } from "@/lib/dto/auth/session.dto";
 import { routes } from "@/lib/routing";
 import Link from "next/link";
 
@@ -28,9 +28,11 @@ export function UserDropdownMenu(props: UserDropdownMenuProps) {
           </div>
           <DropdownMenuSeparator />
           <DropdownMenuItem className="cursor-pointer" asChild>
+            <Link href={routes.dashboard.home()}>Dashboard</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem className="cursor-pointer" asChild>
             <Link href={routes.dashboard.settings.profile()}>Profile</Link>
           </DropdownMenuItem>
-          <DropdownMenuItem>Billing</DropdownMenuItem>
           <DropdownMenuItem>Team</DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem className="cursor-pointer" asChild>

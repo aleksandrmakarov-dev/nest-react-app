@@ -1,6 +1,7 @@
-import { FieldController } from "@/components/shared";
+import { FieldController, Select } from "@/components/shared";
 import { Input } from "@/components/shared/ui/input";
 import { Textarea } from "@/components/shared/ui/textarea";
+import { TagSelect } from "@/components/widgets/tag";
 import { EditArticleDto } from "@/lib/dto/article/edit-article.dto";
 import { Control } from "react-hook-form";
 
@@ -51,7 +52,7 @@ export function ArticleFormBody(props: ArticleFormBodyProps) {
           label="Tags"
           disabled={isLoading}
           required
-          render={({ field }) => <Input {...field} />}
+          render={({ field }) => <TagSelect {...field} />}
         />
         <FieldController
           control={control}

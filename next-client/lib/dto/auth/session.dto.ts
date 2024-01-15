@@ -1,4 +1,4 @@
-export type UserDataDto = {
+export type SessionDto = {
   id: string;
   name: string;
   email: string;
