@@ -1,5 +1,5 @@
 import axios from "@/lib/axios";
-import { UserDataDto } from "@/lib/dto/auth/session.dto";
+import { SessionDto } from "@/lib/dto/auth/session.dto";
 import { ForgotPasswordDto } from "@/lib/dto/auth/forgot-password.dto";
 import { ResetPasswordDto } from "@/lib/dto/auth/reset-password.dto";
 import { SignInLocalDto } from "@/lib/dto/auth/sign-in-local.dto";
@@ -10,7 +10,7 @@ import { GenericResponseDto } from "@/lib/dto/shared/generic-response.dto";
 const baseUrl = "/auth";
 
 async function signInLocal(values: SignInLocalDto) {
-  const response = await axios.post<UserDataDto>(`${baseUrl}/sign-in`, values);
+  const response = await axios.post<SessionDto>(`${baseUrl}/sign-in`, values);
   return response.data;
 }
 
@@ -50,7 +50,7 @@ async function forgotPassword(values: ForgotPasswordDto) {
 }
 
 async function refreshToken() {
-  const response = await axios.post<UserDataDto>(`${baseUrl}/refresh-token`);
+  const response = await axios.post<SessionDto>(`${baseUrl}/refresh-token`);
   return response.data;
 }
 

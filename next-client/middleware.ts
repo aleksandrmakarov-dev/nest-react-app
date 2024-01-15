@@ -1,36 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
+import { cookieOptions, sessionKey } from "./session/session.utils";
 import { getSession } from "./session";
+import { SessionDto } from "./lib/dto/auth/session.dto";
+import { encryptSymmetric } from "./session/encrypt";
 
 export async function middleware(req: NextRequest) {
-  let session = await getSession();
-
-  let setCookieHeader: string[] = [];
-
-  if (!session) {
-    console.log("fetching new session...");
-    const response = await fetch(
-      "http://localhost:3000/api/auth/refresh-token",
-      {
-        method: "POST",
-        headers: {
-          Cookie: req.cookies.toString(),
-        },
-      }
-    );
-
-    if (response.ok) {
-      session = await response.json();
-      setCookieHeader = response.headers.getSetCookie();
-    } else {
-      console.log(await response.json());
-    }
-  }
+  const session = await getServerSession(req);
 
   const foundRoute = protect.find((pr) =>
     new RegExp(`^${pr.route}$`).test(req.nextUrl.pathname)
   );
 
-  if (!foundRoute) return NextResponse.next();
+  const response = NextResponse.next();
+
+  if (session) {
+    const { ciphertext, iv } = await encryptSymmetric(JSON.stringify(session));
+    response.cookies.set(
+      sessionKey,
+      JSON.stringify({ value: ciphertext, iv: iv }),
+      cookieOptions
+    );
+  }
+
+  if (!foundRoute) return response;
 
   if (!session) return NextResponse.redirect(new URL("/sign-in", req.url));
 
@@ -41,12 +33,34 @@ export async function middleware(req: NextRequest) {
     }
   }
 
-  return NextResponse.next({
-    headers: {
-      "set-cookie": setCookieHeader.toString(),
-    },
-  });
+  return response;
 }
+
+const getServerSession = async (req: NextRequest) => {
+  const session = await getSession();
+
+  if (session) {
+    return session;
+  } else {
+    const response = await fetch(
+      "http://localhost:3001/api/auth/refresh-token",
+      {
+        method: "POST",
+        headers: {
+          Cookie: req.cookies.toString(),
+        },
+      }
+    );
+
+    if (response.ok) {
+      const newSession = await response.json();
+      return newSession as SessionDto;
+    } else {
+      console.log(await response.json());
+      return null;
+    }
+  }
+};
 
 interface Route {
   route: string;

@@ -55,9 +55,6 @@ export function AuthProvider(props: AuthProviderProps) {
         },
         (error) => Promise.reject(error)
       );
-
-      ("use server");
-      setSession(user);
     } else {
       ("use server");
       removeSession();

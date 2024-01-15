@@ -6,6 +6,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCallback, useRef } from "react";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import React from "react";
 
 export function GlobalArticleFeed() {
   const {
@@ -43,7 +44,7 @@ export function GlobalArticleFeed() {
     <div className="grid grid-cols-2 gap-10">
       {data?.pages.map((page, i) => {
         return (
-          <>
+          <React.Fragment key={`page-${i}`}>
             {page.items.map((item, j) => {
               const isLast =
                 data?.pages.length === i + 1 && page.items.length === j + 1;
@@ -55,7 +56,7 @@ export function GlobalArticleFeed() {
                 />
               );
             })}
-          </>
+          </React.Fragment>
         );
       })}
       {isFetchingNextPage && (

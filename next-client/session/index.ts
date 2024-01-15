@@ -2,15 +2,21 @@
 
 import { cookies } from "next/headers";
 import { SessionDto } from "@/lib/dto/auth/session.dto";
+import { cookieOptions, sessionKey } from "./session.utils";
+import { decryptSymmetric } from "./encrypt";
 
-const key = "session";
-
-export const getSession = (): SessionDto | null => {
+export const getSession = async () => {
   const cookieStore = cookies();
-  const session = cookieStore.get(key);
+  const session = cookieStore.get(sessionKey);
 
   if (session?.value) {
-    return JSON.parse(session.value) as SessionDto;
+    try {
+      const { value, iv } = JSON.parse(session.value);
+      const decrypted = await decryptSymmetric(value, iv);
+      return JSON.parse(decrypted) as SessionDto;
+    } catch (e) {
+      console.log("decrypting error:", e);
+    }
   }
 
   return null;
@@ -18,14 +24,10 @@ export const getSession = (): SessionDto | null => {
 
 export const setSession = (session: SessionDto) => {
   const cookieStore = cookies();
-  cookieStore.set(key, JSON.stringify(session), {
-    path: "/",
-    sameSite: "strict",
-    maxAge: 60 * 60 * 24,
-  });
+  cookieStore.set(sessionKey, JSON.stringify(session), cookieOptions);
 };
 
 export const removeSession = () => {
   const cookieStore = cookies();
-  cookieStore.delete(key);
+  cookieStore.delete(sessionKey);
 };
