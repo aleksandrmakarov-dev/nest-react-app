@@ -1,4 +1,3 @@
-import { ArticleResponseDto } from "@/lib/dto/article/article-response.dto";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -6,11 +5,7 @@ import { ArticleAuthor } from "../article-author/ArticleAuthor";
 import { ArticleTags } from "..";
 import { routes } from "@/lib/routing";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faImage } from "@fortawesome/free-solid-svg-icons";
-
-interface ArticleCardProps {
-  article: ArticleResponseDto;
-}
+import { ArticleCardProps } from "./ArticleCard";
 
 export const ArticleCard = React.forwardRef<HTMLDivElement, ArticleCardProps>(
   (props, ref) => {
@@ -30,7 +25,7 @@ export const ArticleCard = React.forwardRef<HTMLDivElement, ArticleCardProps>(
               fill
             />
           ) : (
-            <div className="bg-gray-100 w-full h-full rounded-sm flex items-center justify-center">
+            <div className="bg-gray-100 w-full h-full rounded-sm">
               <FontAwesomeIcon
                 className="text-gray-400"
                 icon={faImage}

@@ -20,18 +20,16 @@ export default async function ArticlesPage(context: ArticlesPageContext) {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <div>
-        <DashboardHeader
-          title="Articles"
-          subtitle="View and manage your articles"
-          action={
-            <Button asChild>
-              <Link href={routes.dashboard.articles.new()}>New</Link>
-            </Button>
-          }
-        />
-        <DashboardArticleTable page={searchParams.page} />
-      </div>
+      <DashboardHeader
+        title="Articles"
+        subtitle="View and manage your articles"
+        action={
+          <Button asChild>
+            <Link href={routes.dashboard.articles.new()}>New</Link>
+          </Button>
+        }
+      />
+      <DashboardArticleTable page={searchParams.page} />
     </HydrationBoundary>
   );
 }

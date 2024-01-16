@@ -17,7 +17,7 @@ interface DialogBaseProps {
   children: React.ReactNode;
   title: string;
   description?: string;
-  actions: React.ReactNode;
+  actions?: React.ReactNode;
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
   isError?: boolean;
@@ -52,7 +52,7 @@ export function DialogBase(props: DialogBaseProps) {
           </Alert>
         )}
         {children}
-        <DialogFooter>{actions}</DialogFooter>
+        {actions && <DialogFooter>{actions}</DialogFooter>}
       </DialogContent>
     </Dialog>
   );

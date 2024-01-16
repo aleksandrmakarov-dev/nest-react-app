@@ -17,7 +17,11 @@ export class TagsService {
   }
 
   async findMany() {
-    return await this.databaseService.tag.findMany();
+    return await this.databaseService.tag.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
   }
 
   async create(dto: CreateTagDto) {

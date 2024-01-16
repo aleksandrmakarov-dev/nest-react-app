@@ -42,25 +42,23 @@ const columns: ColumnDef<ArticleResponseDto>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => {
-      return (
-        <div className="flex flex-wrap gap-1">
-          <Button size="icon" variant="outline" asChild>
-            <Link href={routes.dashboard.articles.byId(row.original.id)}>
-              <FontAwesomeIcon icon={faEdit} />
-            </Link>
-          </Button>
-          <DeleteArticleDialog
-            id={row.original.id}
-            trigger={
-              <Button size="icon" variant="outline">
-                <FontAwesomeIcon icon={faTrash} />
-              </Button>
-            }
-          />
-        </div>
-      );
-    },
+    cell: ({ row }) => (
+      <div className="flex flex-wrap gap-1">
+        <Button size="icon" variant="outline" asChild>
+          <Link href={routes.dashboard.articles.byId(row.original.id)}>
+            <FontAwesomeIcon icon={faEdit} />
+          </Link>
+        </Button>
+        <DeleteArticleDialog
+          id={row.original.id}
+          trigger={
+            <Button size="icon" variant="outline">
+              <FontAwesomeIcon icon={faTrash} />
+            </Button>
+          }
+        />
+      </div>
+    ),
   },
 ];
 
