@@ -9,15 +9,15 @@ interface UserMenuProps {
 export function UserMenu(props: UserMenuProps) {
   const { fallback } = props;
 
-  const { user, isLoading } = useAuth();
+  const { session, isLoading } = useAuth();
 
   return (
     <>
-      {!user && !isLoading ? (
+      {!session && !isLoading ? (
         fallback
       ) : (
-        <UserDropdownMenu user={user}>
-          <UserMenuProfile user={user} isLoading={isLoading} />
+        <UserDropdownMenu user={session}>
+          <UserMenuProfile user={session} isLoading={isLoading} />
         </UserDropdownMenu>
       )}
     </>

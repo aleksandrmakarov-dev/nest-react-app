@@ -13,14 +13,14 @@ import { useRefreshToken } from "@/components/features/auth/refresh-token/refres
 import { removeSession, setSession } from "@/session";
 
 interface AuthContextData {
-  user: SessionDto | null;
-  setUser: Dispatch<SetStateAction<SessionDto | null>>;
+  session: SessionDto | null;
+  setSession: Dispatch<SetStateAction<SessionDto | null>>;
   isLoading?: boolean;
 }
 
 const AuthContext = createContext<AuthContextData>({
-  user: null,
-  setUser: () => {},
+  session: null,
+  setSession: () => {},
   isLoading: false,
 });
 
@@ -31,7 +31,7 @@ interface AuthProviderProps {
 
 export function AuthProvider(props: AuthProviderProps) {
   const { mutate, isPending } = useRefreshToken();
-  const [user, setUser] = useState<SessionDto | null>(props.session);
+  const [session, setSession] = useState<SessionDto | null>(props.session);
 
   // useEffect(() => {
   //   mutate(
@@ -45,11 +45,11 @@ export function AuthProvider(props: AuthProviderProps) {
   // }, []);
 
   useEffect(() => {
-    if (user) {
+    if (session) {
       axios.interceptors.request.use(
         (config) => {
           if (!config.headers.Authorization) {
-            config.headers.Authorization = `Bearer ${user.accessToken}`;
+            config.headers.Authorization = `Bearer ${session.accessToken}`;
           }
           return config;
         },
@@ -59,11 +59,11 @@ export function AuthProvider(props: AuthProviderProps) {
       ("use server");
       removeSession();
     }
-  }, [user]);
+  }, [session]);
 
   return (
     <AuthContext.Provider
-      value={{ user: user, setUser: setUser, isLoading: isPending }}
+      value={{ session: session, setSession: setSession, isLoading: isPending }}
     >
       {props.children}
     </AuthContext.Provider>

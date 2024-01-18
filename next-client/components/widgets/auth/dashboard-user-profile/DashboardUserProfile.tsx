@@ -10,7 +10,7 @@ import { useAuth } from "@/context/auth-provider/AuthProvider";
 import { stringToColor, stringAvatar } from "@/lib/utils";
 
 export function DashboardUserProfile() {
-  const { user, isLoading } = useAuth();
+  const { session, isLoading } = useAuth();
 
   return (
     <div className="flex items-center">
@@ -22,20 +22,20 @@ export function DashboardUserProfile() {
             <Skeleton className="h-4 w-24" />
           </div>
         </>
-      ) : user ? (
+      ) : session ? (
         <>
           <Avatar className="mr-3 w-8 h-8">
-            <AvatarImage src={user.image} />
+            <AvatarImage src={session.image} />
             <AvatarFallback
               className="text-white"
-              style={{ backgroundColor: stringToColor(user.name) }}
+              style={{ backgroundColor: stringToColor(session.name) }}
             >
-              {stringAvatar(user.name)}
+              {stringAvatar(session.name)}
             </AvatarFallback>
           </Avatar>
           <div className="text-sm">
-            <p className="font-medium">{user.name}</p>
-            <p className="text-clip">{user.email}</p>
+            <p className="font-medium">{session.name}</p>
+            <p className="text-clip">{session.email}</p>
           </div>
         </>
       ) : (

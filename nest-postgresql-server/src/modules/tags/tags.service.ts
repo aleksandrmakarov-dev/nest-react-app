@@ -3,6 +3,11 @@ import { DatabaseService } from "src/core/database/database.service";
 import { CreateTagDto } from "./dto/create-tag.dto";
 import { UpdateTagDto } from "./dto/update-tag.dto";
 import { ErrorOr } from "src/common/common.interface";
+import { GetTagsDto } from "./dto/get-tags.dto";
+import {
+  PagedResponseDto,
+  Pagination,
+} from "src/common/dto/paged-response.dto";
 
 @Injectable()
 export class TagsService {
@@ -15,13 +20,27 @@ export class TagsService {
       },
     });
   }
+  async findMany(query: GetTagsDto) {
+    const { page, size } = query;
 
-  async findMany() {
-    return await this.databaseService.tag.findMany({
+    const isPaged = size > 0;
+
+    const items = await this.databaseService.tag.findMany({
+      ...(isPaged && {
+        skip: (page - 1) * size,
+        take: size,
+      }),
       orderBy: {
         createdAt: "desc",
       },
     });
+
+    const total = await this.databaseService.tag.count();
+    const totalPages = Math.ceil(total / size);
+
+    const pagination = new Pagination(page, size, total, totalPages);
+
+    return new PagedResponseDto(items, pagination);
   }
 
   async create(dto: CreateTagDto) {

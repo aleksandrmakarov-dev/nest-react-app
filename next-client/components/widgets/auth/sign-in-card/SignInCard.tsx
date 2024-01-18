@@ -24,7 +24,7 @@ import { useForm } from "react-hook-form";
 
 export function SignInCard() {
   const { mutate, isPending, isError, error } = useSignInLocal();
-  const { setUser } = useAuth();
+  const { setSession } = useAuth();
   const router = useRouter();
 
   const form = useForm<SignInLocalDto>({
@@ -39,7 +39,7 @@ export function SignInCard() {
     mutate(values, {
       onSuccess: (data) => {
         form.reset();
-        setUser(data);
+        setSession(data);
         router.push(routes.root);
       },
     });

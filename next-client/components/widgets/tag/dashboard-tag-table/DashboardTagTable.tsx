@@ -9,7 +9,15 @@ interface DashboardTagTableProps {
 export function DashboardTagTable(props: DashboardTagTableProps) {
   const { page } = props;
 
-  const { data, isLoading } = useTags();
+  const { data, isLoading } = useTags({
+    page: page,
+  });
 
-  return <TagTable tags={data} isLoading={isLoading} />;
+  return (
+    <TagTable
+      tags={data?.items}
+      pagination={data?.pagination}
+      isLoading={isLoading}
+    />
+  );
 }

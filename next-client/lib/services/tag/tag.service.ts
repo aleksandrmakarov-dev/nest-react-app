@@ -1,12 +1,19 @@
 import axios from "@/lib/axios";
 import { IdResponseDto } from "@/lib/dto/shared/id-response.dto";
+import { PagedResponseDto } from "@/lib/dto/shared/paged-response.dto";
 import { EditTagDto } from "@/lib/dto/tag/edit-tag.dto";
+import { GetTagsParamsDto } from "@/lib/dto/tag/get-tags-params.dto";
 import { TagResponseDto } from "@/lib/dto/tag/tag-response.dto";
 
 const baseUrl = "/tags";
 
-async function findMany() {
-  const response = await axios.get<TagResponseDto[]>(`${baseUrl}`);
+async function findMany(params?: GetTagsParamsDto) {
+  const response = await axios.get<PagedResponseDto<TagResponseDto>>(
+    `${baseUrl}`,
+    {
+      params: params,
+    }
+  );
   return response.data;
 }
 

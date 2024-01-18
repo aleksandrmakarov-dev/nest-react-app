@@ -12,3 +12,5 @@ export { DataTable } from "./data-table/DataTable";
 export { FormController } from "./form-controller/FormController";
 export { DialogBase } from "./dialog-base/DialogBase";
 export { Select } from "./select/Select";
+export { RoleProtected } from "./role-protected/RoleProtected";
+export { MarkdownEditor } from "./markdown/markdown-editor/MarkdownEditor";

@@ -1,7 +1,13 @@
+import { DashboardHeader } from "@/components/shared";
+
 export default function DashboardHomePage() {
   return (
-    <div>
-      <h1>Home</h1>
-    </div>
+    <>
+      <DashboardHeader
+        title="Welcome to the Dashboard"
+        subtitle="Manage articles, tags and users"
+      />
+      <></>
+    </>
   );
 }

@@ -12,11 +12,13 @@ interface TagSelectProps {
 }
 
 export function TagSelect(props: TagSelectProps) {
-  const { data } = useTags();
+  const { data } = useTags({
+    size: -1,
+  });
 
   return (
     <Select
-      options={data ?? []}
+      options={data?.items ?? []}
       getValue={(option) => option.id}
       getLabel={(option) => option.name}
       renderOption={(option) => <span key={option.id}>{option.name}</span>}

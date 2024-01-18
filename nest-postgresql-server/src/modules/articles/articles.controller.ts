@@ -21,7 +21,7 @@ import { JwtPayloadDto } from "../auth/dto/jwt-payload.dto";
 import { UsersService } from "../users/users.service";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { UpdateArticleDto } from "./dto/update-article.dto";
-import { GetArticlesQueryDto } from "./dto/get-articles-query.dto";
+import { GetArticlesDto } from "./dto/get-articles.dto";
 import { IdResponseDto } from "src/common/dto/id-response.dto";
 
 @ApiTags("articles")
@@ -56,7 +56,7 @@ export class ArticlesController {
   }
 
   @Get()
-  async findMany(@Query() query: GetArticlesQueryDto) {
+  async findMany(@Query() query: GetArticlesDto) {
     const pagedArticles = await this.articlesService.findMany(query);
     return pagedArticles;
   }

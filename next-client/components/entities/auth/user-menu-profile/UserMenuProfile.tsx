@@ -4,18 +4,18 @@ import {
   AvatarImage,
 } from "@/components/shared/ui/avatar";
 import { Skeleton } from "@/components/shared/ui/skeleton";
-import { UserDataDto } from "@/lib/dto/auth/session.dto";
+import { SessionDto } from "@/lib/dto/auth/session.dto";
 import { cn, stringAvatar, stringToColor } from "@/lib/utils";
 import React, { HtmlHTMLAttributes } from "react";
 
 interface UserMenuProfileProps extends HtmlHTMLAttributes<HTMLDivElement> {
-  user: UserDataDto | null;
+  session: SessionDto | null;
   isLoading?: boolean;
 }
 
 export const UserMenuProfile = React.forwardRef(
   (props: UserMenuProfileProps, ref: React.Ref<HTMLDivElement>) => {
-    const { user, isLoading, className, ...other } = props;
+    const { session, isLoading, className, ...other } = props;
 
     return (
       <div
@@ -31,18 +31,18 @@ export const UserMenuProfile = React.forwardRef(
             <Skeleton className="mr-3 w-8 h-8 rounded-full" />
             <Skeleton className="h-4 w-16" />
           </>
-        ) : user ? (
+        ) : session ? (
           <>
             <Avatar className="mr-3 w-8 h-8">
-              <AvatarImage src={user.image} />
+              <AvatarImage src={session.image} />
               <AvatarFallback
                 className="text-white"
-                style={{ backgroundColor: stringToColor(user.name) }}
+                style={{ backgroundColor: stringToColor(session.name) }}
               >
-                {stringAvatar(user.name)}
+                {stringAvatar(session.name)}
               </AvatarFallback>
             </Avatar>
-            <span className="font-medium">{user.name}</span>
+            <span className="font-medium">{session.name}</span>
           </>
         ) : (
           <p>error</p>

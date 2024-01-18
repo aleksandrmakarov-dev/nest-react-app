@@ -8,13 +8,13 @@ import { useEffect } from "react";
 
 export function SignOutCard() {
   const { mutate, isPending, isError, error, isSuccess } = useSignOut();
-  const { setUser } = useAuth();
+  const { setSession } = useAuth();
 
   useEffect(() => {
     mutate(
       {},
       {
-        onSuccess: (_) => setUser(null),
+        onSuccess: (_) => setSession(null),
       }
     );
   }, []);

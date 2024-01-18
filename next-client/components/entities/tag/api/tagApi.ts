@@ -1,4 +1,6 @@
 import { GenericErrorDto } from "@/lib/dto/shared/generic-error.dto";
+import { PagedResponseDto } from "@/lib/dto/shared/paged-response.dto";
+import { GetTagsParamsDto } from "@/lib/dto/tag/get-tags-params.dto";
 import { TagResponseDto } from "@/lib/dto/tag/tag-response.dto";
 import { QueryClientConfig } from "@/lib/query-client";
 import tagService from "@/lib/services/tag/tag.service";
@@ -18,35 +20,35 @@ export const tagKeys = {
   },
 };
 
-async function fetchTags() {
-  return await tagService.findMany();
+async function fetchTags(params?: GetTagsParamsDto) {
+  return await tagService.findMany(params);
 }
 
-export const prefetchTags = async () => {
+export const prefetchTags = async (params?: GetTagsParamsDto) => {
   const queryClient = new QueryClient(QueryClientConfig);
 
   await queryClient.prefetchQuery<
-    TagResponseDto[],
+    PagedResponseDto<TagResponseDto>,
     AxiosError<GenericErrorDto>,
-    TagResponseDto[],
+    PagedResponseDto<TagResponseDto>[],
     unknown[]
   >({
     queryKey: tagKeys.tags.query(),
-    queryFn: fetchTags,
+    queryFn: async () => await fetchTags(params),
   });
 
   return queryClient;
 };
 
-export const useTags = () => {
+export const useTags = (params?: GetTagsParamsDto) => {
   return useQuery<
-    TagResponseDto[],
+    PagedResponseDto<TagResponseDto>,
     AxiosError<GenericErrorDto>,
-    TagResponseDto[],
+    PagedResponseDto<TagResponseDto>,
     unknown[]
   >({
     queryKey: tagKeys.tags.query(),
-    queryFn: fetchTags,
+    queryFn: async () => await fetchTags(params),
   });
 };
 

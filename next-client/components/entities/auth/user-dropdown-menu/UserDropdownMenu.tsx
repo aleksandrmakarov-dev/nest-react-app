@@ -1,3 +1,4 @@
+import { RoleProtected } from "@/components/shared";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -5,13 +6,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/shared/ui/dropdown-menu";
-import { UserDataDto } from "@/lib/dto/auth/session.dto";
+import { SessionDto } from "@/lib/dto/auth/session.dto";
 import { routes } from "@/lib/routing";
 import Link from "next/link";
 
 interface UserDropdownMenuProps {
   children: React.ReactNode;
-  user: UserDataDto | null;
+  user: SessionDto | null;
 }
 
 export function UserDropdownMenu(props: UserDropdownMenuProps) {
@@ -27,9 +28,11 @@ export function UserDropdownMenu(props: UserDropdownMenuProps) {
             <div className="font-medium truncate">{user.email}</div>
           </div>
           <DropdownMenuSeparator />
-          <DropdownMenuItem className="cursor-pointer" asChild>
-            <Link href={routes.dashboard.home()}>Dashboard</Link>
-          </DropdownMenuItem>
+          <RoleProtected roles={["ADMIN"]}>
+            <DropdownMenuItem className="cursor-pointer" asChild>
+              <Link href={routes.dashboard.home()}>Dashboard</Link>
+            </DropdownMenuItem>
+          </RoleProtected>
           <DropdownMenuItem className="cursor-pointer" asChild>
             <Link href={routes.dashboard.settings.profile()}>Profile</Link>
           </DropdownMenuItem>

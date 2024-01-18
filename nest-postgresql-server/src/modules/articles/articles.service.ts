@@ -2,7 +2,7 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import { DatabaseService } from "src/core/database/database.service";
 import { CreateArticleDto } from "./dto/create-article.dto";
 import { UpdateArticleDto } from "./dto/update-article.dto";
-import { GetArticlesQueryDto } from "./dto/get-articles-query.dto";
+import { GetArticlesDto } from "./dto/get-articles.dto";
 import {
   PagedResponseDto,
   Pagination,
@@ -49,12 +49,16 @@ export class ArticlesService {
     });
   }
 
-  async findMany(query: GetArticlesQueryDto) {
+  async findMany(query: GetArticlesDto) {
     const { page, size } = query;
 
+    const isPaged = size > 0;
+
     const items = await this.databaseService.article.findMany({
-      skip: (page - 1) * size,
-      take: size,
+      ...(isPaged && {
+        skip: (page - 1) * size,
+        take: size,
+      }),
       orderBy: {
         createdAt: "desc",
       },
