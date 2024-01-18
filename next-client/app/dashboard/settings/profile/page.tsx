@@ -1,7 +1,12 @@
+import { DashboardSubheader } from "@/components/shared";
+
 export default function ProfilePage() {
   return (
     <div>
-      <h1>Profile</h1>
+      <DashboardSubheader
+        title="Personal info"
+        subtitle="Update your photo and personal details here"
+      />
     </div>
   );
 }

@@ -31,7 +31,7 @@ export function ArticleContent(props: ArticleContentProps) {
     <div>
       <ArticleHeader className="mb-14" article={data} />
       <div className="grid grid-cols-10 items-start">
-        <div className="col-span-3 mr-14 pt-5 sticky top-0 left-0">
+        <div className="col-span-3 mr-14 pt-5 sticky top-16 left-0">
           <Section className="mb-5" header="Table of Contents">
             <Toc value={data.content} />
           </Section>

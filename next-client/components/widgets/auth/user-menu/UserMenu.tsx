@@ -17,7 +17,7 @@ export function UserMenu(props: UserMenuProps) {
         fallback
       ) : (
         <UserDropdownMenu user={session}>
-          <UserMenuProfile user={session} isLoading={isLoading} />
+          <UserMenuProfile session={session} isLoading={isLoading} />
         </UserDropdownMenu>
       )}
     </>
