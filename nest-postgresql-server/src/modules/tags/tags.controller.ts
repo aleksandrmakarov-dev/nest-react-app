@@ -21,7 +21,6 @@ import { JwtPayloadDto } from "../auth/dto/jwt-payload.dto";
 import { Role } from "@prisma/client";
 import { Authorize } from "../auth/decorators/authorize.decorator";
 import { UsersService } from "../users/users.service";
-import { GetArticlesDto } from "../articles/dto/get-articles.dto";
 import { GetTagsDto } from "./dto/get-tags.dto";
 
 @ApiTags("Tags")

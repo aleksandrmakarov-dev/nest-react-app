@@ -12,6 +12,8 @@ import { AuthGuard } from "./modules/auth/guards/auth.guard";
 import { TagsModule } from "./modules/tags/tags.module";
 import { ArticlesModule } from "./modules/articles/articles.module";
 import { AllExceptionFilter } from "./common/filters/all-exception.filter";
+import { ProjectsModule } from "./modules/projects/projects.module";
+import { ToolsModule } from "./modules/tools/tools.module";
 @Module({
   imports: [
     MailConfigModule,
@@ -22,6 +24,8 @@ import { AllExceptionFilter } from "./common/filters/all-exception.filter";
     AccountsModule,
     TagsModule,
     ArticlesModule,
+    ProjectsModule,
+    ToolsModule,
   ],
   controllers: [AppController],
   providers: [

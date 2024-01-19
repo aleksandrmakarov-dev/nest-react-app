@@ -17,7 +17,7 @@ import { TOKEN_COOKIE, TOKEN_COOKIE_OPTIONS } from "./auth.constants";
 import { GenericResponseDto } from "src/common/dto/generic-response.dto";
 import { Cookie } from "src/common/decorators/cookie.decorator";
 
-@ApiTags("auth")
+@ApiTags("Auth")
 @Controller("auth")
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -53,6 +53,8 @@ export class AuthController {
     const { refreshToken, userData } = await this.authService.refreshToken({
       token: token,
     });
+
+    console.log("refresh token:", refreshToken);
 
     response.cookie(TOKEN_COOKIE, refreshToken, TOKEN_COOKIE_OPTIONS);
 

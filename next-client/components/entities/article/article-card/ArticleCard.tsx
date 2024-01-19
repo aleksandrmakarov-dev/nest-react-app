@@ -39,7 +39,7 @@ export const ArticleCard = React.forwardRef<HTMLDivElement, ArticleCardProps>(
             </div>
           )}
         </div>
-        <h5 className="text-2xl font-semibold mb-3 flex items-start gap-x-2 hover:underline hover:cursor-pointer">
+        <h5 className="text-2xl font-semibold mb-3 flex items-start gap-x-2 hover:underline underline-offset-2 hover:cursor-pointer">
           <Link className="mr-1" href={routes.blog.byId(id)}>
             {title}
           </Link>

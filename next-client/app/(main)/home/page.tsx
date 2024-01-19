@@ -1,5 +1,6 @@
 import { ProjectCard } from "@/components/entities/project";
 import { Button } from "@/components/shared/ui/button";
+import { FeaturedProjectList } from "@/components/widgets/project";
 import {
   faFacebook,
   faGithub,
@@ -122,25 +123,8 @@ export default function HomePage() {
             .
           </p>
         </div>
-        <div className="flex flex-col lg:grid lg:grid-cols-2 gap-5 mb-10">
-          {Array(6)
-            .fill(1)
-            .map((i) => (
-              <ProjectCard
-                key={i}
-                project={{
-                  id: "1",
-                  title: "Manage your team with reports",
-                  description:
-                    "Whether you have a team of 2 or 200, our shared team inboxes keep everyone on the same page and in the loop. Leverage automation to move fast, while always giving customers a human, helpful experience.",
-                  url: "https://github.com/aleksandrmakarov-dev/personal-blog",
-                  urlLabel: "Demo",
-                  articleId: "123123",
-                }}
-              />
-            ))}
-        </div>
-        <div className="text-center">
+        <FeaturedProjectList />
+        <div className="text-center mt-10">
           <Button size="lg" asChild>
             <Link href="/">See more projects</Link>
           </Button>

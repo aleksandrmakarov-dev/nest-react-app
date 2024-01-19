@@ -4,6 +4,8 @@ import { getSession } from "./session";
 import { SessionDto } from "./lib/dto/auth/session.dto";
 import { encryptSymmetric } from "./session/encrypt";
 
+export const TOKEN_COOKIE = "refreshtokencookiename";
+
 export async function middleware(req: NextRequest) {
   const session = await getServerSession(req);
 
@@ -66,6 +68,10 @@ const getServerSession = async (req: NextRequest) => {
   if (session) {
     return session;
   } else {
+    if (!req.cookies.has(TOKEN_COOKIE)) {
+      return null;
+    }
+
     const response = await fetch(
       "http://localhost:3001/api/auth/refresh-token",
       {

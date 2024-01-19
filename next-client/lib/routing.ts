@@ -34,6 +34,12 @@ export const routes = {
       root: () => route(routes.dashboard.root, "settings"),
       profile: () => route(routes.dashboard.settings.root(), "profile"),
     },
+    projects: {
+      root: () => route(routes.dashboard.root, "projects"),
+      byId: (id: string) => route(routes.dashboard.projects.root(), id),
+      new: () => route(routes.dashboard.projects.root(), "new"),
+    },
+    tools: () => route(routes.dashboard.root, "tools"),
   },
   aboutMe: "/about-me",
 };

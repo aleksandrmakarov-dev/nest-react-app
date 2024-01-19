@@ -1,4 +1,4 @@
-import { Role, PrismaClient } from "@prisma/client";
+import { Role, PrismaClient, Tool } from "@prisma/client";
 import * as bcrypt from "bcrypt";
 import * as fs from "fs";
 import * as path from "path";
@@ -38,6 +38,11 @@ async function seed() {
 
   await prisma.$connect();
 
+  console.log("deleting all tables...");
+
+  await prisma.tool.deleteMany();
+  await prisma.project.deleteMany();
+
   await prisma.tag.deleteMany();
   await prisma.article.deleteMany();
 
@@ -45,7 +50,7 @@ async function seed() {
   await prisma.user.deleteMany();
   await prisma.externalProvider.deleteMany();
 
-  console.log("delete all tables...");
+  console.log("seeding external providers...");
 
   await prisma.externalProvider.createMany({
     data: externalProviders.map((p) => ({
@@ -53,7 +58,7 @@ async function seed() {
     })),
   });
 
-  console.log("seeded external providers...");
+  console.log("seeding users...");
 
   await Promise.all(
     users.map(async (user) => {
@@ -70,8 +75,6 @@ async function seed() {
       }
     }),
   );
-
-  console.log("seeded users...");
 
   const foundUsers = await prisma.user.findMany({
     where: {
@@ -93,14 +96,14 @@ async function seed() {
 
   const userId = foundUsers[0].id;
 
+  console.log("seeding tags...");
+
   await prisma.tag.createMany({
     data: tags.map((t) => ({
       name: t,
       userId: userId,
     })),
   });
-
-  console.log("seeded tags...");
 
   const foundTags = await prisma.tag.findMany();
 
@@ -117,6 +120,8 @@ async function seed() {
       },
     );
   });
+
+  console.log("seeding articles...");
 
   const articles = [
     {
@@ -486,7 +491,140 @@ async function seed() {
     }),
   );
 
-  console.log("seeded articles...");
+  console.log("seeding tools...");
+
+  const tools = [
+    {
+      name: "NodeJS",
+      image:
+        "https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg",
+    },
+    {
+      name: "C++",
+      image:
+        "https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg",
+    },
+    {
+      name: "React",
+      image:
+        "https://upload.wikimedia.org/wikipedia/commons/3/30/React_Logo_SVG.svg",
+    },
+    {
+      name: "C#",
+      image:
+        "https://upload.wikimedia.org/wikipedia/commons/d/d2/C_Sharp_Logo_2023.svg",
+    },
+    {
+      name: "Python",
+      image:
+        "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg",
+    },
+  ];
+
+  await prisma.tool.createMany({
+    data: tools.map((t) => ({
+      name: t.name,
+      image: t.image,
+      userId: userId,
+    })),
+  });
+
+  console.log("seeding projects...");
+
+  const foundTools = await prisma.tool.findMany();
+
+  const projects = [
+    {
+      title: "Network Optimization Tool",
+      description:
+        "A tool designed to enhance network performance and efficiency by implementing advanced algorithms for routing optimization.",
+      image: "https://placekitten.com/300/200",
+    },
+    {
+      title: "Cloud-Based Data Storage Solution",
+      description:
+        "A scalable and secure cloud-based data storage solution that enables seamless access and management of data from anywhere.",
+      image: "https://placekitten.com/301/200",
+    },
+    {
+      title: "Cybersecurity Awareness Platform",
+      description:
+        "An interactive platform focused on educating users about cybersecurity best practices, threats, and prevention measures.",
+      image: "https://placekitten.com/302/200",
+    },
+    {
+      title: "Machine Learning Chatbot",
+      description:
+        "A chatbot powered by machine learning algorithms to provide intelligent responses and assistance in various IT-related queries.",
+      image: "https://placekitten.com/303/200",
+    },
+    {
+      title: "Mobile App Development Framework",
+      description:
+        "A framework designed to streamline the development of cross-platform mobile applications, offering enhanced performance and user experience.",
+      image: "https://placekitten.com/304/200",
+    },
+    {
+      title: "Data Analytics Dashboard",
+      description:
+        "A comprehensive analytics dashboard that visualizes and interprets complex datasets, aiding in data-driven decision-making processes.",
+      image: "https://placekitten.com/305/200",
+    },
+    {
+      title: "Automated Testing Suite",
+      description:
+        "A suite of automated testing tools to ensure the reliability and quality of software applications through efficient and comprehensive testing processes.",
+      image: "https://placekitten.com/306/200",
+    },
+    {
+      title: "Blockchain-Based Authentication System",
+      description:
+        "An innovative authentication system leveraging blockchain technology to enhance security and eliminate unauthorized access.",
+      image: "https://placekitten.com/307/200",
+    },
+    {
+      title: "IT Project Management Platform",
+      description:
+        "A robust project management platform tailored for IT projects, facilitating collaboration, task tracking, and resource management.",
+      image: "https://placekitten.com/308/200",
+    },
+    {
+      title: "Augmented Reality Development Kit",
+      description:
+        "A kit providing tools and resources for developing augmented reality applications, offering immersive experiences on various devices.",
+      image: "https://placekitten.com/309/200",
+    },
+  ];
+
+  const foundArticle = await prisma.article.findFirst();
+
+  await Promise.all(
+    projects.map(async (a) => {
+      const startIndex = Math.floor(Math.random() * foundTools.length);
+      // Generate a random slice length between 1 and the remaining items in the array
+      const remainingItems = foundTools.length - startIndex;
+      const sliceLength =
+        Math.floor(Math.random() * Math.min(3, remainingItems)) + 1;
+      // Get the random slice
+      const randomSlice = foundTools.slice(
+        startIndex,
+        startIndex + sliceLength,
+      );
+
+      await prisma.project.create({
+        data: {
+          ...a,
+          url: "/",
+          label: "Demo",
+          articleId: foundArticle.id,
+          userId: foundUsers[Math.floor(Math.random() * foundUsers.length)].id,
+          tools: {
+            connect: randomSlice.map((tag) => ({ id: tag.id })),
+          },
+        },
+      });
+    }),
+  );
 
   console.log("seeding completed");
 }

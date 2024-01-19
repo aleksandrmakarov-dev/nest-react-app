@@ -1,9 +1,13 @@
+import { ToolResponseDto } from "../tool/tool-response.dto";
+
 export interface ProjectResponseDto {
   id: string;
   title: string;
   description: string;
+  createdAt: Date;
   image?: string;
   url?: string;
-  urlLabel?: string;
+  label?: string;
   articleId?: string;
+  tools?: ToolResponseDto[];
 }

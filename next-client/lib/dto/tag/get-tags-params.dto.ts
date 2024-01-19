@@ -1,4 +1,3 @@
-export interface GetTagsParamsDto {
-  page?: number;
-  size?: number;
-}
+import { PageParamsDto } from "../shared/page-params.dto";
+
+export interface GetTagsParamsDto extends PageParamsDto {}

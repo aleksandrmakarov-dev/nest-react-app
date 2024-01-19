@@ -34,7 +34,7 @@ export function Navbar(props: NavbarProps) {
       <div className="w-full max-w-screen-2xl flex items-center h-14 px-10 mx-auto justify-between">
         <div className="flex items-center">
           <Logo className="mr-10" />
-          <div className=" hidden space-x-8">
+          <div className="hidden md:flex items-center gap-x-10">
             {navLinks.map((link) => (
               <Link
                 className="text-secondary-foreground font-medium transition-colors hover:text-primary"

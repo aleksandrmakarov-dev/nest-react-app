@@ -24,7 +24,7 @@ import { UpdateArticleDto } from "./dto/update-article.dto";
 import { GetArticlesDto } from "./dto/get-articles.dto";
 import { IdResponseDto } from "src/common/dto/id-response.dto";
 
-@ApiTags("articles")
+@ApiTags("Articles")
 @Controller("articles")
 export class ArticlesController {
   constructor(

@@ -26,8 +26,18 @@ const navLinks: NavLink[] = [
     icon: faFolder,
   },
   {
+    name: "Projects",
+    route: routes.dashboard.projects.root(),
+    icon: faFolder,
+  },
+  {
     name: "Tags",
     route: routes.dashboard.tags(),
+    icon: faFolder,
+  },
+  {
+    name: "Tools",
+    route: routes.dashboard.tools(),
     icon: faFolder,
   },
   {
