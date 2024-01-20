@@ -36,7 +36,7 @@ const columns: ColumnDef<ProjectResponseDto>[] = [
     cell: ({ row }) => (
       <div className="flex flex-wrap gap-1">
         <Button size="icon" variant="outline" asChild>
-          <Link href={routes.dashboard.articles.byId(row.original.id)}>
+          <Link href={routes.dashboard.projects.byId(row.original.id)}>
             <FontAwesomeIcon icon={faEdit} />
           </Link>
         </Button>

@@ -102,3 +102,37 @@ export const useInfinityProjects = (params?: GetProjectsParamsDto) => {
         : undefined,
   });
 };
+
+// Get project by id
+
+async function fetchProjectById(id: string) {
+  return await projectService.findById(id);
+}
+
+export async function prefetchProjectById(id: string) {
+  const queryClient = new QueryClient(QueryClientConfig);
+
+  await queryClient.prefetchQuery<
+    ProjectResponseDto,
+    AxiosError<GenericErrorDto>,
+    ProjectResponseDto,
+    unknown[]
+  >({
+    queryKey: projectKeys.projects.byId(id),
+    queryFn: async () => await projectService.findById(id),
+  });
+
+  return queryClient;
+}
+
+export const useProjectById = (id: string) => {
+  return useQuery<
+    ProjectResponseDto,
+    AxiosError<GenericErrorDto>,
+    ProjectResponseDto,
+    unknown[]
+  >({
+    queryKey: projectKeys.projects.byId(id),
+    queryFn: async () => await fetchProjectById(id),
+  });
+};

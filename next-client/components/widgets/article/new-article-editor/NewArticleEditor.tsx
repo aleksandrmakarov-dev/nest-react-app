@@ -11,7 +11,7 @@ export function NewArticleEditor() {
   const { mutate, isPending, isError, error, isSuccess, data } =
     useCreateArticle();
 
-  const { user, isLoading: isUserLoading } = useAuth();
+  const { session, isLoading: isSessionLoading } = useAuth();
 
   const onSubmit = (values: EditArticleDto) => {
     mutate(values);
@@ -21,7 +21,7 @@ export function NewArticleEditor() {
     <ArticleForm
       submit={onSubmit}
       isSubmitLoading={isPending}
-      isDataLoading={isUserLoading}
+      isDataLoading={isSessionLoading}
       isError={isError}
       error={error?.response?.data.message}
       isSucces={isSuccess}
@@ -42,11 +42,8 @@ export function NewArticleEditor() {
         description: "",
         content: "",
         image: "",
-        userId: user?.id ?? "",
-        tagIds: [
-          "708bb458-e3f5-4fce-a8b3-7311ab645033",
-          "5334fabb-2a75-48cf-92fa-339aa30bd872",
-        ],
+        userId: session?.id!,
+        tagIds: [],
       }}
     />
   );

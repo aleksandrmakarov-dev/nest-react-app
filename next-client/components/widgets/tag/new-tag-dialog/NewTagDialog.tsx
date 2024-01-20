@@ -13,7 +13,7 @@ interface NewTagProps {
 export function NewTagDialog(props: NewTagProps) {
   const { trigger } = props;
 
-  const { user } = useAuth();
+  const { session } = useAuth();
 
   const { mutate, isPending, isError, error } = useCreateTag();
   const [open, setOpen] = useState<boolean>(false);
@@ -40,7 +40,7 @@ export function NewTagDialog(props: NewTagProps) {
         submit={onSubmit}
         tag={{
           name: "",
-          userId: user?.id ?? "",
+          userId: session?.id ?? "",
         }}
       />
     </DialogBase>

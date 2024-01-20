@@ -5,6 +5,7 @@ import { ProjectCard, useProjects } from "@/components/entities/project";
 export function FeaturedProjectList() {
   const { data, isLoading, isError, error } = useProjects({
     size: 3,
+    onlyFeatured: true,
   });
 
   if (isLoading) {

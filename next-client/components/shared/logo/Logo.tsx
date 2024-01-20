@@ -19,7 +19,7 @@ export function Logo(props: LogoProps) {
           width={32}
           height={32}
         />
-        <p className="text-xl font-semibold text-secondary-foreground">
+        <p className="hidden sm:block text-xl font-semibold text-secondary-foreground">
           Code Journey
         </p>
       </Link>

@@ -39,6 +39,7 @@ export function Select<T>(props: SelectProps<T>) {
   } = props;
 
   const [open, setOpen] = useState<boolean>(false);
+  const [search, setSearch] = useState<string>("");
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -60,46 +61,51 @@ export function Select<T>(props: SelectProps<T>) {
           </div>
         </div>
       </PopoverTrigger>
-      <PopoverContent className="w-full max-w-md p-0">
+      <PopoverContent className="min-w-64 w-full max-w-md p-0 max-h-72 overflow-auto">
         <Command>
-          <CommandInput placeholder="Search..." />
           <CommandEmpty>No framework found.</CommandEmpty>
           <CommandGroup>
-            {options.map((option) => {
-              const optionValue = getValue(option);
+            {options
+              .filter((v) => getValue(v).includes(search))
+              .map((option) => {
+                const optionValue = getValue(option);
+                const optionLabel = getLabel(option);
 
-              return (
-                <CommandItem
-                  key={optionValue}
-                  value={optionValue}
-                  onSelect={(currentValue) => {
-                    if (value.includes(currentValue)) {
-                      onChange((prev) =>
-                        prev.filter((v) => v !== currentValue)
-                      );
-                    } else {
-                      if (limit && value.length >= limit) {
-                        return;
+                return (
+                  <CommandItem
+                    className="hover:cursor-pointer"
+                    key={optionLabel}
+                    value={optionValue}
+                    onSelect={(currentValue) => {
+                      if (value.includes(currentValue)) {
+                        onChange((prev) =>
+                          prev.filter((v) => v !== currentValue)
+                        );
+                      } else {
+                        if (limit && value.length >= limit) {
+                          return;
+                        }
+
+                        onChange((prev) => [...prev, currentValue]);
                       }
 
-                      onChange((prev) => [...prev, currentValue]);
-                    }
-
-                    if (closeAfterSelect) {
-                      setOpen(false);
-                    }
-                  }}
-                >
-                  <Check
-                    className={cn(
-                      "mr-2 h-4 w-4",
-                      value.includes(optionValue) ? "opacity-100" : "opacity-0"
-                    )}
-                  />
-                  {renderOption(option)}
-                </CommandItem>
-              );
-            })}
+                      if (closeAfterSelect) {
+                        setOpen(false);
+                      }
+                    }}
+                  >
+                    <Check
+                      className={cn(
+                        "mr-2 h-4 w-4",
+                        value.includes(optionValue)
+                          ? "opacity-100"
+                          : "opacity-0"
+                      )}
+                    />
+                    {renderOption(option)}
+                  </CommandItem>
+                );
+              })}
           </CommandGroup>
         </Command>
       </PopoverContent>

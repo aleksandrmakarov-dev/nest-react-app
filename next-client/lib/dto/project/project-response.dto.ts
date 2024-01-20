@@ -9,5 +9,7 @@ export interface ProjectResponseDto {
   url?: string;
   label?: string;
   articleId?: string;
-  tools?: ToolResponseDto[];
+  userId: string;
+  featured: boolean;
+  tools: ToolResponseDto[];
 }

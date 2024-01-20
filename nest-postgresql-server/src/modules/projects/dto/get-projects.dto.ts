@@ -1,6 +1,6 @@
 import { Optional } from "@nestjs/common";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNumber } from "class-validator";
+import { IsBoolean, IsNumber } from "class-validator";
 
 export class GetProjectsDto {
   @Optional()
@@ -16,4 +16,11 @@ export class GetProjectsDto {
     required: false,
   })
   size?: number = 10;
+
+  @Optional()
+  @IsBoolean()
+  @ApiProperty({
+    required: false,
+  })
+  onlyFeatured?: boolean = false;
 }

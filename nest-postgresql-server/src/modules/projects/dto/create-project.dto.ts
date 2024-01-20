@@ -30,7 +30,7 @@ export class CreateProjectDto {
   @IsArray()
   @IsString({ each: true })
   @ArrayMinSize(1)
-  @ArrayMaxSize(3)
+  @ArrayMaxSize(5)
   @ApiProperty()
   toolIds: string[];
 

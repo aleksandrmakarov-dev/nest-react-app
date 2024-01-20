@@ -51,7 +51,7 @@ export class ProjectsService {
   }
 
   async findMany(query: GetProjectsDto) {
-    const { page, size } = query;
+    const { page, size, onlyFeatured } = query;
 
     const isPaged = size > 0;
 
@@ -59,6 +59,11 @@ export class ProjectsService {
       ...(isPaged && {
         skip: (page - 1) * size,
         take: size,
+      }),
+      ...(onlyFeatured && {
+        where: {
+          featured: true,
+        },
       }),
       orderBy: {
         createdAt: "desc",

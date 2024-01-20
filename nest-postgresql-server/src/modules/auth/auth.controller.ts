@@ -54,8 +54,6 @@ export class AuthController {
       token: token,
     });
 
-    console.log("refresh token:", refreshToken);
-
     response.cookie(TOKEN_COOKIE, refreshToken, TOKEN_COOKIE_OPTIONS);
 
     return userData;

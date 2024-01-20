@@ -58,7 +58,7 @@ export function ProjectCard(props: ProjectCardProps) {
       </div>
       <div
         className={cn(
-          "h-96 w-full bg-gray-200 relative shrink-0 rounded-md overflow-clip"
+          "h-64 sm:h-96 w-full bg-gray-200 relative shrink-0 rounded-md overflow-clip"
         )}
       >
         {project.image && (
