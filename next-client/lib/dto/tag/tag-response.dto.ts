@@ -3,3 +3,7 @@ export interface TagResponseDto {
   name: string;
   userId: string;
 }
+
+export interface TagResponseWithCountDto extends TagResponseDto {
+  _count: { articles: number };
+}

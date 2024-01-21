@@ -2,7 +2,9 @@ import { FieldController } from "@/components/shared";
 import { Input } from "@/components/shared/ui/input";
 import { Switch } from "@/components/shared/ui/switch";
 import { Textarea } from "@/components/shared/ui/textarea";
+import { ArticleSelect } from "@/components/widgets/article";
 import { ToolSelect } from "@/components/widgets/tool";
+import { UserSelect } from "@/components/widgets/user";
 import { EditProjectDto } from "@/lib/dto/project/edit-project.dto";
 import { Control } from "react-hook-form";
 
@@ -69,13 +71,13 @@ export function ProjectFormBody(props: ProjectFormBodyProps) {
           label="User"
           disabled={isLoading}
           required
-          render={({ field }) => <Input {...field} />}
+          render={({ field }) => <UserSelect {...field} />}
         />
         <FieldController
           control={control}
           name="articleId"
           label="Article"
-          render={({ field }) => <Input {...field} />}
+          render={({ field }) => <ArticleSelect {...field} />}
         />
         <FieldController
           control={control}
@@ -84,8 +86,10 @@ export function ProjectFormBody(props: ProjectFormBodyProps) {
           render={({ field }) => (
             <Switch
               className="block"
-              checked={field.value}
-              onCheckedChange={field.onChange}
+              checked={!!field.value}
+              onCheckedChange={(checked) =>
+                checked ? field.onChange(new Date()) : field.onChange(undefined)
+              }
             />
           )}
         />

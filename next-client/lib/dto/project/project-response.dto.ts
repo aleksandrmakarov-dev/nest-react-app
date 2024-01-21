@@ -10,6 +10,6 @@ export interface ProjectResponseDto {
   label?: string;
   articleId?: string;
   userId: string;
-  featured: boolean;
+  featured?: Date;
   tools: ToolResponseDto[];
 }

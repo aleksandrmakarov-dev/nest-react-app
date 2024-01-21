@@ -2,23 +2,30 @@ import { TagResponseDto } from "@/lib/dto/tag/tag-response.dto";
 import { TagList } from "../../tag/tag-list/TagList";
 import { Badge } from "@/components/shared/ui/badge";
 import { HTMLAttributes } from "react";
+import { Skeleton } from "@/components/shared/ui/skeleton";
 
 interface ArticleTagsProps extends HTMLAttributes<HTMLDivElement> {
-  tags: TagResponseDto[];
+  tags?: TagResponseDto[];
+  isLoading?: boolean;
 }
 
 export function ArticleTags(props: ArticleTagsProps) {
-  const { tags, className, ...other } = props;
+  const { tags, isLoading, className, ...other } = props;
 
   return (
     <TagList
       className={className}
       tags={tags}
+      isLoading={isLoading}
       render={(tag) => (
         <Badge key={tag.id} className="text-sm" variant="secondaryDark">
           {tag.name}
         </Badge>
       )}
+      renderSkeleton={(i) => (
+        <Skeleton key={i} className="w-24 h-6 rounded-full" />
+      )}
+      count={3}
       {...other}
     />
   );

@@ -4,20 +4,34 @@ import { HTMLAttributes } from "react";
 
 interface TagListProps extends HTMLAttributes<HTMLDivElement> {
   tags?: TagResponseDto[];
-  render: (tag: TagResponseDto) => React.ReactNode;
   isLoading?: boolean;
+  count?: number;
+  render: (tag: TagResponseDto) => React.ReactNode;
+  renderSkeleton?: (i: number) => React.ReactNode;
 }
 
 export function TagList(props: TagListProps) {
-  const { tags, render, isLoading, className, ...other } = props;
-
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
+  const {
+    tags,
+    isLoading,
+    count,
+    render,
+    renderSkeleton,
+    className,
+    ...other
+  } = props;
 
   return (
     <div className={cn("flex flex-wrap gap-1.5", className)} {...other}>
-      {tags?.map((tag) => render(tag))}
+      {!isLoading ? (
+        tags?.map((tag) => render(tag))
+      ) : renderSkeleton ? (
+        Array(count ?? 3)
+          .fill(0)
+          .map((_, i) => renderSkeleton(i))
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 }

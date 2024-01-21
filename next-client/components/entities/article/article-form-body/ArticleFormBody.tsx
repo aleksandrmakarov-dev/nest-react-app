@@ -2,8 +2,10 @@ import { FieldController, Select } from "@/components/shared";
 import { Input } from "@/components/shared/ui/input";
 import { Textarea } from "@/components/shared/ui/textarea";
 import { TagSelect } from "@/components/widgets/tag";
+import { UserSelect } from "@/components/widgets/user";
 import { EditArticleDto } from "@/lib/dto/article/edit-article.dto";
 import { Control } from "react-hook-form";
+import { FileUploadDialog } from "../../file";
 
 interface ArticleFormBodyProps {
   control: Control<EditArticleDto>;
@@ -36,7 +38,9 @@ export function ArticleFormBody(props: ArticleFormBodyProps) {
         name="image"
         label="Image"
         disabled={isLoading}
-        render={({ field }) => <Input {...field} />}
+        render={({ field }) => (
+          <FileUploadDialog trigger={<Input {...field} />} />
+        )}
       />
       <FieldController
         control={control}
@@ -60,7 +64,7 @@ export function ArticleFormBody(props: ArticleFormBodyProps) {
           label="User"
           disabled={isLoading}
           required
-          render={({ field }) => <Input {...field} />}
+          render={({ field }) => <UserSelect {...field} />}
         />
       </div>
     </>

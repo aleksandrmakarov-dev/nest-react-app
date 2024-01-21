@@ -62,12 +62,17 @@ export class ProjectsService {
       }),
       ...(onlyFeatured && {
         where: {
-          featured: true,
+          NOT: { featured: null },
+        },
+        orderBy: {
+          featured: "desc",
         },
       }),
-      orderBy: {
-        createdAt: "desc",
-      },
+      ...(!onlyFeatured && {
+        orderBy: {
+          createdAt: "desc",
+        },
+      }),
       include: {
         tools: {
           select: {

@@ -18,7 +18,7 @@ interface DataTablePaginationProps {
 
 export function DataTablePagination(props: DataTablePaginationProps) {
   const {
-    pagination: { page, size, total, totalPages },
+    pagination: { page, totalPages },
   } = props;
 
   const pathname = usePathname();

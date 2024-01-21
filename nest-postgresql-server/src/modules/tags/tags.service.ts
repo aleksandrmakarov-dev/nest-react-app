@@ -18,6 +18,13 @@ export class TagsService {
       where: {
         id: id,
       },
+      include: {
+        _count: {
+          select: {
+            articles: true,
+          },
+        },
+      },
     });
   }
   async findMany(query: GetTagsDto) {

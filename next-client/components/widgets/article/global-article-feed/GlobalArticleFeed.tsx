@@ -1,23 +1,22 @@
 "use client";
 import {
   ArticleCard,
+  ArticleCardSkeleton,
   useInfinityArticles,
 } from "@/components/entities/article";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCallback, useRef } from "react";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
+import { GetArticlesParamsDto } from "@/lib/dto/article/get-articles-params.dto";
 
-export function GlobalArticleFeed() {
-  const {
-    data,
-    isLoading,
-    isFetchingNextPage,
-    hasNextPage,
-    isError,
-    error,
-    fetchNextPage,
-  } = useInfinityArticles();
+interface GlobalArticleFeedProps {
+  params: GetArticlesParamsDto;
+}
+
+export function GlobalArticleFeed(props: GlobalArticleFeedProps) {
+  const { params } = props;
+
+  const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } =
+    useInfinityArticles(params);
 
   const intObserverRef = useRef<IntersectionObserver | null>(null);
   const lastArticleRef = useCallback(
@@ -36,39 +35,33 @@ export function GlobalArticleFeed() {
     [isFetchingNextPage, fetchNextPage, hasNextPage]
   );
 
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
-
   return (
     <div className="grid grid-cols-2 gap-10">
-      {data?.pages.map((page, i) => {
-        return (
-          <React.Fragment key={`page-${i}`}>
-            {page.items.map((item, j) => {
-              const isLast =
-                data?.pages.length === i + 1 && page.items.length === j + 1;
-              return (
-                <ArticleCard
-                  key={item.id}
-                  ref={isLast ? lastArticleRef : undefined}
-                  article={item}
-                />
-              );
-            })}
-          </React.Fragment>
-        );
-      })}
-      {isFetchingNextPage && (
-        <p className="text-center col-span-2">
-          <FontAwesomeIcon
-            className="text-muted-foreground"
-            icon={faSpinner}
-            spinPulse
-            size="2xl"
-          />
-        </p>
-      )}
+      {isLoading
+        ? Array(4)
+            .fill(0)
+            .map((_, i) => <ArticleCardSkeleton />)
+        : data?.pages.map((page, i) => {
+            return (
+              <React.Fragment key={`page-${i}`}>
+                {page.items.map((item, j) => {
+                  const isLast =
+                    data?.pages.length === i + 1 && page.items.length === j + 1;
+                  return (
+                    <ArticleCard
+                      key={item.id}
+                      ref={isLast ? lastArticleRef : undefined}
+                      article={item}
+                    />
+                  );
+                })}
+              </React.Fragment>
+            );
+          })}
+      {isFetchingNextPage &&
+        Array(2)
+          .fill(0)
+          .map((_, i) => <ArticleCardSkeleton />)}
     </div>
   );
 }

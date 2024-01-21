@@ -5,6 +5,7 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { cn } from "@/lib/utils";
+import { routes } from "@/lib/routing";
 
 interface ProjectCardProps {
   rtl?: boolean;
@@ -48,7 +49,7 @@ export function ProjectCard(props: ProjectCardProps) {
           )}
           {project.articleId && (
             <Button variant="text" asChild>
-              <Link href={project.articleId}>
+              <Link href={routes.blog.byId(project.articleId)}>
                 <span className="mr-1.5">Learn More</span>
                 <FontAwesomeIcon icon={faArrowRight} />
               </Link>

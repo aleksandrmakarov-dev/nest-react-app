@@ -1,5 +1,6 @@
 import { DataTable } from "@/components/shared";
 import { Button } from "@/components/shared/ui/button";
+import { DeleteProjectDialog } from "@/components/widgets/project/delete-project-dialog/DeleteProjectDialog";
 import { ProjectResponseDto } from "@/lib/dto/project/project-response.dto";
 import { Pagination } from "@/lib/dto/shared/paged-response.dto";
 import { routes } from "@/lib/routing";
@@ -40,9 +41,14 @@ const columns: ColumnDef<ProjectResponseDto>[] = [
             <FontAwesomeIcon icon={faEdit} />
           </Link>
         </Button>
-        <Button size="icon" variant="outline">
-          <FontAwesomeIcon icon={faTrash} />
-        </Button>
+        <DeleteProjectDialog
+          id={row.original.id}
+          trigger={
+            <Button size="icon" variant="outline">
+              <FontAwesomeIcon icon={faTrash} />
+            </Button>
+          }
+        />
       </div>
     ),
   },

@@ -1,19 +1,12 @@
-import { Optional } from "@nestjs/common";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNumber } from "class-validator";
+import { IsNotEmpty, IsOptional } from "class-validator";
+import { PageParamsDto } from "src/common/dto/page-params.dto";
 
-export class GetArticlesDto {
-  @Optional()
-  @IsNumber()
+export class GetArticlesDto extends PageParamsDto {
+  @IsOptional()
+  @IsNotEmpty()
   @ApiProperty({
     required: false,
   })
-  page?: number = 1;
-
-  @Optional()
-  @IsNumber()
-  @ApiProperty({
-    required: false,
-  })
-  size?: number = 10;
+  tagId?: string;
 }

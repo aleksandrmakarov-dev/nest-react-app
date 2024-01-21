@@ -13,9 +13,7 @@ export default async function ArticlePage(context: ArticlePageContext) {
 
   return (
     <HydrationBoundary state={dehydrate(client)}>
-      <div className="w-full max-w-screen-xl mx-auto">
-        <ArticleContent id={context.params.id} />
-      </div>
+      <ArticleContent id={context.params.id} />
     </HydrationBoundary>
   );
 }

@@ -61,8 +61,8 @@ export class TagsController {
 
   @Get(":id")
   async findById(@Param("id") id: string) {
-    const foundTags = await this.tagService.findById(id);
-    return foundTags;
+    const foundTag = await this.tagService.findById(id);
+    return foundTag;
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)

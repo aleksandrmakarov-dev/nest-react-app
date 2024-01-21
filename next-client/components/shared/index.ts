@@ -14,3 +14,4 @@ export { DialogBase } from "./dialog-base/DialogBase";
 export { Select } from "./select/Select";
 export { RoleProtected } from "./role-protected/RoleProtected";
 export { DashboardSubheader } from "./dashboard-subheader/DashboardHeader";
+export { PageSectionHeader } from "./page-section-header/PageSectionHeader";

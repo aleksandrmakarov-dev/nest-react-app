@@ -1,45 +1,39 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { Check } from "lucide-react";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from "../ui/command";
+import { Command, CommandGroup, CommandItem } from "../ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Dispatch, SetStateAction, useState } from "react";
+import { Check } from "lucide-react";
 
-interface SelectProps<T> {
-  options: T[];
-  value: string[];
-  onChange: Dispatch<SetStateAction<string[]>>;
-  getValue: (option: T) => string;
-  getLabel: (option: T) => string;
-  renderOption: (option: T) => React.ReactNode;
-  renderValue: (option: T) => React.ReactNode;
+interface SelectProps<TOption> {
+  options: TOption[];
+  value?: string | string[];
+  onChange: Dispatch<SetStateAction<any>>;
+  getValue: (option: TOption) => string;
+  getLabel: (option: TOption) => string;
+  renderOption: (option: TOption) => React.ReactNode;
+  renderInput: (value?: TOption | TOption[]) => React.ReactNode;
   limit?: number;
-  closeAfterSelect?: boolean;
+  close?: boolean;
   disabled?: boolean;
 }
 
-export function Select<T>(props: SelectProps<T>) {
+export function Select<TOption>(props: SelectProps<TOption>) {
   const {
     options,
     value,
-    onChange,
-    getValue,
-    getLabel,
     renderOption,
-    renderValue,
-    limit,
-    closeAfterSelect,
+    renderInput,
+    getValue,
+    onChange,
     disabled,
+    limit,
+    close,
   } = props;
 
   const [open, setOpen] = useState<boolean>(false);
-  const [search, setSearch] = useState<string>("");
+
+  const isArray = Array.isArray(value);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -48,64 +42,62 @@ export function Select<T>(props: SelectProps<T>) {
           role="combobox"
           aria-expanded={open}
           className={cn(
-            "flex items-center min-h-10 w-full overflow-clip rounded-md border border-input bg-background hover:cursor-pointer placeholder:text-muted-foreground [&:has(:focus-visible)]:ring-2 [&:has(:focus-visible)]:ring-ring [&:has(:focus-visible)]:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+            "flex items-center flex-wrap gap-y-1 px-3 py-1.5 min-h-10 w-full overflow-clip text-sm  rounded-md border border-input bg-background hover:cursor-pointer placeholder:text-muted-foreground [&:has(:focus-visible)]:ring-2 [&:has(:focus-visible)]:ring-ring [&:has(:focus-visible)]:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
             { "pointer-events-none": disabled }
           )}
         >
-          <div className="flex flex-wrap gap-1 px-4 py-2">
-            {value.map((item) => {
-              const option = options.find((op) => getValue(op) === item);
-              if (!option) return null;
-              return renderValue(option);
-            })}
-          </div>
+          {renderInput?.(
+            isArray
+              ? options.filter((o) => value.includes(getValue(o)))
+              : options.find((o) => getValue(o) === value)
+          )}
         </div>
       </PopoverTrigger>
       <PopoverContent className="min-w-64 w-full max-w-md p-0 max-h-72 overflow-auto">
         <Command>
-          <CommandEmpty>No framework found.</CommandEmpty>
           <CommandGroup>
-            {options
-              .filter((v) => getValue(v).includes(search))
-              .map((option) => {
-                const optionValue = getValue(option);
-                const optionLabel = getLabel(option);
+            {options.map((option) => {
+              const val = getValue(option);
 
-                return (
-                  <CommandItem
-                    className="hover:cursor-pointer"
-                    key={optionLabel}
-                    value={optionValue}
-                    onSelect={(currentValue) => {
-                      if (value.includes(currentValue)) {
-                        onChange((prev) =>
-                          prev.filter((v) => v !== currentValue)
-                        );
+              const isChecked = isArray ? value.includes(val) : value === val;
+
+              return (
+                <CommandItem
+                  key={val}
+                  className="hover:cursor-pointer"
+                  value={val}
+                  onSelect={(current) => {
+                    if (isArray) {
+                      if (isChecked) {
+                        onChange(value.filter((current) => current !== val));
                       } else {
                         if (limit && value.length >= limit) {
                           return;
                         }
 
-                        onChange((prev) => [...prev, currentValue]);
+                        onChange([...value, current]);
+                        if (close) {
+                          setOpen(false);
+                        }
                       }
-
-                      if (closeAfterSelect) {
+                    } else {
+                      onChange(current);
+                      if (close) {
                         setOpen(false);
                       }
-                    }}
-                  >
-                    <Check
-                      className={cn(
-                        "mr-2 h-4 w-4",
-                        value.includes(optionValue)
-                          ? "opacity-100"
-                          : "opacity-0"
-                      )}
-                    />
-                    {renderOption(option)}
-                  </CommandItem>
-                );
-              })}
+                    }
+                  }}
+                >
+                  <Check
+                    className={cn(
+                      "mr-2 h-4 w-4",
+                      isChecked ? "opacity-100" : "opacity-0"
+                    )}
+                  />
+                  {renderOption(option)}
+                </CommandItem>
+              );
+            })}
           </CommandGroup>
         </Command>
       </PopoverContent>

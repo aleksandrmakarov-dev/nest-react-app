@@ -42,7 +42,7 @@ export function ProjectForm(props: ProjectFormProps) {
       image: "",
       toolIds: [],
       articleId: "",
-      featured: false,
+      featured: undefined,
       userId: "",
       label: "",
       url: "",

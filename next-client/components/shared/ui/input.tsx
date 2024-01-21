@@ -20,7 +20,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       >
         {startIcon && <FontAwesomeIcon className="pl-3" icon={startIcon} />}
         <input
-          className="w-full px-3 py-2 focus-visible:outline-none"
+          className="w-full px-3 py-2 text-start focus-visible:outline-none"
           type={type}
           ref={ref}
           {...props}

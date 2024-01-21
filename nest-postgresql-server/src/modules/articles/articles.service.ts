@@ -49,8 +49,8 @@ export class ArticlesService {
     });
   }
 
-  async findMany(query: GetArticlesDto) {
-    const { page, size } = query;
+  async findMany(dto: GetArticlesDto) {
+    const { page, size, query, tagId } = dto;
 
     const isPaged = size > 0;
 
@@ -59,6 +59,16 @@ export class ArticlesService {
         skip: (page - 1) * size,
         take: size,
       }),
+      where: {
+        ...(query && { title: { contains: query, mode: "insensitive" } }),
+        ...(tagId && {
+          tags: {
+            some: {
+              id: tagId,
+            },
+          },
+        }),
+      },
       orderBy: {
         createdAt: "desc",
       },
@@ -80,7 +90,21 @@ export class ArticlesService {
       },
     });
 
-    const total = await this.databaseService.article.count();
+    const total = await this.databaseService.article.count({
+      where: {
+        ...(query && { title: { contains: query, mode: "insensitive" } }),
+        ...(tagId && {
+          tags: {
+            some: {
+              id: tagId,
+            },
+          },
+        }),
+      },
+    });
+
+    console.log(total);
+
     const totalPages = Math.ceil(total / size);
 
     const pagination = new Pagination(page, size, total, totalPages);

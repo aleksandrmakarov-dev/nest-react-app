@@ -15,7 +15,11 @@ import { AxiosError } from "axios";
 export const projectKeys = {
   projects: {
     root: ["projects"],
-    query: (page?: number) => [...projectKeys.projects.root, "query", page],
+    query: (params?: GetProjectsParamsDto) => [
+      ...projectKeys.projects.root,
+      "query",
+      { ...params },
+    ],
     infinityQuery: (page?: number) => [
       ...projectKeys.projects.root,
       "infinity-query",
@@ -45,7 +49,7 @@ export async function prefetchProjects(params?: GetProjectsParamsDto) {
     PagedResponseDto<ProjectResponseDto>,
     unknown[]
   >({
-    queryKey: projectKeys.projects.query(),
+    queryKey: projectKeys.projects.query(params),
     queryFn: async () => await fetchProjects(params),
   });
 
@@ -59,7 +63,7 @@ export const useProjects = (params?: GetProjectsParamsDto) => {
     PagedResponseDto<ProjectResponseDto>,
     unknown[]
   >({
-    queryKey: projectKeys.projects.query(),
+    queryKey: projectKeys.projects.query(params),
     queryFn: async () => await fetchProjects(params),
   });
 };

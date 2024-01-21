@@ -20,6 +20,10 @@ export const routes = {
     root: "/blog",
     byId: (id: string) => route(routes.blog.root, id),
   },
+  tags: {
+    root: "/tags",
+    byId: (id: string) => route(routes.tags.root, id),
+  },
   dashboard: {
     root: "/dashboard",
     home: () => route(routes.dashboard.root, "home"),

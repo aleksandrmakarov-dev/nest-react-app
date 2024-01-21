@@ -22,11 +22,14 @@ export function ToolSelect(props: ToolSelectProps) {
       getValue={(option) => option.id}
       getLabel={(option) => option.name}
       renderOption={(option) => <span key={option.id}>{option.name}</span>}
-      renderValue={(option) => (
-        <Badge key={option.id} variant="secondaryDark">
-          {option.name}
-        </Badge>
-      )}
+      renderInput={(value) =>
+        Array.isArray(value) &&
+        value.map((v) => (
+          <Badge key={v.id} className="mr-1" variant="tonal">
+            {v.name}
+          </Badge>
+        ))
+      }
       limit={5}
       {...props}
     />

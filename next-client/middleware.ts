@@ -72,21 +72,25 @@ const getServerSession = async (req: NextRequest) => {
       return null;
     }
 
-    const response = await fetch(
-      "http://localhost:3001/api/auth/refresh-token",
-      {
-        method: "POST",
-        headers: {
-          Cookie: req.cookies.toString(),
-        },
+    try {
+      const response = await fetch(
+        "http://localhost:3001/api/auth/refresh-token",
+        {
+          method: "POST",
+          headers: {
+            Cookie: req.cookies.toString(),
+          },
+        }
+      );
+      if (response.ok) {
+        const newSession = await response.json();
+        return newSession as SessionDto;
+      } else {
+        console.log(await response.json());
+        return null;
       }
-    );
-
-    if (response.ok) {
-      const newSession = await response.json();
-      return newSession as SessionDto;
-    } else {
-      console.log(await response.json());
+    } catch (e) {
+      console.log(e);
       return null;
     }
   }

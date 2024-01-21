@@ -1,7 +1,10 @@
 import { GenericErrorDto } from "@/lib/dto/shared/generic-error.dto";
 import { PagedResponseDto } from "@/lib/dto/shared/paged-response.dto";
 import { GetTagsParamsDto } from "@/lib/dto/tag/get-tags-params.dto";
-import { TagResponseDto } from "@/lib/dto/tag/tag-response.dto";
+import {
+  TagResponseDto,
+  TagResponseWithCountDto,
+} from "@/lib/dto/tag/tag-response.dto";
 import { QueryClientConfig } from "@/lib/query-client";
 import tagService from "@/lib/services/tag/tag.service";
 import { QueryClient, useQuery } from "@tanstack/react-query";
@@ -74,9 +77,9 @@ export async function prefetchTagById(id: string) {
 
 export const useTagById = (id: string) => {
   return useQuery<
-    TagResponseDto,
+    TagResponseWithCountDto,
     AxiosError<GenericErrorDto>,
-    TagResponseDto,
+    TagResponseWithCountDto,
     unknown[]
   >({
     queryKey: tagKeys.tags.byId(id),
