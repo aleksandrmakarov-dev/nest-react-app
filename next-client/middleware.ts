@@ -74,7 +74,7 @@ const getServerSession = async (req: NextRequest) => {
 
     try {
       const response = await fetch(
-        "http://localhost:3001/api/auth/refresh-token",
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/refresh-token`,
         {
           method: "POST",
           headers: {
