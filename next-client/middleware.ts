@@ -65,10 +65,13 @@ const handlePublicRoute = (req: NextRequest, session: SessionDto | null) => {
 const getServerSession = async (req: NextRequest) => {
   const session = await getSession();
 
+  console.log("session", session);
+
   if (session) {
     return session;
   } else {
     if (!req.cookies.has(TOKEN_COOKIE)) {
+      console.log("no refresh token");
       return null;
     }
 
@@ -82,6 +85,7 @@ const getServerSession = async (req: NextRequest) => {
           },
         }
       );
+      console.log(response);
       if (response.ok) {
         const newSession = await response.json();
         return newSession as SessionDto;

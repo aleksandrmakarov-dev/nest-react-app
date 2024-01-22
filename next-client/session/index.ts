@@ -1,5 +1,4 @@
 "use server";
-
 import { cookies } from "next/headers";
 import { SessionDto } from "@/lib/dto/auth/session.dto";
 import { cookieOptions, sessionKey } from "./session.utils";
