@@ -8,11 +8,11 @@ export class MailConfigService {
   constructor(private readonly configService: ConfigService) {}
 
   apiKey(): string {
-    return this.configService.getOrThrow<string>("EMAIL_API_KEY");
+    return this.configService.get<string>("EMAIL_API_KEY");
   }
 
   from(): string {
-    return this.configService.getOrThrow<string>("EMAIL_FROM");
+    return this.configService.get<string>("EMAIL_FROM");
   }
 
   template(name: string): string {

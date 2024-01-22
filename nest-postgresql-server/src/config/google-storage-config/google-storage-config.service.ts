@@ -7,13 +7,13 @@ export class GoogleStorageConfigService {
   constructor(private readonly configService: ConfigService) {}
 
   bucketName() {
-    return this.configService.getOrThrow<string>("BUCKET_NAME");
+    return this.configService.get<string>("BUCKET_NAME");
   }
 
   keyFilename() {
     return path.join(
       process.cwd(),
-      this.configService.getOrThrow<string>("KEY_FILENAME"),
+      this.configService.get<string>("KEY_FILENAME"),
     );
   }
 }

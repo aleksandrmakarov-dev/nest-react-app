@@ -10,29 +10,28 @@ export class MailService {
   private readonly client: Resend;
 
   constructor(
-    // private readonly mailConfigService: MailConfigService,
+    private readonly mailConfigService: MailConfigService,
     private readonly templateService: TemplateService,
   ) {
-    // this.client = new Resend(this.mailConfigService.apiKey());
+    this.client = new Resend(this.mailConfigService.apiKey());
   }
 
   async sendEmail(values: EmailOptionsDto) {
-    // const path = this.mailConfigService.template(values.template);
-    // const source = await this.templateService.read(path);
-    // const html = this.templateService.compile(source, values.context);
+    const path = this.mailConfigService.template(values.template);
+    const source = await this.templateService.read(path);
+    const html = this.templateService.compile(source, values.context);
 
-    // const response = await this.client.emails.send({
-    //   from: this.mailConfigService.from(),
-    //   to: values.to,
-    //   subject: values.subject,
-    //   html: html,
-    // });
+    const response = await this.client.emails.send({
+      from: this.mailConfigService.from(),
+      to: values.to,
+      subject: values.subject,
+      html: html,
+    });
 
-    // if (response.error) {
-    //   throw new EmailException(response.error.message);
-    // }
+    if (response.error) {
+      throw new EmailException(response.error.message);
+    }
 
-    // return response.data.id;
-    return "123";
+    return response.data.id;
   }
 }

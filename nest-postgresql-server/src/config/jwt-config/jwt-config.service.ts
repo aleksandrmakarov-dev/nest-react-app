@@ -6,6 +6,6 @@ export class JwtConfigService {
   constructor(private readonly configService: ConfigService) {}
 
   jwtSecretKey(): string {
-    return this.configService.getOrThrow<string>("JWT_SECRET_KEY");
+    return this.configService.get<string>("JWT_SECRET_KEY");
   }
 }

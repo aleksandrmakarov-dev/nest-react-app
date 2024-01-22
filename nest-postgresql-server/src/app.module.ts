@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
+import { MailConfigModule } from "./config/mail-config/mail-config.module";
 import { CoreModule } from "./core/core.module";
 import { JwtConfigModule } from "./config/jwt-config/jwt-config.module";
 import { AuthModule } from "./modules/auth/auth.module";
@@ -16,10 +17,10 @@ import { ToolsModule } from "./modules/tools/tools.module";
 import { FilesModule } from "./modules/files/files.module";
 import { GoogleStorageConfigModule } from "./config/google-storage-config/google-storage-config.module";
 import { GoogleStorageModule } from "./core/google-storage/google-storage.module";
-import { MailConfigModule } from "./config/mail-config/mail-config.module";
 
 @Module({
   imports: [
+    MailConfigModule,
     CoreModule,
     JwtConfigModule,
     AuthModule,
