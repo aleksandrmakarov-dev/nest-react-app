@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
-import * as path from "path";
-import * as process from "process";
+import path from "path";
+import process from "process";
 
 @Injectable()
 export class MailConfigService {
