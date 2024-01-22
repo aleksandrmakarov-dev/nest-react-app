@@ -1,4 +1,4 @@
-import * as moment from "moment";
+import moment from "moment";
 
 export function isExpired(date: Date) {
   return moment().isAfter(date);
