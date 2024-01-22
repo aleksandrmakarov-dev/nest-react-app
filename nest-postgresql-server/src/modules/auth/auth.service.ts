@@ -8,7 +8,7 @@ import { UsersService } from "../users/users.service";
 import { SignUpDto } from "./dto/sign-up.dto";
 import { Role, User } from "@prisma/client";
 import { MailService } from "src/core/mail/mail.service";
-import * as moment from "moment";
+import moment from "moment";
 import { isExpired } from "src/common/utils/date.utils";
 import { VerifyEmailDto } from "./dto/verify-email.dto";
 import { SignInDto } from "./dto/sign-in.dto";
