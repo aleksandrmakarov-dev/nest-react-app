@@ -1,4 +1,5 @@
 "use client";
+import { useUploadFile } from "@/components/features/file";
 import {
   DialogBase,
   FieldController,
@@ -19,13 +20,14 @@ export type FileUploadDto = z.infer<typeof fileUploadSchema>;
 
 interface FileUploadBodyProps {
   trigger: JSX.Element;
-  onUploaded?: (value: any) => void;
+  onUploaded: (value: any) => void;
 }
 
 export function FileUploadDialog(props: FileUploadBodyProps) {
   const { trigger, onUploaded } = props;
 
   const [open, setOpen] = useState<boolean>(false);
+  const { data, mutate, isPending, isError, error } = useUploadFile();
 
   const form = useForm<FileUploadDto>({
     resolver: zodResolver(fileUploadSchema),
@@ -46,7 +48,15 @@ export function FileUploadDialog(props: FileUploadBodyProps) {
     }
   };
 
-  const onSubmit = (value: FileUploadDto) => {};
+  const onSubmit = (value: FileUploadDto) => {
+    mutate(value.file, {
+      onSuccess: (data) => {
+        onUploaded(data);
+        form.reset();
+        setOpen(false);
+      },
+    });
+  };
 
   return (
     <DialogBase
@@ -55,6 +65,8 @@ export function FileUploadDialog(props: FileUploadBodyProps) {
       title="Upload file"
       description="Select file and click upload to upload file to cloud"
       trigger={trigger}
+      isError={isError}
+      error={error?.response?.data.message}
     >
       <FormController form={form} submit={onSubmit}>
         <FieldController
@@ -69,7 +81,7 @@ export function FileUploadDialog(props: FileUploadBodyProps) {
           )}
         />
         <div className="flex justify-end w-full">
-          <LoadingButton variant="default" type="submit">
+          <LoadingButton loading={isPending} variant="default" type="submit">
             Upload
           </LoadingButton>
         </div>

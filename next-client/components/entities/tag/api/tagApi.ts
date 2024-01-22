@@ -6,7 +6,7 @@ import {
   TagResponseWithCountDto,
 } from "@/lib/dto/tag/tag-response.dto";
 import { QueryClientConfig } from "@/lib/query-client";
-import tagService from "@/lib/services/tag/tag.service";
+import tagService from "@/lib/services/tag.service";
 import { QueryClient, useQuery } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 

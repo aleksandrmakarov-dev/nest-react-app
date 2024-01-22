@@ -1,7 +1,7 @@
 import { projectKeys } from "@/components/entities/project";
 import { EditProjectDto } from "@/lib/dto/project/edit-project.dto";
 import { GenericErrorDto } from "@/lib/dto/shared/generic-error.dto";
-import projectService from "@/lib/services/project/project.service";
+import projectService from "@/lib/services/project.service";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 

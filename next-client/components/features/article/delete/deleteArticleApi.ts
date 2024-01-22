@@ -1,6 +1,6 @@
 import { articleKeys } from "@/components/entities/article";
 import { GenericErrorDto } from "@/lib/dto/shared/generic-error.dto";
-import articleService from "@/lib/services/article/article.service";
+import articleService from "@/lib/services/article.service";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 

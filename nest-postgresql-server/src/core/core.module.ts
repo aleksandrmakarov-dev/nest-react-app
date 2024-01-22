@@ -7,6 +7,8 @@ import { JwtModule } from "@nestjs/jwt";
 import { JwtConfigModule } from "src/config/jwt-config/jwt-config.module";
 import { JwtConfigService } from "src/config/jwt-config/jwt-config.service";
 import { CryptoModule } from "./crypto/crypto.module";
+import { GoogleStorageService } from "./google-storage/google-storage.service";
+import { GoogleStorageModule } from "./google-storage/google-storage.module";
 
 @Module({
   imports: [
@@ -22,6 +24,7 @@ import { CryptoModule } from "./crypto/crypto.module";
       inject: [JwtConfigService],
     }),
     CryptoModule,
+    GoogleStorageModule,
   ],
   exports: [
     MailModule,
@@ -30,6 +33,7 @@ import { CryptoModule } from "./crypto/crypto.module";
     BcryptModule,
     JwtModule,
     CryptoModule,
+    GoogleStorageModule,
   ],
 })
 export class CoreModule {}

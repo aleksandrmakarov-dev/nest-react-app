@@ -9,7 +9,7 @@ export const editProjectSchema = z.object({
   articleId: z.string().optional(),
   url: z.string().optional(),
   label: z.string().optional(),
-  featured: z.date().optional(),
+  featured: z.coerce.date().optional().nullable(),
 });
 
 export type EditProjectDto = z.infer<typeof editProjectSchema>;

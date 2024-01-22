@@ -14,6 +14,11 @@ import { ArticlesModule } from "./modules/articles/articles.module";
 import { AllExceptionFilter } from "./common/filters/all-exception.filter";
 import { ProjectsModule } from "./modules/projects/projects.module";
 import { ToolsModule } from "./modules/tools/tools.module";
+import { FilesModule } from "./modules/files/files.module";
+import { GoogleStorageConfigService } from "./config/google-storage-config/google-storage-config.service";
+import { GoogleStorageConfigModule } from "./config/google-storage-config/google-storage-config.module";
+import { GoogleStorageModule } from "./core/google-storage/google-storage.module";
+
 @Module({
   imports: [
     MailConfigModule,
@@ -26,6 +31,9 @@ import { ToolsModule } from "./modules/tools/tools.module";
     ArticlesModule,
     ProjectsModule,
     ToolsModule,
+    FilesModule,
+    GoogleStorageConfigModule,
+    GoogleStorageModule,
   ],
   controllers: [AppController],
   providers: [

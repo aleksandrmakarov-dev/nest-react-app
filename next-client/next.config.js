@@ -17,6 +17,9 @@ const nextConfig = {
       {
         hostname: "placebeard.it",
       },
+      {
+        hostname: "storage.googleapis.com",
+      },
     ],
   },
 };

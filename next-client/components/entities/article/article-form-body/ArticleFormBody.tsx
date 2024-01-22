@@ -1,11 +1,11 @@
-import { FieldController, Select } from "@/components/shared";
+import { FieldController } from "@/components/shared";
 import { Input } from "@/components/shared/ui/input";
 import { Textarea } from "@/components/shared/ui/textarea";
 import { TagSelect } from "@/components/widgets/tag";
 import { UserSelect } from "@/components/widgets/user";
 import { EditArticleDto } from "@/lib/dto/article/edit-article.dto";
 import { Control } from "react-hook-form";
-import { FileUploadDialog } from "../../file";
+import { FileUploadDialog } from "@/components/entities/file";
 
 interface ArticleFormBodyProps {
   control: Control<EditArticleDto>;
@@ -39,7 +39,10 @@ export function ArticleFormBody(props: ArticleFormBodyProps) {
         label="Image"
         disabled={isLoading}
         render={({ field }) => (
-          <FileUploadDialog trigger={<Input {...field} />} />
+          <FileUploadDialog
+            trigger={<Input {...field} />}
+            onUploaded={(v) => field.onChange(v)}
+          />
         )}
       />
       <FieldController
@@ -56,7 +59,7 @@ export function ArticleFormBody(props: ArticleFormBodyProps) {
           label="Tags"
           disabled={isLoading}
           required
-          render={({ field }) => <TagSelect {...field} />}
+          render={({ field: { ref, ...other } }) => <TagSelect {...other} />}
         />
         <FieldController
           control={control}
@@ -64,7 +67,7 @@ export function ArticleFormBody(props: ArticleFormBodyProps) {
           label="User"
           disabled={isLoading}
           required
-          render={({ field }) => <UserSelect {...field} />}
+          render={({ field: { ref, ...other } }) => <UserSelect {...other} />}
         />
       </div>
     </>

@@ -6,6 +6,7 @@ import { ArticleSelect } from "@/components/widgets/article";
 import { ToolSelect } from "@/components/widgets/tool";
 import { UserSelect } from "@/components/widgets/user";
 import { EditProjectDto } from "@/lib/dto/project/edit-project.dto";
+import { FileUploadDialog } from "@/components/entities/file";
 import { Control } from "react-hook-form";
 
 interface ProjectFormBodyProps {
@@ -40,7 +41,12 @@ export function ProjectFormBody(props: ProjectFormBodyProps) {
         label="Image"
         required
         disabled={isLoading}
-        render={({ field }) => <Input {...field} />}
+        render={({ field }) => (
+          <FileUploadDialog
+            trigger={<Input {...field} />}
+            onUploaded={(v) => field.onChange(v)}
+          />
+        )}
       />
       <div className="grid grid-cols-2 gap-5">
         <FieldController
@@ -63,7 +69,7 @@ export function ProjectFormBody(props: ProjectFormBodyProps) {
           label="Tools"
           disabled={isLoading}
           required
-          render={({ field }) => <ToolSelect {...field} />}
+          render={({ field: { ref, ...other } }) => <ToolSelect {...other} />}
         />
         <FieldController
           control={control}
@@ -71,13 +77,15 @@ export function ProjectFormBody(props: ProjectFormBodyProps) {
           label="User"
           disabled={isLoading}
           required
-          render={({ field }) => <UserSelect {...field} />}
+          render={({ field: { ref, ...other } }) => <UserSelect {...other} />}
         />
         <FieldController
           control={control}
           name="articleId"
           label="Article"
-          render={({ field }) => <ArticleSelect {...field} />}
+          render={({ field: { ref, ...other } }) => (
+            <ArticleSelect {...other} />
+          )}
         />
         <FieldController
           control={control}

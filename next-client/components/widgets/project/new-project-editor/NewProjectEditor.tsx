@@ -4,8 +4,6 @@ import { ProjectForm } from "@/components/entities/project";
 import { useCreateProject } from "@/components/features/project";
 import { useAuth } from "@/context/auth-provider/AuthProvider";
 import { EditProjectDto } from "@/lib/dto/project/edit-project.dto";
-import { routes } from "@/lib/routing";
-import Link from "next/link";
 
 export function NewProjectEditor() {
   const { mutate, isPending, isError, error, isSuccess, data } =
@@ -30,7 +28,7 @@ export function NewProjectEditor() {
         title: "",
         description: "",
         image: "",
-        featured: false,
+        featured: undefined,
         articleId: "",
         userId: session?.id!,
         label: "",

@@ -1,6 +1,7 @@
 import { FieldController } from "@/components/shared";
 import { Input } from "@/components/shared/ui/input";
 import { EditToolDto } from "@/lib/dto/tool/edit-tool.dto";
+import { FileUploadDialog } from "@/components/entities/file";
 import { Control } from "react-hook-form";
 
 interface ToolFormBodyProps {
@@ -25,7 +26,12 @@ export function ToolFormBody(props: ToolFormBodyProps) {
         name="image"
         label="Image"
         disabled={isLoading}
-        render={({ field }) => <Input {...field} />}
+        render={({ field }) => (
+          <FileUploadDialog
+            trigger={<Input {...field} />}
+            onUploaded={(v) => field.onChange(v)}
+          />
+        )}
       />
       <FieldController
         control={control}

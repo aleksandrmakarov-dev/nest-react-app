@@ -3,7 +3,7 @@ import { GetUsersParamsDto } from "@/lib/dto/user/get-users-params.dto";
 import { GenericErrorDto } from "@/lib/dto/shared/generic-error.dto";
 import { PagedResponseDto } from "@/lib/dto/shared/paged-response.dto";
 import { QueryClientConfig } from "@/lib/query-client";
-import userService from "@/lib/services/user/user.service";
+import userService from "@/lib/services/user.service";
 import {
   InfiniteData,
   QueryClient,

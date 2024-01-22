@@ -25,7 +25,12 @@ export function FormController<T extends FieldValues = FieldValues>(
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(submit)}>
+      <form
+        onSubmit={(e) => {
+          e.stopPropagation();
+          form.handleSubmit(submit)(e);
+        }}
+      >
         {isError && (
           <Alert variant="error" className="mb-3">
             <FontAwesomeIcon icon={faExclamationCircle} className="h-5 w-5" />

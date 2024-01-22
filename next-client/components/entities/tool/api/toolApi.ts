@@ -3,7 +3,7 @@ import { GetToolsParamsDto } from "@/lib/dto/tool/get-tools-params.dto";
 import { GenericErrorDto } from "@/lib/dto/shared/generic-error.dto";
 import { PagedResponseDto } from "@/lib/dto/shared/paged-response.dto";
 import { QueryClientConfig } from "@/lib/query-client";
-import toolService from "@/lib/services/tool/tool.service";
+import toolService from "@/lib/services/tool.service";
 import {
   InfiniteData,
   QueryClient,

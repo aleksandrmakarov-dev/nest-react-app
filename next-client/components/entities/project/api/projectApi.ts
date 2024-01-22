@@ -3,7 +3,7 @@ import { GetProjectsParamsDto } from "@/lib/dto/project/get-projects-params.dto"
 import { GenericErrorDto } from "@/lib/dto/shared/generic-error.dto";
 import { PagedResponseDto } from "@/lib/dto/shared/paged-response.dto";
 import { QueryClientConfig } from "@/lib/query-client";
-import projectService from "@/lib/services/project/project.service";
+import projectService from "@/lib/services/project.service";
 import {
   InfiniteData,
   QueryClient,

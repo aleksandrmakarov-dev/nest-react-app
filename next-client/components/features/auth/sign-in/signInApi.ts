@@ -2,7 +2,7 @@ import { authKeys } from "@/components/entities/auth";
 import { SignInLocalDto } from "@/lib/dto/auth/sign-in-local.dto";
 import { UserDataDto } from "@/lib/dto/auth/session.dto";
 import { GenericErrorDto } from "@/lib/dto/shared/generic-error.dto";
-import authService from "@/lib/services/auth/auth.service";
+import authService from "@/lib/services/auth.service";
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 

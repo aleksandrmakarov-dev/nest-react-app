@@ -3,7 +3,7 @@ import {
   TagResponseDto,
   TagResponseWithCountDto,
 } from "@/lib/dto/tag/tag-response.dto";
-import baseService from "../base.service";
+import baseService from "./base.service";
 
 const tagService = baseService<
   EditTagDto,

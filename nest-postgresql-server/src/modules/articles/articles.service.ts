@@ -103,8 +103,6 @@ export class ArticlesService {
       },
     });
 
-    console.log(total);
-
     const totalPages = Math.ceil(total / size);
 
     const pagination = new Pagination(page, size, total, totalPages);

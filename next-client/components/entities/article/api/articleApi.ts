@@ -6,7 +6,7 @@ import { GetArticlesParamsDto } from "@/lib/dto/article/get-articles-params.dto"
 import { GenericErrorDto } from "@/lib/dto/shared/generic-error.dto";
 import { PagedResponseDto } from "@/lib/dto/shared/paged-response.dto";
 import { QueryClientConfig } from "@/lib/query-client";
-import articleService from "@/lib/services/article/article.service";
+import articleService from "@/lib/services/article.service";
 import {
   InfiniteData,
   QueryClient,
@@ -18,11 +18,15 @@ import { AxiosError } from "axios";
 export const articleKeys = {
   articles: {
     root: ["articles"],
-    query: (page?: number) => [...articleKeys.articles.root, "query", page],
-    infinityQuery: (page?: number) => [
+    query: (params?: GetArticlesParamsDto) => [
+      ...articleKeys.articles.root,
+      "query",
+      { ...params },
+    ],
+    infinityQuery: (params?: GetArticlesParamsDto) => [
       ...articleKeys.articles.root,
       "infinity-query",
-      page,
+      { ...params },
     ],
     byId: (id: string) => [...articleKeys.articles.root, "by-id", id],
   },
@@ -62,7 +66,7 @@ export const useArticles = (params?: GetArticlesParamsDto) => {
     PagedResponseDto<ArticleResponseDto>,
     unknown[]
   >({
-    queryKey: articleKeys.articles.query(),
+    queryKey: articleKeys.articles.query(params),
     queryFn: async () => await fetchArticles(params),
   });
 };
@@ -78,7 +82,7 @@ export async function prefetchInfinityArticles(params?: GetArticlesParamsDto) {
     InfiniteData<PagedResponseDto<ArticleResponseDto>>,
     unknown[]
   >({
-    queryKey: articleKeys.articles.infinityQuery(),
+    queryKey: articleKeys.articles.infinityQuery(params),
     queryFn: async () => await fetchArticles(params),
     initialPageParam: 1,
   });
@@ -93,7 +97,7 @@ export const useInfinityArticles = (params?: GetArticlesParamsDto) => {
     InfiniteData<PagedResponseDto<ArticleResponseDto>>,
     unknown[]
   >({
-    queryKey: articleKeys.articles.infinityQuery(),
+    queryKey: articleKeys.articles.infinityQuery(params),
     queryFn: async (data) =>
       await fetchArticles(data.pageParam as GetArticlesParamsDto),
     initialPageParam: params,
