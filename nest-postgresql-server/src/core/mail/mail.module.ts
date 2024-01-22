@@ -4,7 +4,7 @@ import { MailConfigModule } from "src/config/mail-config/mail-config.module";
 import { TemplateModule } from "../template/template.module";
 
 @Module({
-  imports: [MailConfigModule, TemplateModule],
+  imports: [TemplateModule],
   providers: [MailService],
   exports: [MailService],
 })

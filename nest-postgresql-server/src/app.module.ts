@@ -20,7 +20,6 @@ import { MailConfigModule } from "./config/mail-config/mail-config.module";
 
 @Module({
   imports: [
-    MailConfigModule,
     CoreModule,
     JwtConfigModule,
     AuthModule,
