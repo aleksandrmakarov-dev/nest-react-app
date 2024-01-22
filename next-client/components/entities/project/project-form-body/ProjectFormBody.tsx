@@ -8,6 +8,7 @@ import { UserSelect } from "@/components/widgets/user";
 import { EditProjectDto } from "@/lib/dto/project/edit-project.dto";
 import { FileUploadDialog } from "@/components/entities/file";
 import { Control } from "react-hook-form";
+import { Button } from "@/components/shared/ui/button";
 
 interface ProjectFormBodyProps {
   control: Control<EditProjectDto>;
@@ -42,10 +43,13 @@ export function ProjectFormBody(props: ProjectFormBodyProps) {
         required
         disabled={isLoading}
         render={({ field }) => (
-          <FileUploadDialog
-            trigger={<Input {...field} />}
-            onUploaded={(v) => field.onChange(v)}
-          />
+          <div className="flex gap-x-2 items-center">
+            <Input {...field} />
+            <FileUploadDialog
+              trigger={<Button variant="tonal">Select</Button>}
+              onUploaded={(v) => field.onChange(v)}
+            />
+          </div>
         )}
       />
       <div className="grid grid-cols-2 gap-5">

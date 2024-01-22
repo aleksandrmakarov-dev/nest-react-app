@@ -27,7 +27,7 @@ export function FileUploadDialog(props: FileUploadBodyProps) {
   const { trigger, onUploaded } = props;
 
   const [open, setOpen] = useState<boolean>(false);
-  const { data, mutate, isPending, isError, error } = useUploadFile();
+  const { mutate, isPending, isError, error } = useUploadFile();
 
   const form = useForm<FileUploadDto>({
     resolver: zodResolver(fileUploadSchema),

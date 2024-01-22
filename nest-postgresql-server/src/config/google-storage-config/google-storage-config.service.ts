@@ -10,10 +10,6 @@ export class GoogleStorageConfigService {
     return this.configService.getOrThrow<string>("BUCKET_NAME");
   }
 
-  projectId() {
-    return this.configService.getOrThrow<string>("PROJECT_ID");
-  }
-
   keyFilename() {
     return path.join(
       process.cwd(),

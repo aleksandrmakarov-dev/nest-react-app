@@ -34,7 +34,7 @@ export function DataTablePagination(props: DataTablePaginationProps) {
   };
 
   return (
-    <Pagination className="p-2">
+    <Pagination className="p-2 min-h-12">
       <PaginationContent className="flex justify-between w-full">
         <PaginationPrevious
           className={cn({ hidden: !hasPrevPage })}

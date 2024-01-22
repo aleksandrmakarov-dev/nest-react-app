@@ -54,9 +54,10 @@ export default function HomePage() {
       <div className="min-h-screen flex items-center">
         <div className="mx-auto max-w-screen-lg text-center">
           <h1 className="font-medium text-5xl sm:text-6xl mb-5">
-            Hello, I'm <span className="text-primary">Aleksandr Makarov</span>.
+            Hello, I&apos;m
+            <span className="text-primary">Aleksandr Makarov</span>.
             <br />
-            I'm a software developer
+            I&apos;m a software developer
           </h1>
           <p className="text-lg sm:text-2xl text-gray-600 mb-10">
             Powerful, self-serve team engagement tools and analytics.

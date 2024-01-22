@@ -17,7 +17,7 @@ export function SignOutCard() {
         onSuccess: (_) => setSession(null),
       }
     );
-  }, []);
+  }, [setSession]);
 
   return (
     <>

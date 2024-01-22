@@ -3,6 +3,14 @@ import { Input } from "@/components/shared/ui/input";
 import { EditToolDto } from "@/lib/dto/tool/edit-tool.dto";
 import { FileUploadDialog } from "@/components/entities/file";
 import { Control } from "react-hook-form";
+import { UserSelect } from "@/components/widgets/user";
+import { Button } from "@/components/shared/ui/button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCloud,
+  faCloudArrowUp,
+  faUpload,
+} from "@fortawesome/free-solid-svg-icons";
 
 interface ToolFormBodyProps {
   control: Control<EditToolDto>;
@@ -27,10 +35,13 @@ export function ToolFormBody(props: ToolFormBodyProps) {
         label="Image"
         disabled={isLoading}
         render={({ field }) => (
-          <FileUploadDialog
-            trigger={<Input {...field} />}
-            onUploaded={(v) => field.onChange(v)}
-          />
+          <div className="flex gap-x-2 items-center">
+            <Input {...field} />
+            <FileUploadDialog
+              trigger={<Button variant="tonal">Select</Button>}
+              onUploaded={(v) => field.onChange(v)}
+            />
+          </div>
         )}
       />
       <FieldController
@@ -38,7 +49,7 @@ export function ToolFormBody(props: ToolFormBodyProps) {
         name="userId"
         label="User"
         disabled={isLoading}
-        render={({ field }) => <Input {...field} />}
+        render={({ field: { ref, ...other } }) => <UserSelect {...other} />}
       />
     </>
   );

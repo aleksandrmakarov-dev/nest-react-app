@@ -6,6 +6,7 @@ import { UserSelect } from "@/components/widgets/user";
 import { EditArticleDto } from "@/lib/dto/article/edit-article.dto";
 import { Control } from "react-hook-form";
 import { FileUploadDialog } from "@/components/entities/file";
+import { Button } from "@/components/shared/ui/button";
 
 interface ArticleFormBodyProps {
   control: Control<EditArticleDto>;
@@ -39,10 +40,13 @@ export function ArticleFormBody(props: ArticleFormBodyProps) {
         label="Image"
         disabled={isLoading}
         render={({ field }) => (
-          <FileUploadDialog
-            trigger={<Input {...field} />}
-            onUploaded={(v) => field.onChange(v)}
-          />
+          <div className="flex gap-x-2 items-center">
+            <Input {...field} />
+            <FileUploadDialog
+              trigger={<Button variant="tonal">Select</Button>}
+              onUploaded={(v) => field.onChange(v)}
+            />
+          </div>
         )}
       />
       <FieldController

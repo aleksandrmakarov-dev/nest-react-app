@@ -1,5 +1,6 @@
 import { FieldController } from "@/components/shared";
 import { Input } from "@/components/shared/ui/input";
+import { UserSelect } from "@/components/widgets/user";
 import { EditTagDto } from "@/lib/dto/tag/edit-tag.dto";
 import { Control } from "react-hook-form";
 
@@ -25,7 +26,7 @@ export function TagFormBody(props: TagFormBodyProps) {
         name="userId"
         label="User"
         disabled={isLoading}
-        render={({ field }) => <Input {...field} />}
+        render={({ field: { ref, ...other } }) => <UserSelect {...other} />}
       />
     </>
   );

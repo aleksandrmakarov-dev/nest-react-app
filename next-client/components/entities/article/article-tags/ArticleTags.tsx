@@ -18,7 +18,7 @@ export function ArticleTags(props: ArticleTagsProps) {
       tags={tags}
       isLoading={isLoading}
       render={(tag) => (
-        <Badge key={tag.id} className="text-sm" variant="secondaryDark">
+        <Badge key={tag.id} className="text-sm" variant="tonal">
           {tag.name}
         </Badge>
       )}

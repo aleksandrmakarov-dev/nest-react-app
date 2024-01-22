@@ -40,7 +40,7 @@ export function GlobalArticleFeed(props: GlobalArticleFeedProps) {
       {isLoading
         ? Array(4)
             .fill(0)
-            .map((_, i) => <ArticleCardSkeleton key={i} />)
+            .map((_, i) => <ArticleCardSkeleton key={`skeleton-${i}`} />)
         : data?.pages.map((page, i) => {
             return (
               <React.Fragment key={`page-${i}`}>
@@ -61,7 +61,7 @@ export function GlobalArticleFeed(props: GlobalArticleFeedProps) {
       {isFetchingNextPage &&
         Array(2)
           .fill(0)
-          .map((_, i) => <ArticleCardSkeleton />)}
+          .map((_, i) => <ArticleCardSkeleton key={`skeleton-next-${i}`} />)}
     </div>
   );
 }

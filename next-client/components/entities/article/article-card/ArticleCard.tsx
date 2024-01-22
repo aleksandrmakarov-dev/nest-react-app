@@ -50,3 +50,5 @@ export const ArticleCard = React.forwardRef<HTMLDivElement, ArticleCardProps>(
     );
   }
 );
+
+ArticleCard.displayName = "ArticleCard";
