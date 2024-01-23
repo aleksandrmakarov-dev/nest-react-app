@@ -67,6 +67,8 @@ const getServerSession = async (req: NextRequest) => {
 
   console.log("session", session);
 
+  console.log("cookies:", req.cookies.toString());
+
   if (session) {
     return session;
   } else {
@@ -83,6 +85,7 @@ const getServerSession = async (req: NextRequest) => {
           headers: {
             Cookie: req.cookies.toString(),
           },
+          credentials: "include",
         }
       );
       console.log(response);
