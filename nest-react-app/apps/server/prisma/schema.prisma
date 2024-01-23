@@ -1,0 +1,128 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-1.0.x"]
+}
+
+// prisma/schema.prisma
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+
+  relationMode = "foreignKeys"
+}
+
+model User {
+  id                              String             @id @default(uuid())
+  email                           String             @unique
+  passwordHash                    String?
+  name                            String
+  image                           String?
+  bio                             String?
+  createdAt                       DateTime           @default(now())
+  updatedAt                       DateTime           @updatedAt
+  emailVerificationToken          String?
+  emailVerificationTokenExpiresAt DateTime?
+  emailVerifiedAt                 DateTime?
+  passwordResetToken              String?
+  passwordResetTokenExpiresAt     DateTime?
+  passwordResetAt                 DateTime?
+  role                            Role
+  accounts                        Account[]
+  externalProviders               ExternalProvider[]
+  articles                        Article[]          @relation("UserToArticles")
+  tags                            Tag[]              @relation("UserToTags")
+  favoriteArticles                Article[]          @relation("UserToFavoriteArticles")
+  projects                        Project[]          @relation("UserToProjects")
+  tools                           Tool[]             @relation("UserToTools")
+}
+
+model Account {
+  id                 String            @id @default(uuid())
+  userID             String
+  user               User              @relation(fields: [userID], references: [id])
+  type               AccountType
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  createByIp         String?
+  refreshToken       String            @unique
+  expiresAt          DateTime
+  revokedAt          DateTime?
+  revokedReason      String?
+  externalProviderID String?
+  externalProvider   ExternalProvider? @relation(fields: [externalProviderID], references: [id])
+}
+
+model ExternalProvider {
+  id        String    @id @default(uuid())
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  users     User[]
+  accounts  Account[]
+}
+
+model Article {
+  id           String   @id @default(uuid())
+  title        String
+  description  String
+  image        String?
+  content      String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], name: "UserToArticles")
+  tags         Tag[]    @relation("ArticleToTag")
+  userFavorite User[]   @relation("UserToFavoriteArticles")
+}
+
+model Tag {
+  id        String    @id @default(uuid())
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  userId    String
+  user      User      @relation(fields: [userId], references: [id],name: "UserToTags")
+  articles  Article[] @relation("ArticleToTag")
+}
+
+model Project {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  image       String?
+  url         String?
+  label       String?
+  featured    DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  userId      String
+  articleId   String?
+  user        User     @relation(fields: [userId], references: [id], name: "UserToProjects")
+  tools       Tool[]   @relation("ProjectToTool")
+}
+
+model Tool {
+  id        String    @id @default(uuid())
+  name      String
+  image     String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  userId    String
+  user      User      @relation(fields: [userId], references: [id],"UserToTools")
+  projects  Project[] @relation("ProjectToTool")
+}
+
+enum Role {
+  USER
+  EDITOR
+  ADMIN
+}
+
+enum AccountType {
+  LOCAL
+  EXTERNAL
+}
