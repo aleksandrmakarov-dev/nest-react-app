@@ -25,11 +25,9 @@ export function ProjectCard(props: ProjectCardProps) {
             tool.image ? (
               <img
                 key={tool.id}
-                className="object-center object-cover"
+                className="object-center object-cover h-12"
                 alt={tool.name}
                 src={tool.image}
-                width={48}
-                height={48}
               />
             ) : null
           )}
