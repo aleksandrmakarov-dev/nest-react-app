@@ -1,2 +1,2 @@
 # Medium clone website
-Implementation of Medium blogging website with Nestjs for the backend and Nextjs for the client. Data is stored in the PostgreSQL
+Implementation of Medium Blog website using Nestjs for server side and React for client side. Data is stored in the PostgreSQL
