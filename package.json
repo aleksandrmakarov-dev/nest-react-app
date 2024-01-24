@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "cd ./apps/client && npm install && npm run build && cd ../server && npm install && prisma generate && npm run build",
+    "build": "cd ./apps/client && npm install && npm run build && cd ../server && npm install && npm run build",
     "heroku-postbuild": "npm run build",
-    "heroku-prebuild": "cd ./apps/client && npm install && cd ../server && npm install",
+    "heroku-prebuild": "cd ./apps/client && npm install && cd ../server && npm install && prisma generate",
     "start": "node apps/server/dist/src/main"
   },
   "keywords": [],
