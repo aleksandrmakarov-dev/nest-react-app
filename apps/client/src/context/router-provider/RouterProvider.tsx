@@ -50,7 +50,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route path={routes.root} element={<MainLayout />}>
-        <Route index element={<HomePage />} />
+        <Route path={routes.home} element={<HomePage />} />
         <Route path={routes.tags.root}>
           <Route path=":tagId">
             <Route index element={<BlogPage />} />

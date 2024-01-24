@@ -6,6 +6,7 @@ import {
 
 export const routes = {
   root: "/",
+  home: "/home",
   auth: {
     signIn: "/sign-in",
     signUp: "/sign-up",
