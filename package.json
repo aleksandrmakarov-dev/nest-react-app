@@ -4,11 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "turbo run dev",
-    "build": "turbo run build",
-    "heroku-postbuild": "NODE_ENV=dev cd ./apps/client && npm install && cd ../server && npm install && prisma generate",
-    "start": "node apps/server/dist/src/main",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm --prefix client install && NODE_ENV=production npm --prefix client run build && npm --prefix server install && NODE_ENV=production npm --prefix server run build",
+    "heroku-postbuild": "npm run build",
+    "heroku-prebuild": "npm --prefix frontend install && npm --prefix server install "
   },
   "keywords": [],
   "author": "",
