@@ -4,9 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm --prefix client install && NODE_ENV=production npm --prefix client run build && npm --prefix server install && NODE_ENV=production npm --prefix server run build",
+    "build": "cd ./apps/client && npm install && npm run build && cd ../server && npm install && npm run build",
     "heroku-postbuild": "npm run build",
-    "heroku-prebuild": "npm --prefix frontend install && npm --prefix server install "
+    "heroku-prebuild": "cd ./apps/client && npm install && cd ../server && npm install",
+    "start": "node apps/server/dist/src/main"
   },
   "keywords": [],
   "author": "",
