@@ -13,7 +13,7 @@ export class GoogleStorageConfigService {
   keyFilename() {
     return path.join(
       process.cwd(),
-      this.configService.get<string>("GOOGLE_CLOUD_KEYFILE_JSON"),
+      this.configService.get<string>("GOOGLE_APPLICATION_CREDENTIALS"),
     );
   }
 }
