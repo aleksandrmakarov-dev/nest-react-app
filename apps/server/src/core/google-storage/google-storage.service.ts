@@ -10,9 +10,9 @@ export class GoogleStorageService {
   constructor(
     private readonly googleStorageConfigService: GoogleStorageConfigService,
   ) {
-    // this.storage = new Storage({
-    //   keyFilename: googleStorageConfigService.keyFilename(),
-    // });
+    this.storage = new Storage({
+      keyFilename: googleStorageConfigService.keyFilename(),
+    });
   }
 
   async upload(file: Express.Multer.File) {
