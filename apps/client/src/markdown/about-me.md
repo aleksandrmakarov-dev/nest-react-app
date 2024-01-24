@@ -6,12 +6,12 @@ My goal is to improve my skills in application development, gain the experience 
 
 ## Education
 
-- **Bachelor’s degree in information and communication technologies, Novosibirsk State University of Architecture and Civil Engineering, Russia, Novosibirsk**  
+- **Bachelor’s Degree in Information and Communication Technologies, Novosibirsk State University of Architecture and Civil Engineering, Russia, Novosibirsk**  
   _September 2018 – May 2022_
 
-- **Bachelor’s degree in information and communication technologies, Jamk University of Applied Sciences, Finland, Jyväskylä**  
+- **Bachelor’s Degree in Information and Communication Technologies, Jamk University of Applied Sciences, Finland, Jyväskylä**  
   _September 2022 – Present_  
-  Currently I am a second-year student who has received 100+ ECTS. I completed additional courses from other institutions to improve my skills.
+  Currently I am a second-year student who has received over 100 ECTS. I completed additional courses from other institutions to improve my skills.
 
 ## Skills
 
