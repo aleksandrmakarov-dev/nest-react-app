@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "heroku-postbuild": "NODE_ENV=dev cd ./apps/client && npm install && cd ../server && npm install && prisma generate && ../.. && npm install",
+    "heroku-postbuild": "NODE_ENV=dev cd ./apps/client && npm install && cd ../server && npm install && prisma generate && cd ../.. && npm install",
     "start": "node apps/server/dist/src/main",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
