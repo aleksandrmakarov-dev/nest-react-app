@@ -51,11 +51,19 @@ export default function HomePage() {
             Powerful, self-serve team engagement tools and analytics.
             Supercharge your managers & keep employees engaged from anywhere.
           </p>
-          <Button variant="default" size="lg" asChild>
-            <a href="#about">
-              <span className="mr-2">Continue</span>
-              <FontAwesomeIcon icon={faArrowRight} />
-            </a>
+          <Button
+            type="button"
+            variant="default"
+            size="lg"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById("about")?.scrollIntoView({
+                behavior: "smooth",
+              });
+            }}
+          >
+            <span className="mr-2">Continue</span>
+            <FontAwesomeIcon icon={faArrowRight} />
           </Button>
         </div>
       </div>
