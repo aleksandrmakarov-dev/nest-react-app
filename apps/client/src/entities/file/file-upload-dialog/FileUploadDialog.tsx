@@ -15,7 +15,7 @@ export type FileUploadDto = z.infer<typeof fileUploadSchema>;
 
 interface FileUploadBodyProps {
   trigger: JSX.Element;
-  onUploaded: (value: any) => void;
+  onUploaded: (value: string) => void;
 }
 
 export function FileUploadDialog(props: FileUploadBodyProps) {

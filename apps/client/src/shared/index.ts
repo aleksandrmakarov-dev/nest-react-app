@@ -17,3 +17,4 @@ export { DashboardSubheader } from "./dashboard-subheader/DashboardHeader";
 export { PageSectionHeader } from "./page-section-header/PageSectionHeader";
 export { RouteRoleGuard } from "./route-role-guard/RouteRoleGuard";
 export { RoutePublicGuard } from "./route-public-guard/RoutePublicGuard";
+export { MarkdownEditor } from "./markdown/markdown-editor/MarkdownEditor";

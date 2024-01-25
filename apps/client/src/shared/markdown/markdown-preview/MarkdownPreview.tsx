@@ -8,13 +8,14 @@ import { Image } from "../components/Image";
 import { A } from "../components/A";
 import { Li, Ol, Ul } from "../components/Lists";
 import { H1, H2, H3, H4, H5, H6 } from "../components/Headers";
+import { Code } from "../components/Code";
 
 interface MarkdownPreviewProps extends HTMLAttributes<HTMLDivElement> {
-  content: string;
+  value: string;
 }
 
 export function MarkdownPreview(props: MarkdownPreviewProps) {
-  const { content, className, ...other } = props;
+  const { value, className, ...other } = props;
 
   return (
     <Markdown
@@ -34,10 +35,11 @@ export function MarkdownPreview(props: MarkdownPreviewProps) {
         li: Li,
         ol: Ol,
         ul: Ul,
+        code: Code,
       }}
       {...other}
     >
-      {content}
+      {value}
     </Markdown>
   );
 }

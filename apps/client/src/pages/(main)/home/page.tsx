@@ -68,7 +68,7 @@ export default function HomePage() {
               preheader="Who is author?"
               header="Find out more about him"
             />
-            <MarkdownPreview className="mb-5" content={markdown} />
+            <MarkdownPreview className="mb-5" value={markdown} />
             <Button size="lg" asChild>
               <a href={routes.aboutMe}>Read more</a>
             </Button>

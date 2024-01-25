@@ -15,6 +15,7 @@ import {
 } from "../ui/table";
 import { Pagination } from "@/lib/dto/shared/paged-response.dto";
 import { DataTablePagination } from "./DataTablePagination";
+import { Skeleton } from "../ui/skeleton";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -74,13 +75,17 @@ export function DataTable<TData, TValue>(props: DataTableProps<TData, TValue>) {
                 : fallback}
             </>
           ) : (
-            <TableRow className="border-0">
-              <TableCell
-                colSpan={table.getHeaderGroups()?.[0].headers.length ?? 1}
-              >
-                Loading...
-              </TableCell>
-            </TableRow>
+            Array(10)
+              .fill(0)
+              .map((_, i) => (
+                <TableRow key={i}>
+                  <TableCell
+                    colSpan={table.getHeaderGroups()?.[0].headers.length ?? 1}
+                  >
+                    <Skeleton className="w-full h-8" />
+                  </TableCell>
+                </TableRow>
+              ))
           )}
         </TableBody>
       </Table>

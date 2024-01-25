@@ -11,7 +11,7 @@ export function ArticleBody(props: ArticleBodyProps) {
 
   return (
     <div className={cn(className)} {...other}>
-      <MarkdownPreview content={content} />
+      <MarkdownPreview value={content} />
     </div>
   );
 }

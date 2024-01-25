@@ -23,9 +23,6 @@ export default function BlogPage() {
         </Section>
         <Section header="Popular tags">
           <PopularTags />
-          <a className="text-sm font-medium mt-3 block underline" href={"/"}>
-            See more tags
-          </a>
         </Section>
       </div>
       <div className="col-span-7">

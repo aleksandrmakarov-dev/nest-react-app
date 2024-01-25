@@ -28,8 +28,8 @@ export function ArticleContent(props: ArticleContentProps) {
   return (
     <div>
       <ArticleHeader className="mb-14" article={data} />
-      <div className="grid grid-cols-10 items-start">
-        <div className="col-span-3 mr-14 sticky top-20 left-0">
+      <div className="flex lg:grid grid-cols-10 items-start">
+        <div className="col-span-3 mr-14 sticky top-20 left-0 hidden lg:block">
           <Section className="mb-5" header="Table of Contents">
             <Toc value={data.content} />
           </Section>

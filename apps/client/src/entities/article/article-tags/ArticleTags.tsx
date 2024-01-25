@@ -3,6 +3,7 @@ import { TagList } from "../../tag/tag-list/TagList";
 import { Badge } from "@/shared/ui/badge";
 import { HTMLAttributes } from "react";
 import { Skeleton } from "@/shared/ui/skeleton";
+import { routes } from "@/lib/routing";
 
 interface ArticleTagsProps extends HTMLAttributes<HTMLDivElement> {
   tags?: TagResponseDto[];
@@ -18,9 +19,15 @@ export function ArticleTags(props: ArticleTagsProps) {
       tags={tags}
       isLoading={isLoading}
       render={(tag) => (
-        <Badge key={tag.id} className="text-sm" variant="tonal">
-          {tag.name}
-        </Badge>
+        <a
+          className="hover:cursor-pointer"
+          key={tag.id}
+          href={routes.tags.byId(tag.id)}
+        >
+          <Badge key={tag.id} className="text-sm" variant="tonal">
+            {tag.name}
+          </Badge>
+        </a>
       )}
       renderSkeleton={(i) => (
         <Skeleton key={i} className="w-24 h-6 rounded-full" />

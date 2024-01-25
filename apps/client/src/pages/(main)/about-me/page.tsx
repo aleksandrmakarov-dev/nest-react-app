@@ -8,7 +8,7 @@ export default function AboutMePage() {
   return (
     <div className="max-w-screen-md">
       <PageSectionHeader preheader="Who is author?" header="About me" />
-      <MarkdownPreview content={markdown} />
+      <MarkdownPreview value={markdown} />
       <div className="mt-5 text-center">
         <Button size="lg" asChild>
           <a href="https://storage.googleapis.com/vocabulary-app/CV%20Aleksandr%20Makarov.pdf">

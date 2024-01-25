@@ -1,4 +1,4 @@
-import { FieldController } from "@/shared";
+import { FieldController, MarkdownEditor } from "@/shared";
 import { Input } from "@/shared/ui/input";
 import { Textarea } from "@/shared/ui/textarea";
 import { TagSelect } from "@/widgets/tag";
@@ -54,7 +54,7 @@ export function ArticleFormBody(props: ArticleFormBodyProps) {
         name="content"
         label="Content"
         disabled={isLoading}
-        render={({ field }) => <Textarea {...field} rows={20} />}
+        render={({ field: { ref, ...other } }) => <MarkdownEditor {...other} />}
       />
       <div className="grid grid-cols-2 gap-5">
         <FieldController
