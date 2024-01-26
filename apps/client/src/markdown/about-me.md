@@ -1,6 +1,6 @@
 Hello! I'm Aleksandr Makarov - student of Information and Communication Technologies who loves software development, studying new technologies and programming languages. I am motivated to work in a team and reach goals in my career path.
 
-I tried myself in different roles: FullStack Developer, Application Developer and Database Engineer. Over the years I studied and worked with C++, C#, JavaScript (TypeScript) and SQL languages. I have an experience developing with different frameworks and tech stacks: React and Express, Nest.js, ASP.NET, WPF and Platform UNO for Desktop Apps. I created relational databases using Microsoft SQL Server (database structure, triggers, procedures, views).
+I tried myself in different roles: FullStack Developer, Application Developer and Database Engineer. Over the years I have studied and developed with C++, C#, JavaScript (TypeScript) and SQL languages. I have an experience developing with different frameworks and tech stacks: React and Express, Nest.js, ASP.NET, WPF and Platform UNO for Desktop Apps. I created relational databases using Microsoft SQL Server (database structure, triggers, procedures, views).
 
 My goal is to improve my skills in application development, gain the experience I need in companies to become a highly qualified specialist.
 

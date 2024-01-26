@@ -48,8 +48,10 @@ export default function HomePage() {
             I&apos;m a software developer
           </h1>
           <p className="text-lg sm:text-2xl text-gray-600 mb-10">
-            Powerful, self-serve team engagement tools and analytics.
-            Supercharge your managers & keep employees engaged from anywhere.
+            A proficient and passionate software developer, adept at rapid
+            learning and effective communication. Known for delivering
+            high-quality solutions through a strong skill set and a keen
+            enthusiasm for the craft.
           </p>
           <Button
             type="button"
