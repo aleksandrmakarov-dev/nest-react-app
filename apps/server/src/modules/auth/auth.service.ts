@@ -190,7 +190,7 @@ export class AuthService {
     };
 
     const at = await this.jwtService.signAsync(payload, {
-      expiresIn: "5m",
+      expiresIn: "10m",
     });
 
     return {
