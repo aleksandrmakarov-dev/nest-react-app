@@ -37,7 +37,7 @@ export function ProjectCard(props: ProjectCardProps) {
         <div className="flex items-center">
           {project.url && (
             <Button className="mr-3" variant="secondary" asChild>
-              <a href={project.url}>
+              <a target="_blank" href={project.url}>
                 <FontAwesomeIcon className="mr-1.5" icon={faPlay} />
                 <span>{project.label ?? "Demo"}</span>
               </a>
