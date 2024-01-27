@@ -11,6 +11,14 @@ import AuthLayout from "@/pages/(auth)/layout";
 import DashboardLayout from "@/pages/dashboard/layout";
 import { RoutePublicGuard, RouteRoleGuard } from "@/shared";
 
+import ReactGA from "react-ga4";
+
+if (!process.env.MEASUREMENT_ID) {
+  console.log("ga4 does not work");
+}
+
+ReactGA.initialize(process.env.MEASUREMENT_ID ?? "");
+
 const HomePage = lazy(() => import("@/pages/(main)/home/page"));
 const BlogPage = lazy(() => import("@/pages/(main)/blog/page"));
 const AboutMePage = lazy(() => import("@/pages/(main)/about-me/page"));
