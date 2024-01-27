@@ -13,11 +13,11 @@ import { RoutePublicGuard, RouteRoleGuard } from "@/shared";
 
 import ReactGA from "react-ga4";
 
-if (!process.env.MEASUREMENT_ID) {
+if (!process.env.VITE_APP_MEASUREMENT_ID) {
   console.log("ga4 does not work");
 }
 
-ReactGA.initialize(process.env.MEASUREMENT_ID ?? "");
+ReactGA.initialize(process.env.VITE_APP_MEASUREMENT_ID ?? "");
 
 const HomePage = lazy(() => import("@/pages/(main)/home/page"));
 const BlogPage = lazy(() => import("@/pages/(main)/blog/page"));
